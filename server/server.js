@@ -1,13 +1,14 @@
-const express=require('express')
+import express from 'express';
 const app=express()
 const port=process.env.PORT || 5000;
-
-const dbConnect=require('./config/connectDb')
+import userRoute from './routes/userRoute.js'
+import vendorRoute from './routes/vendorRoute.js'
+import dbConnect from './config/connectDb.js'
 dbConnect();
 
-const cors = require('cors')
-const cookieParser =require('cookie-parser')
-const path =require('path')
+import cors from 'cors'
+import cookieParser from 'cookie-parser';
+import path from 'path';
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -16,9 +17,9 @@ app.use(cookieParser());
 app.use(express.static(path.resolve()+"/public"))
 
 
-// app.get('/',(req,res)=>{
-//     res.send("welcome")
-// })
+app.use('/',userRoute)
+// app.use('/admin',adminRoute)
+app.use('/vendor',vendorRoute)
 app.listen(port,()=>{
     console.log(`Node Js Server Started at Port ${port}`);
 })

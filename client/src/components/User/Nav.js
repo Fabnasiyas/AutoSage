@@ -1,12 +1,32 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useSelector,useDispatch } from 'react-redux';
+import axios from '../../axios'
+import { useNavigate } from 'react-router-dom'
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-
+  // const [user, setUser] = useState(null);
+  
   const toggleNavbar = () => {
     setIsOpen(!isOpen);
   };
-
+  const {user} = useSelector(state => state); 
+  console.log("*******************",user);
+  const dispatch=useDispatch()
+  const navigate=useNavigate()
+  // const {users} =useSelector((state)=>{
+  //   return state
+  // })
+  const handleLogout=()=>{
+    axios.get('/logout').then((response)=>{
+      if(!response.data.err){
+        console.log(response.data);
+        dispatch({type:'refresh'})
+        return navigate('/')
+      }
+    })
+  }
   return (
     
     <nav className="bg-gray-800">
@@ -45,8 +65,36 @@ const Navbar = () => {
                 About
               </a>
             <div>
-              <a  href="/#" className='text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium'> Login</a>
+              
+             
+              
+               {user.login ? (
+              
+              <>
+  <div className="inline-flex">
+    <p className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
+      {user.details.name} {/* Display the name from the user state */}
+    </p>
+  
+    <button className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" onClick={handleLogout}>
+      Logout
+    </button>
+  </div>
+</>
+
+                  
+                 
+                ) : (
+                  <Link to={'/login'}>
+                    <p className='text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium'>
+                      Login
+                    </p>
+                  </Link>
+                  // <h1>welcomeeeeeeeeeeeeeeeeeeeeee</h1>
+                )}
+              
             </div>
+          
             </div>
             
           </div>
@@ -110,6 +158,7 @@ const Navbar = () => {
               </a>
               
             </div>
+            
           </div>
         )}
       </div>

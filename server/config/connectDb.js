@@ -1,4 +1,4 @@
-const mongoose=require('mongoose')
+import mongoose from "mongoose"
 
 function dbConnect(){
     // mongoose.set('strictQuery', false);
@@ -8,5 +8,4 @@ function dbConnect(){
         console.log(err)
     })
 }
-
-module.exports=dbConnect
+export default dbConnect

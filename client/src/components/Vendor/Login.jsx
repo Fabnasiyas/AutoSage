@@ -14,11 +14,11 @@ const Login = () => {
     e.preventDefault();
     if (email.trim() && password.trim()) {
       try {
-        const response = await axios.post('/login', { email, password });
+        const response = await axios.post('/vendor/login', { email, password });
         console.log(response.data);
         if (!response.data.err) {    
           dispatch({type:'refresh'})        
-         return navigate('/');
+         return navigate('/vendor');
         } else {
           toast.error(response.data.message, {
             position :"top-center"
@@ -38,7 +38,7 @@ const Login = () => {
     <div className="min-h-screen bg-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-          Login
+          Vendor Login
         </h2>
       </div>
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
@@ -92,16 +92,8 @@ const Login = () => {
           <div className="mt-4 text-center">
             <span className="text-sm text-gray-600">
               Don't have an account?{' '}
-              <Link to="/register" className="text-indigo-600 hover:text-indigo-500">
+              <Link to="/vendor/register" className="text-indigo-600 hover:text-indigo-500">
                 Register
-              </Link>
-            </span>
-          </div>
-          <div className="mt-1 text-center">
-            <span className="text-sm text-gray-600">
-              Forgot Password?{' '}
-              <Link to="/resetpassword" className="text-indigo-600 hover:text-indigo-500">
-                Reset
               </Link>
             </span>
           </div>
