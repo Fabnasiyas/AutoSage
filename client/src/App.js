@@ -7,7 +7,7 @@ import ResetPass1 from './pages/User/ResetPassPage1'
 import OtpPage from './components/User/OtpPage';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
-import VendorHome from './pages/Vendor/HomePage'
+import VendorDashboard from './pages/Vendor/HomePage'
 import VendorLoginPage from './pages/Vendor/LoginPage'
 import axios from './axios';
 import { useSelector, useDispatch } from 'react-redux';
@@ -16,9 +16,16 @@ import ResetPass2 from './pages/User/ResetPassPage2'
 import VendorLogin from './pages/Vendor/LoginPage'
 import VendorRegister from './pages/Vendor/RegisterPage'
 import VendorOtpPage from './components/Vendor/OtpPage';
-
+import AdminLogin from './pages/Admin/LoginPage'
+import AdminDashboard from './pages/Admin/DashboardPage';
+import VendorList from './pages/Admin/VendorManagmentPage'
+import UserManagmentPage from './pages/Admin/UserManagmentPage';
+// import VerifRestOtp from './pages/User/ResetPassPage2'
+import Newpassword from './components/User/NewPassword'; 
+import VendorProfile from './pages/Vendor/ProfilePage' ;
+import AddCarPage from './pages/Vendor/AddCarPage'
 function App() {
-  const { user,vendor,refresh} = useSelector((state) => state);
+  const { user,vendor,admin,refresh} = useSelector((state) => state);
   axios.defaults.withCredentials = true;
   const dispatch = useDispatch();
 
@@ -31,6 +38,10 @@ function App() {
       console.log("VENDOR: ", response.data);
       dispatch({ type: 'vendor', payload: { vendorLog: response.data.logged, details: response.data.details } });
     });
+    axios.get('/admin/auth').then((response) => {
+      console.log("ADMIN: ", response.data);
+      dispatch({ type: 'admin', payload: { adminLog: response.data.logged, details: response.data.details } });
+    });
   }, [refresh, dispatch]);
   return (
     <div className="App">
@@ -42,11 +53,19 @@ function App() {
 <Route exact path="/otp" element={<OtpPage/>} />
 <Route exact path="/resetpassword" element={<ResetPass1/>} />
 <Route exact path='/resetpassotp' element={<ResetPass2/>} />
+{/* <Router exact path='/verify-otp' element={<VerifRestOtp/>}/> */}
 <Route exact path="/vendor" element={<VendorLogin/>} />
 <Route exact path="/vendor/login" element={<VendorLoginPage/>} />
 <Route exact path="/vendor/register" element={<VendorRegister/>} />
-<Route exact path="/vendor/otp" element={<endorOtpPage/>} />
-
+<Route exact path="/vendor/otp" element={<VendorOtpPage/>} />
+<Route exact path='/vendor/vendorhome' element={<VendorDashboard/>} />
+<Route exact path='/SetNewPassword' element={<Newpassword/>} />
+<Route exact path="/admin" element={<AdminLogin/>} />
+<Route exact path="/admin/home" element={<AdminDashboard/>} />
+<Route exact path="/admin/usermanagment" element={<UserManagmentPage/>} />
+<Route exact path="/admin/vendormanagment" element={<VendorList/>} />
+<Route exact path="/admin/vendorprofile" element={<VendorProfile/>} />
+<Route exact path="/vendor/addcar" element={<AddCarPage/>} />
 
 </Routes>
 <ToastContainer />

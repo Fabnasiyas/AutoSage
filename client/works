@@ -1,4 +1,1593 @@
 
+
+
+// import React, { useState } from 'react';
+
+// const CarRegistrationPage = () => {
+ 
+
+//   return (
+//     <div className="min-h-screen bg-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+//       <div className="sm:mx-auto sm:w-full sm:max-w-md">
+//         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Car Registration</h2>
+//       </div>
+//       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+//         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+//           <form className="space-y-6">
+//              {/* Car Make */}
+//             <div>
+//               <label htmlFor="carMake" className="block text-sm font-medium text-gray-700">
+//               Car Model               </label>
+//               <div className="mt-1">
+//               <input
+//                   id="carMake"
+//                   name="carMake"
+//                   type="text"
+//                   autoComplete="car-make"
+//                   required
+//                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+//                 />
+//               </div>
+//             </div>
+//             {/* Car Year */}
+//             <div>
+//               <label htmlFor="carYear" className="block text-sm font-medium text-gray-700">
+//                 Car Year
+//               </label>
+//               <div className="mt-1">
+//                 <input
+//                   id="carYear"
+//                   name="carYear"
+//                   type="number"
+//                   autoComplete="car-year"
+//                   required
+//                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+//                 />
+//               </div>
+//             </div>
+//             {/* Car Mileage */}
+//             <div>
+//               <label htmlFor="carMileage" className="block text-sm font-medium text-gray-700">
+//                 Car Mileage
+//               </label>
+//               <div className="mt-1">
+//                 <input
+//                   id="carMileage"
+//                   name="carMileage"
+//                   type="number"
+//                   autoComplete="car-mileage"
+//                   required
+//                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+//                 />
+//               </div>
+//             </div>
+
+            
+//             <div>
+//               <label htmlFor="fuelType" className="block text-sm font-medium text-gray-700">
+//                 Type of Fuel
+//               </label>
+              
+//               <select >
+//         <option value="">Select a value</option>
+//         <option value="1">Option 1</option>
+//         <option value="2">Option 2</option>
+//         <option value="3">Option 3</option>
+//       </select>
+//             </div>
+
+//             {/* Transmission Mode */}
+//             <div>
+//               <label htmlFor="fuelType" className="block text-sm font-medium text-gray-700">
+//               Transmission Mode
+//               </label>
+//               <select >
+//         <option value="">Select a value</option>
+//         <option value="1">Option 1</option>
+//         <option value="2">Option 2</option>
+//         <option value="3">Option 3</option>
+//       </select>
+//             </div>
+             
+//             {/* Specifications */}
+//             <div>
+//               <label htmlFor="fuelType" className="block text-sm font-medium text-gray-700">
+//               Specifications
+//               </label>
+//               <select>
+//         <option value="">Select a value</option>
+//         <option value="1">Option 1</option>
+//         <option value="2">Option 2</option>
+//         <option value="3">Option 3</option>
+//       </select>
+//             </div>
+            
+//              {/* Rent Per Day */}
+//              <div>
+//               <label htmlFor="rentPerDay" className="block text-sm font-medium text-gray-700">
+//                 Rent Per Day
+//               </label>
+//               <div className="mt-1">
+//                 <input
+//                   id="rentPerDay"
+//                   name="rentPerDay"
+//                   type="number"
+//                   autoComplete="rent-per-day"
+//                   required
+//                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+//                 />
+//               </div>
+//             </div>
+//             {/* RC Image */}
+//             <div>
+//               <label htmlFor="rcImage" className="block text-sm font-medium text-gray-700">
+//                 RC Image
+//               </label>
+//               <div className="mt-1">
+//                 <input
+//                   id="rcImage"
+//                   name="rcImage"
+//                   type="file"
+//                   accept="image/*"
+//                   required
+//                   className="appearance-none block w-full py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+//                 />
+//               </div>
+//             </div>
+//             {/* Images */}
+//             <div>
+//               <label htmlFor="carImages" className="block text-sm font-medium text-gray-700">
+//                 Car Images
+//               </label>
+//               <div className="mt-1">
+//                 <input
+//                   id="carImages"
+//                   name="carImages"
+//                   type="file"
+//                   accept="image/*"
+//                   multiple
+//                   required
+//                   className="appearance-none block w-full py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+//                 />
+//               </div>
+//             </div>
+           
+//                      {/* Submit Button */}
+//              <div>
+//                <button
+//                 type="submit"
+//                 className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+//               >
+//                 Register Car
+//               </button>
+//             </div>
+//           </form>
+          
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default CarRegistrationPage;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import React, { useState } from 'react'
+// import axios from '../../axios'
+// import {  useNavigate } from 'react-router-dom'
+// import { useDispatch} from 'react-redux';
+// import { toast } from 'react-toastify';
+// const RegisterForm = () => {
+//     axios.defaults.withCredentials = true;
+// const navigate = useNavigate();
+// const dispatch=useDispatch();
+
+
+// const [name, setName] = useState('')
+// const [email, setEmail] = useState('')
+// const [password, setPassword] = useState('')
+// const [confirmPassword,setConfirmPassword]=useState('')
+// // const [err, setErr] = useState(null)
+// const handleSubmit=(e)=>{
+//   e.preventDefault();
+//   if(name.trim()&& email.trim()&&password.trim()){
+//     axios.post('/signup',{name,email,password,confirmPassword}).then((response)=>{
+//         console.log("*******************************",response.data);
+//     if(!response.data.err){
+//       dispatch({type:'refresh'})
+//       console.log(response.data);
+//       const data={
+//         name:name,
+//         email:email,
+//         password:password
+//       }
+
+//      return navigate('/otp',{state:{data}})
+//     }else{
+
+//       // setErr(response.data.message)
+//       toast.error(response.data.message, {
+//         position :"top-center"
+//       });
+//     }
+//     })
+//   }else{
+//     // setErr("All fields are required")
+
+//     toast.error('All Fields are Required', {
+//       position :"top-center"
+
+//     });
+//   }
+// }
+//   return (
+//     <div className="min-h-screen bg-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+//       <div className="sm:mx-auto sm:w-full sm:max-w-md">
+//         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+//           Register
+//         </h2>
+//       </div>
+//       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+//         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+//           <form className="space-y-6" action="#" method="POST" onSubmit={handleSubmit}>
+//             <div>
+//               <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+//                 Name
+//               </label>
+//               <div className="mt-1">
+//                 <input
+//                   id="name"
+//                   name="name"
+//                   type="text"
+//                   required
+//                   value={name}
+//                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+//                   onChange={e=>setName(e.target.value)}
+//                 />
+//               </div>
+//             </div>
+//             <div>
+//               <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+//                 Email address
+//               </label>
+//               <div className="mt-1">
+//                 <input
+//                   id="email"
+//                   name="email"
+//                   type="email"
+//                   required
+//                   value={email}
+//                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+//                   onChange={e=>setEmail(e.target.value)}
+//                />
+//               </div>
+//             </div>
+//             <div>
+//               <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+//                 Password
+//               </label>
+//               <div className="mt-1">
+//                 <input
+//                   id="password"
+//                   name="password"
+//                   type="password"
+//                   required
+//                   value={password}
+//                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+//                   onChange={e=>setPassword(e.target.value)}
+//                />
+//               </div>
+//             </div>
+//             <div>
+//               <label htmlFor="confirmpassword" className="block text-sm font-medium text-gray-700">
+//                 Confirm Password
+//               </label>
+//               <div className="mt-1">
+//                 <input
+//                   id="confirmpassword"
+//                   name="confirmpassword"
+//                   type="password"
+//                   required
+//                   value={confirmPassword}
+//                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+//                   onChange={e=>setConfirmPassword(e.target.value)}
+//                 />
+//               </div>
+//             </div>
+//             <div>
+
+//            <button
+//                 type="submit"
+//                 className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+//               >
+//                 Register
+//               </button>
+//             </div>
+//           </form>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+
+
+
+// export default RegisterForm;
+// import React from 'react';
+// import { Formik, Form, Field, ErrorMessage } from 'formik';
+// import axios from '../../axios';
+// import { useNavigate } from 'react-router-dom';
+// import { useDispatch } from 'react-redux';
+// import { toast } from 'react-toastify';
+
+// const RegisterForm = () => {
+//   axios.defaults.withCredentials = true;
+//   const navigate = useNavigate();
+//   const dispatch = useDispatch();
+
+//   const handleSubmit = (values) => {
+//     axios
+//       .post('/signup', values)
+//       .then((response) => {
+//         console.log("*******************************", response.data);
+//         if (!response.data.err) {
+//           dispatch({ type: 'refresh' });
+//           console.log(response.data);
+//           const data = {
+//             name: values.name,
+//             email: values.email,
+//             password: values.password
+//           };
+
+//           return navigate('/otp', { state: { data } });
+//         } else {
+//           toast.error(response.data.message, {
+//             position: "top-center"
+//           });
+//         }
+//       })
+//       .catch((error) => {
+//         toast.error('An error occurred', {
+//           position: "top-center"
+//         });
+//       });
+//   };
+
+//   return (
+//     <div className="min-h-screen bg-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+//       <div className="sm:mx-auto sm:w-full sm:max-w-md">
+//         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+//           Register
+//         </h2>
+//       </div>
+//       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+//         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+//           <Formik
+//             initialValues={{
+//               name: '',
+//               email: '',
+//               password: '',
+//               confirmPassword: ''
+//             }}
+//             validate={(values) => {
+//               const errors = {};
+
+//               if (!values.name) {
+//                 errors.name = 'Required';
+//               }
+
+//               if (!values.email) {
+//                 errors.email = 'Required';
+//               } else if (!/\S+@\S+\.\S+/.test(values.email)) {
+//                 errors.email = 'Invalid email address';
+//               }
+
+//               if (!values.password) {
+//                 errors.password = 'Required';
+//               } else if (values.password.length < 6) {
+//                 errors.password = 'Password must be at least 6 characters';
+//               }
+
+//               if (!values.confirmPassword) {
+//                 errors.confirmPassword = 'Required';
+//               } else if (values.confirmPassword !== values.password) {
+//                 errors.confirmPassword = 'Passwords do not match';
+//               }
+
+//               return errors;
+//             }}
+//             onSubmit={handleSubmit}
+//           >
+//             <Form className="space-y-6">
+//               <div>
+//                 <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+//                   Name
+//                 </label>
+//                 <div className="mt-1">
+//                   <Field
+//                     id="name"
+//                     name="name"
+//                     type="text"
+//                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+//                   />
+//                   <ErrorMessage name="name" component="div" className="text-red-500" />
+//                 </div>
+//               </div>
+//               <div>
+//                 <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+//                   Email address
+//                 </label>
+//                 <div className="mt-1">
+//                   <Field
+//                     id="email"
+//                     name="email"
+//                     type="email"
+//                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+//                   />
+//                   <ErrorMessage name="email" component="div" className="text-red-500" />
+//                 </div>
+//               </div>
+//               <div>
+//                 <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+//                   Password
+//                 </label>
+//                 <div className="mt-1">
+//                   <Field
+//                     id="password"
+//                     name="password"
+//                     type="password"
+//                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+//                   />
+//                   <ErrorMessage name="password" component="div" className="text-red-500" />
+//                 </div>
+//               </div>
+//               <div>
+//                 <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
+//                   Confirm Password
+//                 </label>
+//                 <div className="mt-1">
+//                   <Field
+//                     id="confirmPassword"
+//                     name="confirmPassword"
+//                     type="password"
+//                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+//                   />
+//                   <ErrorMessage name="confirmPassword" component="div" className="text-red-500" />
+//                 </div>
+//               </div>
+//               <div>
+//                 <button
+//                   type="submit"
+//                   className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+//                 >
+//                   Register
+//                 </button>
+//               </div>
+//             </Form>
+//           </Formik>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default RegisterForm;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ProfilePageimport React from 'react';
+
+const ProfilePage = () => {
+  return (
+    <div className="min-h-screen bg-gray-100 flex">
+      {/* Left side - Vendor details and options */}
+      <div className="w-1/4 bg-white rounded-lg shadow-lg overflow-hidden p-8">
+        <div>
+          {/* Profile picture */}
+          <div className="mb-8">
+            <img
+              className="h-48 w-full object-cover"
+              src="profile-picture.jpg"
+              alt="Profile Picture"
+            />
+          </div>
+          {/* Vendor information */}
+          <div className="mb-8">
+            <div className="uppercase tracking-wide text-sm text-indigo-500 font-semibold">Vendor</div>
+            {/* Name */}
+            <h2 className="block mt-1 text-lg leading-tight font-medium text-black">John Doe</h2>
+            {/* Email */}
+            <p className="mt-2 text-gray-500">johndoe@example.com</p>
+            {/* Biography */}
+            <p className="mt-2 text-gray-600">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ut tempus ex, eget congue enim. Fusce ut mauris nec dui lobortis rhoncus id ac risus.</p>
+          </div>
+          {/* Buttons */}
+          <div className="flex flex-col">
+            {/* Add Car Option */}
+            <button
+              type="button"
+              className="my-2 inline-flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            >
+              Add Car Option
+            </button>
+            {/* Edit Profile */}
+            <button
+              type="button"
+              className="my-2 inline-flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-yellow-500 hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-400"
+            >
+              Edit Profile
+            </button>
+            {/* Logout */}
+            <button
+              type="button"
+              className="my-2 inline-flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+            >
+              Logout
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Right side - List of added car details */}
+      <div className="w-3/4 bg-white rounded-lg shadow-lg overflow-hidden">
+        <div className="p-8">
+          <h2 className="text-2xl font-bold mb-4">Added Cars</h2>
+          <div className="border-t border-gray-200">
+            {/* Car 1 */}
+            <div className="py-4">
+              <h3 className="text-lg font-medium text-gray-800">Car 1</h3>
+              <p className="text-gray-500">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ut tempus ex, eget congue enim.</p>
+            </div>
+            {/* Car 2 */}
+            <div className="py-4">
+              <h3 className="text-lg font-medium text-gray-800">Car 2</h3>
+              <p className="text-gray-500">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ut tempus ex, eget congue enim.</p>
+            </div>
+            {/* Car 3 */}
+            <div className="py-4">
+              <h3 className="text-lg font-medium text-gray-800">Car 3</h3>
+              <p className="text-gray-500">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ut tempus ex, eget congue enim.</p>
+            </div>
+            {/* Add more cars */}
+            <div className="py-4">
+              <button
+                type="button"
+                className="inline-flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              >
+                Add More Cars
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default ProfilePage;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import React, { useEffect, useState } from 'react';
+import axios from '../../axios';
+import { useTable, usePagination, useGlobalFilter } from 'react-table';
+// import 'react-table/css/styles.css';
+
+
+
+const UserTable = () => {
+  const [users, setUsers] = useState([]);
+  const [selectedUserId, setSelectedUserId] = useState(null);
+  const [isBanModalOpen, setIsBanModalOpen] = useState(false);
+  const [isUnbanModalOpen, setIsUnbanModalOpen] = useState(false);
+
+  const fetchUserList = async () => {
+    try {
+      const response = await axios.get('/admin/userList');
+      if (!response.data.err) { 
+        setUsers(response.data.data);
+      }
+    } catch (error) {
+      console.log(error); 
+    }
+  };
+
+  useEffect(() => {
+    fetchUserList();
+  }, []);
+
+  const handleBanUser = (userId) => {
+    setSelectedUserId(userId);
+    setIsBanModalOpen(true);
+  };
+
+  const handleUnBanUser = (userId) => {
+    setSelectedUserId(userId);
+    setIsUnbanModalOpen(true);
+  };
+
+  const confirmBanUser = async () => {
+    try {
+      const response = await axios.put(`/admin/userList/${selectedUserId}`, {
+        ban: true,
+      });
+      if (response.data.success) {
+        setUsers((prevUsers) =>
+          prevUsers.map((user) =>
+            user._id === selectedUserId ? { ...user, ban: true } : user
+          )
+        );
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    setIsBanModalOpen(false);
+  };
+
+  const confirmUnbanUser = async () => {
+    try {
+      const response = await axios.put(
+        `/admin/userList/unban/${selectedUserId}`,
+        {
+          ban: false,
+        }
+      );
+      if (response.data.success) {
+        setUsers((prevUsers) =>
+          prevUsers.map((user) =>
+            user._id === selectedUserId ? { ...user, ban: false } : user
+          )
+        );
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    setIsUnbanModalOpen(false);
+  };
+
+  // Define columns for the table
+  const columns = React.useMemo(
+    () => [
+      {
+        Header: 'No',
+        accessor: (row, index) => index + 1,
+      },
+      {
+        Header: 'User name',
+        accessor: 'name',
+      },
+      {
+        Header: 'Email',
+        accessor: 'email',
+      },
+      {
+        Header: 'Banned Status',
+        accessor: 'ban',
+        Cell: ({ value }) => (value ? 'Banned' : 'Active'),
+      },
+      {
+        Header: 'Action',
+        Cell: ({ row }) =>
+          row.original.ban ? (
+            <button
+              className="text-red-500 bg-transparent border border-red-500 rounded-md px-3 py-2 hover:bg-red-500 hover:text-white transition-colors duration-300"
+              onClick={() => handleUnBanUser(row.original._id)}
+            >
+              Unban User
+            </button>
+          ) : (
+            <button
+              className="text-green-500 bg-transparent border border-green-500 rounded-md px-3 py-2 hover:bg-green-500 hover:text-white transition-colors duration-300"
+              onClick={() => handleBanUser(row.original._id)}
+            >
+              Ban User
+            </button>
+          ),
+      },
+    ],
+    []
+  );
+
+  // Create a table instance with pagination and search functionality
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    page,
+    nextPage,
+    previousPage,
+    canNextPage,
+    canPreviousPage,
+    pageOptions,
+    state,
+    setGlobalFilter,
+    prepareRow,
+  } = useTable(
+    {
+      columns,
+      data: users,
+      initialState: { pageIndex: 0 },
+    },
+    useGlobalFilter,
+    usePagination
+  );
+
+  const { globalFilter, pageIndex } = state;
+
+  return (
+    <div>
+      <div
+        className="relative overflow-x-auto"
+        style={{ marginTop: '100px', marginRight: '100px' }}
+      >
+        <div>
+          <input
+            type="text"
+            value={globalFilter || ''}
+            onChange={(e) => setGlobalFilter(e.target.value)}
+            placeholder="Search..."
+            className="mb-4 px-3 py-2 border border-gray-300 rounded-md"
+          />
+        </div>
+        <table
+          {...getTableProps()}
+          className="w-full text-sm text-left text-gray-500 dark:text-gray-400"
+          style={{ marginTop: '100px' }}
+        >
+          <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            {headerGroups.map((headerGroup) => (
+              <tr {...headerGroup.getHeaderGroupProps()}>
+                {headerGroup.headers.map((column) => (
+                  <th {...column.getHeaderProps()} scope="col" className="px-6 py-3">
+                    {column.render('Header')}
+                  </th>
+                ))}
+              </tr>
+            ))}
+          </thead>
+          <tbody {...getTableBodyProps()}>
+            {page.map((row) => {
+              prepareRow(row);
+              return (
+                <tr
+                  {...row.getRowProps()}
+                  className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
+                >
+                  {row.cells.map((cell) => (
+                    <td {...cell.getCellProps()} className="px-6 py-4">
+                      {cell.render('Cell')}
+                    </td>
+                  ))}
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+        <div className="flex justify-between mt-4">
+          <button
+            onClick={() => previousPage()}
+            disabled={!canPreviousPage}
+            className="px-3 py-2 border border-gray-300 rounded-md"
+          >
+            Previous
+          </button>
+          <div>
+            Page{' '}
+            <strong>
+              {pageIndex + 1} of {pageOptions.length}
+            </strong>
+          </div>
+          <button
+            onClick={() => nextPage()}
+            disabled={!canNextPage}
+            className="px-3 py-2 border border-gray-300 rounded-md"
+          >
+            Next
+          </button>
+        </div>
+      </div>
+      {isBanModalOpen && (
+        <div className="fixed inset-0 flex items-center justify-center z-50">
+          <div className="bg-white w-96 rounded shadow-lg p-6">
+            <p className="mb-4">Are you sure you want to ban this user?</p>
+            <div className="flex justify-end">
+              <button
+                className="text-red-500 bg-transparent border border-red-500 rounded-md px-3 py-2 hover:bg-red-500 hover:text-white transition-colors duration-300 mr-2"
+                onClick={() => setIsBanModalOpen(false)}
+              >
+                Cancel
+              </button>
+              <button
+                className="text-white bg-red-500 rounded-md px-3 py-2 hover:bg-red-600 transition-colors duration-300"
+                onClick={confirmBanUser}
+              >
+                YES
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      {isUnbanModalOpen && (
+        <div className="fixed inset-0 flex items-center justify-center z-50">
+          <div className="bg-white w-96 rounded shadow-lg p-6">
+            <p className="mb-4">Are you sure you want to unban this user?</p>
+            <div className="flex justify-end">
+              <button
+                className="text-gray-500 bg-transparent border border-gray-500 rounded-md px-3 py-2 hover:bg-gray-500 hover:text-white transition-colors duration-300 mr-2"
+                onClick={() => setIsUnbanModalOpen(false)}
+              >
+                Cancel
+              </button>
+              <button
+                className="text-white bg-green-500 rounded-md px-3 py-2 hover:bg-green-600 transition-colors duration-300"
+                onClick={confirmUnbanUser}
+              >
+                YES
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default UserTable;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         // toast.success("success" ,{
         //   position: "top-center"
         // })
+
+        // MdDashboard
+        import React, { useState } from "react";
+import { HiMenuAlt3 } from "react-icons/hi";
+import { MdOutlineDashboard } from "react-icons/md";
+import { RiSettings4Line } from "react-icons/ri";
+import { TbReportAnalytics } from "react-icons/tb";
+import { AiOutlineUser, AiOutlineHeart } from "react-icons/ai";
+import { FiMessageSquare, FiFolder, FiShoppingCart } from "react-icons/fi";
+import { Link } from "react-router-dom";
+import ProfilePage from './src/components/Vendor/Profile';
+
+const Home = () => {
+  const menus = [
+    { name: "dashboard", link: "/", icon: MdOutlineDashboard },
+    { name: "user", link: "/", icon: AiOutlineUser },
+    { name: "messages", link: "/", icon: FiMessageSquare },
+    { name: "analytics", link: "/", icon: TbReportAnalytics, margin: true },
+    { name: "File Manager", link: "/", icon: FiFolder },
+    { name: "Cart", link: "/", icon: FiShoppingCart },
+    { name: "Saved", link: "/", icon: AiOutlineHeart, margin: true },
+    { name: "Setting", link: "/", icon: RiSettings4Line },
+  ];
+  const [open, setOpen] = useState(true);
+  return (
+    <section className="flex gap-6">
+      <div
+        className={`bg-[#0e0e0e] min-h-screen ${
+          open ? "w-72" : "w-16"
+        } duration-500 text-gray-100 px-4`} style={{backgroundColor:'black'}}
+      >
+        <div className="py-3 flex justify-end">
+          <HiMenuAlt3
+            size={26}
+            className="cursor-pointer"
+            onClick={() => setOpen(!open)}
+          />
+        </div>
+        <div className="mt-4 flex flex-col gap-4 relative">
+          {menus?.map((menu, i) => (
+            <Link
+              to={menu?.link}
+              key={i}
+              className={` ${
+                menu?.margin && "mt-5"
+              } group flex items-center text-sm  gap-3.5 font-medium p-2 hover:bg-gray-800 rounded-md`}
+            >
+              <div>{React.createElement(menu?.icon, { size: "20" })}</div>
+              <h2
+                style={{
+                  transitionDelay: `${i + 3}00ms`,
+                }}
+                className={`whitespace-pre duration-500 ${
+                  !open && "opacity-0 translate-x-28 overflow-hidden"
+                }`}
+              >
+                {menu?.name}
+              </h2>
+              <h2
+                className={`${
+                  open && "hidden"
+                } absolute left-48 bg-white font-semibold whitespace-pre text-gray-900 rounded-md drop-shadow-lg px-0 py-0 w-0 overflow-hidden group-hover:px-2 group-hover:py-1 group-hover:left-14 group-hover:duration-300 group-hover:w-fit  `}
+              >
+                {menu?.name}
+              </h2>
+            </Link>
+          ))}
+        </div>
+      </div>
+      <div className="m-3 text-xl text-gray-900 font-semibold">
+        REACT TAILWIND
+      </div>
+    </section>
+  );
+};
+
+export default Home;
+
+// <button
+                    //   className="text-blue-500 underline"
+                    //   onClick={() => handleBanUser(user._id)}
+                    // >
+                    //   Ban User
+                    // </button>
+
+
+
+                    // import React, { useEffect ,useState} from 'react';
+// import axios from '../../axios';
+
+
+// const ProductTable = () => {
+//   const [users, setUsers] = useState([]);
+  
+//   useEffect(() => {
+//     axios.get('/admin/userList').then((response)=>{
+//       console.log(response.data);
+//       if (!response.data.err) {
+//         console.log(response.data);
+//         setUsers(response.data.data)
+//       }
+//     })
+//   }, [])
+//   const handleBanUser = async (userId) => {
+//     console.log(userId );
+//   try {
+    
+//     const response = await axios.put(`/admin/userList/${userId}`, {
+//       ban: true,
+//     });
+//     if (response.data.success) {
+//       // Update the user's ban status locally in the state
+//       setUsers((prevUsers) =>
+//         prevUsers.map((user) =>
+//           user.id === userId ? { ...user, ban: true } : user
+//         )
+//       );
+//     }
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
+// const handleunBanUser = async (userId) => {
+//   console.log(userId );
+// try {
+//   const response = await axios.put(`/admin/userList/unban/${userId}`, {
+//     ban: true,
+//   });
+//   if (response.data.success) {
+//     // Update the user's ban status locally in the state
+//     setUsers((prevUsers) =>
+//       prevUsers.map((user) =>
+//         user.id === userId ? { ...user, ban: false } : user
+//       )
+//     );
+//   }
+// } catch (error) {
+//   console.log(error);
+// }
+// };
+
+
+//   return (
+//     <div>
+// <div class="relative overflow-x-auto" style={{marginTop:'100px',marginRight:'100px'}}>
+//     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400" style={{marginTop:'100px' }}>
+//         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+//             <tr>
+//             <th scope="col" class="px-6 py-3">
+//                     No
+//                 </th>
+//                 <th scope="col" class="px-6 py-3">
+//                     User name
+//                 </th>
+//                 <th scope="col" class="px-6 py-3">
+//                     Email
+//                 </th>
+//                 <th scope="col" class="px-6 py-3">
+//                     Banned Status
+//                 </th>
+//                 <th scope="col" class="px-6 py-3">
+//                     Action
+//                 </th>
+//             </tr>
+//         </thead>
+//         <tbody>
+//         {users.map((user,index) => (
+//             <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+//               <td key={index}  className="px-6 py-4">
+//                     {index+1}
+//                 </td>
+//                 <th scope="row" key={index} className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+//                     {user.name}
+//                 </th>
+//                 <td key={index}  className="px-6 py-4">
+//                     {user.email}
+//                 </td>
+//                 { user.ban ?
+//                 <td key={index}  className="px-6 py-4 text-red-700 ">
+//                     Banned
+//                 </td> 
+//                 : 
+//                 <td key={index}  className="px-6 py-4 text-green-700 ">
+//                   Active
+//             </td>
+
+//                 }
+
+//               <td>
+//                  {user.ban ? (
+//                     <button
+//   className="text-red-500  bg-transparent border border-red-500 rounded-md px-3 py-2 hover:bg-red-500 hover:text-white transition-colors duration-300"
+//   onClick={() => handleunBanUser(user._id)}
+// >
+//   UnBan User
+// </button>
+
+//                   ) : (
+                    
+//                     <button
+//                     className="text-green-500  bg-transparent border border-green-500 rounded-md px-3 py-2 hover:bg-green-500 hover:text-white transition-colors duration-300"
+//                     onClick={() => handleBanUser(user._id)}
+//                   >
+//                     Ban User
+//                   </button>     
+//                   )} </td>  
+//             </tr>
+//              ))}
+//         </tbody>
+//     </table>
+// </div>
+
+//     </div>
+//   );
+// };
+
+// export default ProductTable;
+
+
+
+// import React, { useEffect, useState } from "react";
+// import axios from "../../axios";
+
+// const VendorTable = () => {
+//   const [vendor, setVendor] = useState([]);
+
+//   // useEffect(() => {
+//   //   axios.get("/admin/vendorList").then((response) => {
+//   //     console.log(response.data);
+//   //     if (!response.data.err) {
+//   //       console.log(response.data);
+//   //       setVendor(response.data.data);
+//   //     }
+//   //   });
+//   // }, []);
+//   const fetchVendorList = async () => {
+//     try {
+//       const response = await axios.get('/admin/vendorList');
+//       if (!response.data.err) {
+//         setVendor(response.data.data);
+//       }
+//     } catch (error) {
+//       console.log(error);
+//     }
+//   };
+
+//   useEffect(() => {
+//     fetchVendorList();
+//   }, []);
+
+//   const handleBanVendor = async (vendorId) => {
+//     console.log("vendorrrr idddddddddddd", vendorId);
+//     try {
+//       const response = await axios.put(`/admin/vendorList/${vendorId}`, {
+//         ban: true,
+//       });
+//       if (response.data.success) {
+//         setVendor((prevVendor) =>
+//           prevVendor.map((vendor) =>
+//             vendor.id === vendorId ? { ...vendor, ban: true } : vendor
+//           )
+//         );
+//       }
+//     } catch (error) {
+//       console.log(error);
+//     }
+//   };
+//   const handleunBanVendor = async (vendorId) => {
+//     console.log("vendorrrr idddddddddddd", vendorId);
+//     try {
+//       const response = await axios.put(`/admin/vendorList/unban/${vendorId}`, {
+//         ban: true,
+//       });
+//       if (response.data.success) {
+//         setVendor((prevvendor) =>
+//           prevvendor.map((vendor) =>
+//             vendor.id === vendorId ? { ...vendor, ban: false } : vendor
+//           )
+//         );
+//       }
+//     } catch (error) {
+//       console.log(error);
+//     }
+//   };
+
+//   return (
+//     <div>
+//       <div
+//         class="relative overflow-x-auto"
+//         style={{ marginTop: "100px", marginRight: "100px" }}
+//       >
+//         <table
+//           class="w-full text-sm text-left text-gray-500 dark:text-gray-400"
+//           style={{ marginTop: "100px" }}
+//         >
+//           <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+//             <tr>
+//               <th scope="col" class="px-6 py-3">
+//                 No
+//               </th>
+//               <th scope="col" class="px-6 py-3">
+//                 Vendor name
+//               </th>
+//               <th scope="col" class="px-6 py-3">
+//                 Email
+//               </th>
+//               <th scope="col" class="px-6 py-3">
+//                 Phone Number
+//               </th>
+//               <th scope="col" class="px-6 py-3">
+//                 Banned Status
+//               </th>
+//               <th scope="col" class="px-6 py-3">
+//                 Action
+//               </th>
+//             </tr>
+//           </thead>
+//           <tbody>
+//             {vendor.map((user, index) => (
+//               <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+//                 <td key={index} className="px-6 py-4">
+//                   {index + 1}
+//                 </td>
+//                 <th
+//                   scope="row"
+//                   key={index}
+//                   className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+//                 >
+//                   {user.name}
+//                 </th>
+//                 <td key={index} className="px-6 py-4">
+//                   {user.email}
+//                 </td>
+//                 <td key={index} className="px-6 py-4">
+//                   {user.phoneNumber}
+//                 </td>
+//                 {user.ban ? (
+//                   <td key={index} className="px-6 py-4 text-red-700 ">
+//                     Banned
+//                   </td>
+//                 ) : (
+//                   <td key={index} className="px-6 py-4 text-green-700 ">
+//                     Active
+//                   </td>
+//                 )}
+
+//                 <td>
+//                   {user.ban ? (
+//                     <button
+//                       className="text-red-500  bg-transparent border border-red-500 rounded-md px-3 py-2 hover:bg-red-500 hover:text-white transition-colors duration-300"
+//                       onClick={() => handleunBanVendor(user._id)}
+//                     >
+//                       UnBan vendor
+//                     </button>
+//                   ) : (
+//                     <button
+//                       className="text-green-500  bg-transparent border border-green-500 rounded-md px-3 py-2 hover:bg-green-500 hover:text-white transition-colors duration-300"
+//                       onClick={() => handleBanVendor(user._id)}
+//                     >
+//                       Ban Vendor
+//                     </button>
+//                   )}{" "}
+//                 </td>
+//               </tr>
+//             ))}
+//           </tbody>
+//         </table>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default VendorTable;
+
+
+
+
+
+// export default UserTable;
+// import React, { useEffect, useState } from 'react';
+// import axios from '../../axios';
+
+// const UserTable = () => {
+//   const [users, setUsers] = useState([]);
+//   const [selectedUserId, setSelectedUserId] = useState(null);
+//   const [isBanModalOpen, setIsBanModalOpen] = useState(false);
+//   const [isUnbanModalOpen, setIsUnbanModalOpen] = useState(false);
+
+//   const fetchUserList = async () => {
+//     try {
+//       const response = await axios.get('/admin/userList');
+//       if (!response.data.err) {
+//         setUsers(response.data.data);
+//       }
+//     } catch (error) {
+//       console.log(error);
+//     }
+//   };
+
+//   useEffect(() => {
+//     fetchUserList();
+//   }, []);
+
+//   const handleBanUser = (userId) => {
+//     setSelectedUserId(userId);
+//     setIsBanModalOpen(true);
+//   };
+
+//   const handleUnBanUser = (userId) => {
+//     setSelectedUserId(userId);
+//     setIsUnbanModalOpen(true);
+//   };
+
+//   const confirmBanUser = async () => {
+//     try {
+//       const response = await axios.put(`/admin/userList/${selectedUserId}`, {
+//         ban: true,
+//       });
+//       if (response.data.success) {
+//         setUsers((prevUsers) =>
+//           prevUsers.map((user) =>
+//             user._id === selectedUserId ? { ...user, ban: true } : user
+//           )
+//         );
+//       }
+//     } catch (error) {
+//       console.log(error);
+//     }
+//     setIsBanModalOpen(false);
+//   };
+
+//   const confirmUnbanUser = async () => {
+//     try {
+//       const response = await axios.put(`/admin/userList/unban/${selectedUserId}`, {
+//         ban: false,
+//       });
+//       if (response.data.success) {
+//         setUsers((prevUsers) =>
+//           prevUsers.map((user) =>
+//             user._id === selectedUserId ? { ...user, ban: false } : user
+//           )
+//         );
+//       }
+//     } catch (error) {
+//       console.log(error);
+//     }
+//     setIsUnbanModalOpen(false);
+//   };
+
+//   return (
+//     <div>
+//       <div className="relative overflow-x-auto" style={{ marginTop: '100px', marginRight: '100px' }}>
+//         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400" style={{ marginTop: '100px' }}>
+//           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+//             <tr>
+//               <th scope="col" className="px-6 py-3">
+//                 No
+//               </th>
+//               <th scope="col" className="px-6 py-3">
+//                 User name
+//               </th>
+//               <th scope="col" className="px-6 py-3">
+//                 Email
+//               </th>
+//               <th scope="col" className="px-6 py-3">
+//                 Banned Status
+//               </th>
+//               <th scope="col" className="px-6 py-3">
+//                 Action
+//               </th>
+//             </tr>
+//           </thead>
+//           <tbody>
+//             {users.map((user, index) => (
+//               <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700" key={index}>
+//                 <td className="px-6 py-4">{index + 1}</td>
+//                 <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+//                   {user.name}
+//                 </td>
+//                 <td className="px-6 py-4">{user.email}</td>
+//                 {user.ban ? (
+//                   <td className="px-6 py-4 text-red-700">Banned</td>
+//                 ) : (
+//                   <td className="px-6 py-4 text-green-700">Active</td>
+//                 )}
+//                 <td>
+//                   {user.ban ? (
+//                     <button
+//                       className="text-red-500 bg-transparent border border-red-500 rounded-md px-3 py-2 hover:bg-red-500 hover:text-white transition-colors duration-300"
+//                       onClick={() => handleUnBanUser(user._id)}
+//                     >
+//                       UnBan User
+//                     </button>
+//                   ) : (
+//                     <button
+//                       className="text-green-500 bg-transparent border border-green-500 rounded-md px-3 py-2 hover:bg-green-500 hover:text-white transition-colors duration-300"
+//                       onClick={() => handleBanUser(user._id)}
+//                     >
+//                       Ban User
+//                     </button>
+//                   )}
+//                 </td>
+//               </tr>
+//             ))}
+//           </tbody>
+//         </table>
+//       </div>
+//       {isBanModalOpen && (
+//         <div className="fixed inset-0 flex items-center justify-center z-50">
+//           <div className="bg-white w-96 rounded shadow-lg p-6">
+//             <p>Are you sure you want to ban this user?</p>
+//             <div className="flex justify-end mt-4">
+//               <button
+//                 className="text-red-500 bg-transparent border border-red-500 rounded-md px-3 py-2 hover:bg-red-500 hover:text-white transition-colors duration-300 mr-2"
+//                 onClick={() => setIsBanModalOpen(false)}
+//               >
+//                 Cancel
+//               </button>
+//               <button
+//                 className="text-white bg-red-500 rounded-md px-3 py-2 hover:bg-red-600 transition-colors duration-300"
+//                 onClick={confirmBanUser}
+//               >
+//                 Ban User
+//               </button>
+//             </div>
+//           </div>
+//         </div>
+//       )}
+//       {isUnbanModalOpen && (
+//         <div className="fixed inset-0 flex items-center justify-center z-50">
+//           <div className="bg-white w-96 rounded shadow-lg p-6">
+//             <p>Are you sure you want to unban this user?</p>
+//             <div className="flex justify-end mt-4">
+//               <button
+//                 className="text-gray-500 bg-transparent border border-gray-500 rounded-md px-3 py-2 hover:bg-gray-500 hover:text-white transition-colors duration-300 mr-2"
+//                 onClick={() => setIsUnbanModalOpen(false)}
+//               >
+//                 Cancel
+//               </button>
+//               <button
+//                 className="text-white bg-gray-500 rounded-md px-3 py-2 hover:bg-gray-600 transition-colors duration-300"
+//                 onClick={confirmUnbanUser}
+//               >
+//                 Unban User
+//               </button>
+//             </div>
+//           </div>
+//         </div>
+//       )}
+//     </div>
+//   );
+// };
+
+// export default UserTable;
+
+
+
+// import React, { useEffect, useState } from 'react';
+// import axios from '../../axios';
+
+// const VendorTable = () => {
+//   const [vendors, setVendors] = useState([]);
+
+//   const fetchVendorList = async () => {
+//     try {
+//       const response = await axios.get('/admin/vendorList');
+//       if (!response.data.err) {
+//         setVendors(response.data.data);
+//       }
+//     } catch (error) {
+//       console.log(error);
+//     }
+//   };
+
+//   useEffect(() => {
+//     fetchVendorList();
+//   }, []);
+
+//   const handleBanVendor = async (vendorId) => {
+//     try {
+//       const response = await axios.put(`/admin/vendorList/${vendorId}`, {
+//         ban: true,
+//       });
+//       if (response.data.success) {
+//         setVendors((prevVendors) =>
+//           prevVendors.map((vendor) =>
+//             vendor._id === vendorId ? { ...vendor, ban: true } : vendor
+//           )
+//         );
+//       }
+//     } catch (error) {
+//       console.log(error);
+//     }
+//   };
+
+//   const handleUnBanVendor = async (vendorId) => {
+//     try {
+//       const response = await axios.put(`/admin/vendorList/unban/${vendorId}`, {
+//         ban: false,
+//       });
+//       if (response.data.success) {
+//         setVendors((prevVendors) =>
+//           prevVendors.map((vendor) =>
+//             vendor._id === vendorId ? { ...vendor, ban: false } : vendor
+//           )
+//         );
+//       }
+//     } catch (error) {
+//       console.log(error);
+//     }
+//   };
+
+//   return (
+//     <div>
+//       <div className="relative overflow-x-auto" style={{ marginTop: '100px', marginRight: '100px' }}>
+//         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400" style={{ marginTop: '100px' }}>
+//           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+//             <tr>
+//               <th scope="col" className="px-6 py-3">
+//                 No
+//               </th>
+//               <th scope="col" className="px-6 py-3">
+//                 Vendor name
+//               </th>
+//               <th scope="col" className="px-6 py-3">
+//                 Email
+//               </th>
+//               <th scope="col" className="px-6 py-3">
+//                 Phone Number
+//               </th>
+//               <th scope="col" className="px-6 py-3">
+//                 Banned Status
+//               </th>
+//               <th scope="col" className="px-6 py-3">
+//                 Action
+//               </th>
+//             </tr>
+//           </thead>
+//           <tbody>
+//             {vendors.map((vendor, index) => (
+//               <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700" key={index}>
+//                 <td className="px-6 py-4">{index + 1}</td>
+//                 <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+//                   {vendor.name}
+//                 </td>
+//                 <td className="px-6 py-4">{vendor.email}</td>
+//                 <td className="px-6 py-4">{vendor.phoneNumber}</td>
+//                 {vendor.ban ? (
+//                   <td className="px-6 py-4 text-red-700">Banned</td>
+//                 ) : (
+//                   <td className="px-6 py-4 text-green-700">Active</td>
+//                 )}
+//                 <td>
+//                   {vendor.ban ? (
+//                     <button
+//                       className="text-red-500 bg-transparent border border-red-500 rounded-md px-3 py-2 hover:bg-red-500 hover:text-white transition-colors duration-300"
+//                       onClick={() => handleUnBanVendor(vendor._id)}
+//                     >
+//                       Unban Vendor
+//                     </button>
+//                   ) : (
+//                     <button
+//                       className="text-green-500 bg-transparent border border-green-500 rounded-md px-3 py-2 hover:bg-green-500 hover:text-white transition-colors duration-300"
+//                       onClick={() => handleBanVendor(vendor._id)}
+//                     >
+//                       Ban Vendor
+//                     </button>
+//                   )}
+//                 </td>
+//               </tr>
+//             ))}
+//           </tbody>
+//         </table>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default VendorTable;

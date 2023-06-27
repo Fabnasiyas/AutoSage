@@ -3,22 +3,40 @@ import { HiMenuAlt3 } from "react-icons/hi";
 import { MdOutlineDashboard } from "react-icons/md";
 import { RiSettings4Line } from "react-icons/ri";
 import { TbReportAnalytics } from "react-icons/tb";
-import { AiOutlineUser, AiOutlineHeart } from "react-icons/ai";
-import { FiMessageSquare, FiFolder, FiShoppingCart } from "react-icons/fi";
+import { AiOutlineUser } from "react-icons/ai";
 import { Link } from "react-router-dom";
+import { useSelector,useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom'
+import axios from '../../axios'
+
+
 
 const Home = () => {
   const menus = [
-    { name: "dashboard", link: "/", icon: MdOutlineDashboard },
-    { name: "user", link: "/", icon: AiOutlineUser },
-    { name: "messages", link: "/", icon: FiMessageSquare },
-    { name: "analytics", link: "/", icon: TbReportAnalytics, margin: true },
-    { name: "File Manager", link: "/", icon: FiFolder },
-    { name: "Cart", link: "/", icon: FiShoppingCart },
-    { name: "Saved", link: "/", icon: AiOutlineHeart, margin: true },
-    { name: "Setting", link: "/", icon: RiSettings4Line },
+    { name: "dashboard", link: "/", icon: MdOutlineDashboard , margin: true },
+    { name: "Profile", link: "/admin/vendorprofile", icon: AiOutlineUser },
+    { name: "Bookings", link: "/", icon: TbReportAnalytics},
+    { name: "Logout", link: "/vendor/logout", icon: RiSettings4Line },
   ];
   const [open, setOpen] = useState(true);
+
+  const {vendor} = useSelector(state => state); 
+  console.log("*******************",vendor);
+  const dispatch=useDispatch()
+  const navigate=useNavigate()
+  // const {users} =useSelector((state)=>{
+  //   return state
+  // })
+  const handleLogout=()=>{
+    axios.get('/vendor/logout').then((response)=>{
+      if(!response.data.err){
+        console.log(response.data);
+        dispatch({type:'refresh'})
+        return navigate('/vendor')
+      }
+    })
+  }
+
   return (
     <section className="flex gap-6">
       <div
@@ -62,10 +80,14 @@ const Home = () => {
               </h2>
             </Link>
           ))}
+<button className="text-gray-300 hover:bg-gray-700 hover:text-white  py-2 rounded-md text-sm font-semibold"  onClick={handleLogout}>
+      Logout
+    </button>
         </div>
       </div>
-      <div className="m-3 text-xl text-gray-900 font-semibold">
-        REACT TAILWIND
+      <div className="m-3 text-4xl text-gray-900 font-semibold flex justify-between">
+        <h1>AutoSage</h1>
+      
       </div>
     </section>
   );

@@ -1,6 +1,7 @@
 import mongoose from 'mongoose'
 
 const vendorSchema=mongoose.Schema({
+    
     name:{
         type:String,
         required:true

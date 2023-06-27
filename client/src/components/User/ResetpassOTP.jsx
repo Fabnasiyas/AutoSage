@@ -1,27 +1,28 @@
 import React, { useState } from 'react';
 import OTPInput from 'otp-input-react';
 import axios from '../../axios';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 function OtpPage() {
   const navigate = useNavigate();
   const [otp, setOtp] = useState('');
-
+const email=useLocation()
+console.log(email.state);
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(otp);
 
     // Send the OTP to the server for verification
     axios
-      .post('/api/verify-otp', { otp })
+      .post('/verify-otp', { otp })
       .then((response) => {
         if (!response.data.err) {
           console.log(response.data.message);
           toast.success(response.data.message, {
             position: 'top-center',
           });
-          navigate('/');
+          navigate('/SetNewPassword');
         } else {
           toast.error(response.data.message);
         }

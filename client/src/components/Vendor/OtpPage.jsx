@@ -42,7 +42,7 @@ function OtpPage() {
         });
         navigate('/vendor/login');
       } else {
-        toast.error(response.data.message);
+        toast.success(response.data.message);
       }
     });
   };
