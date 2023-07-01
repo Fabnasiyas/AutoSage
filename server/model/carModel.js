@@ -2,6 +2,10 @@ import mongoose from 'mongoose'
 
 const carSchema=mongoose.Schema({
     
+    vendorId:{
+        type: mongoose.Schema.Types.ObjectId, // change type to ObjectId
+        ref: 'userModel', 
+        },
     model:{
         type:String,
         required:true
@@ -38,6 +42,10 @@ const carSchema=mongoose.Schema({
         type:Array,
         require:true
     },
+    isBooked:{
+        type:Boolean,
+        default:false
+    }
     
 })
 

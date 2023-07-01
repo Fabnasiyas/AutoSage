@@ -4,6 +4,8 @@ import { MdOutlineDashboard } from "react-icons/md";
 import { RiSettings4Line } from "react-icons/ri";
 import { TbReportAnalytics } from "react-icons/tb";
 import { AiOutlineUser } from "react-icons/ai";
+import {  FiFolder} from "react-icons/fi";
+
 import { Link } from "react-router-dom";
 import { useSelector,useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom'
@@ -14,8 +16,10 @@ import axios from '../../axios'
 const Home = () => {
   const menus = [
     { name: "dashboard", link: "/", icon: MdOutlineDashboard , margin: true },
-    { name: "Profile", link: "/admin/vendorprofile", icon: AiOutlineUser },
+    { name: "Profile", link: "/vendor/vendorprofile", icon: AiOutlineUser },
     { name: "Bookings", link: "/", icon: TbReportAnalytics},
+    { name: "My Cars", link: "/vendor/carlist", icon: FiFolder },
+
     { name: "Logout", link: "/vendor/logout", icon: RiSettings4Line },
   ];
   const [open, setOpen] = useState(true);

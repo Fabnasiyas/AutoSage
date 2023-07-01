@@ -1,3 +1,208 @@
+import React, { useState } from 'react'
+import axios from '../../axios'
+import {  useNavigate } from 'react-router-dom'
+import { useDispatch} from 'react-redux';
+import { toast } from 'react-toastify';
+const RegisterForm = () => {
+    axios.defaults.withCredentials = true;
+const navigate = useNavigate();
+const dispatch=useDispatch();
+
+
+const [name, setName] = useState('')
+const [email, setEmail] = useState('')
+const [password, setPassword] = useState('')
+const [confirmPassword,setConfirmPassword]=useState('')
+const [phoneNumber,setPhoneNumber]=useState('')
+// const [err, setErr] = useState(null)
+const handleSubmit=(e)=>{
+  e.preventDefault();
+  if(name.trim()&& phoneNumber.trim()&& email.trim()&&password.trim()){
+    axios.post('/vendor/signup',{name,email,phoneNumber,password,confirmPassword}).then((response)=>{
+        console.log("*******************************",response.data);
+    if(!response.data.err){ 
+      dispatch({type:'refresh'})
+      console.log(response.data);
+      const data={
+        name:name,
+        email:email,
+        phoneNumber:phoneNumber,
+        password:password
+      }
+
+     return navigate('/vendor/otp',{state:{data}})
+    }else{
+     
+      // setErr(response.data.message)
+      toast.error(response.data.message, {
+        position :"top-center"
+      });
+    }
+    })
+  }else{
+    // setErr("All fields are required")
+    
+    toast.error('All Fields are Required', {
+      position :"top-center"
+      
+    });
+  }
+}
+  return (
+    <div className="min-h-screen bg-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+      <div className="sm:mx-auto sm:w-full sm:max-w-md">
+        <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+          Vendor Registeration
+        </h2>
+      </div>
+      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+        <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+          <form className="space-y-6" action="#" method="POST" onSubmit={handleSubmit}>
+            <div>
+              <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+                Name
+              </label>
+              <div className="mt-1">
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  required
+                  value={name}
+                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  onChange={e=>setName(e.target.value)}
+                />
+              </div>
+            </div>
+            <div>
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                Email address
+              </label>
+              <div className="mt-1">
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  required
+                  value={email}
+                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  onChange={e=>setEmail(e.target.value)}
+               />
+              </div>
+            </div>
+            <div>
+  <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
+    Phone number
+  </label>
+  <div className="mt-1">
+    <input
+      id="phone"
+      name="phoneNumber"
+      type="text"
+      required
+      value={phoneNumber}
+      className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+      onChange={e => setPhoneNumber(e.target.value)}
+    />
+  </div>
+</div>
+
+            <div>
+              <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+                Password
+              </label>
+              <div className="mt-1">
+                <input
+                  id="password"
+                  name="password"
+                  type="password"
+                  required
+                  value={password}
+                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  onChange={e=>setPassword(e.target.value)}
+               />
+              </div>
+            </div>
+            <div>
+              <label htmlFor="confirmpassword" className="block text-sm font-medium text-gray-700">
+                Confirm Password
+              </label>
+              <div className="mt-1">
+                <input
+                  id="confirmpassword"
+                  name="confirmpassword"
+                  type="password"
+                  required
+                  value={confirmPassword}
+                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  onChange={e=>setConfirmPassword(e.target.value)}
+                />
+              </div>
+            </div>
+            <div>
+          
+           <button
+                type="submit"
+                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              >
+                Register
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default RegisterForm;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// export const vendorLogin=async(req,res)=>{
+  //     try {
+  //       let {email,password}=req.body;
+  //       console.log("/////////////////////",req.body);
+  //       let vendor=await vendorModel.findOne({email:email})
+  //       if(vendor ){
+  //         if(vendor.ban==false){
+  //             let status= await bcrypt.compare(password,vendor.password)
+  //             if(status){
+  //                 const vendorToken=jwt.sign({
+  //                     id:vendor._id
+  //                 },"00f3f20c9fc43a29d4c9b6b3c2a3e18918f0b23a379c152b577ceda3256f3ffa");
+  //                 return res.cookie("vendorToken", vendorToken, {
+  //                     httpOnly: true,
+  //                     secure: true,
+  //                     maxAge: 1000 * 60 * 60 * 24 * 7,
+  //                     sameSite: "none",
+  //                 }).json({ err: false ,message:'vendor login success',vendor}); 
+  //             }else{
+  //                 res.json({err:true,message:"Invalid email or password"})
+  //             }
+  //         }else{
+  //             res.json({err:true,message:'vendor banned.'})
+  //         }
+  //       }else{
+  //           res.json({err:true,message:'No vendor found, please signup.'})
+  //       }
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   }
+
+
 
 
 
@@ -913,6 +1118,796 @@ export default UserTable;
         //   position: "top-center"
         // })
 
+
+
+
+
+// import React, { useEffect, useState } from 'react';
+// import axios from '../../axios';
+
+// const UserTable = () => {
+//   const [users, setUsers] = useState([]);
+//   const [selectedUserId, setSelectedUserId] = useState(null);
+//   const [isBanModalOpen, setIsBanModalOpen] = useState(false);
+//   const [isUnbanModalOpen, setIsUnbanModalOpen] = useState(false);
+
+//   const fetchUserList = async () => {
+//     try {
+//       const response = await axios.get('/admin/userList');
+//       if (!response.data.err) {
+//         setUsers(response.data.data);
+//       }
+//     } catch (error) {
+//       console.log(error);
+//     }
+//   };
+
+//   useEffect(() => {
+//     fetchUserList();
+//   }, []);
+
+//   const handleBanUser = (userId) => {
+//     setSelectedUserId(userId);
+//     setIsBanModalOpen(true);
+//   };
+
+//   const handleUnBanUser = (userId) => {
+//     setSelectedUserId(userId);
+//     setIsUnbanModalOpen(true);
+//   };
+
+//   const confirmBanUser = async () => {
+//     try {
+//       const response = await axios.put(`/admin/userList/${selectedUserId}`, {
+//         ban: true,
+//       });
+//       if (response.data.success) {
+//         setUsers((prevUsers) =>
+//           prevUsers.map((user) =>
+//             user._id === selectedUserId ? { ...user, ban: true } : user
+//           )
+//         );
+//       }
+//     } catch (error) {
+//       console.log(error);
+//     }
+//     setIsBanModalOpen(false);
+//   };
+
+//   const confirmUnbanUser = async () => {
+//     try {
+//       const response = await axios.put(`/admin/userList/unban/${selectedUserId}`, {
+//         ban: false,
+//       });
+//       if (response.data.success) {
+//         setUsers((prevUsers) =>
+//           prevUsers.map((user) =>
+//             user._id === selectedUserId ? { ...user, ban: false } : user
+//           )
+//         );
+//       }
+//     } catch (error) {
+//       console.log(error);
+//     }
+//     setIsUnbanModalOpen(false);
+//   };
+
+//   return (
+//     <div>
+//       <div className="relative overflow-x-auto" style={{ marginTop: '100px', marginRight: '100px' }}>
+//         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400" style={{ marginTop: '100px' }}>
+//           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+//             <tr>
+//               <th scope="col" className="px-6 py-3">
+//                 No
+//               </th>
+//               <th scope="col" className="px-6 py-3">
+//                 User name
+//               </th>
+//               <th scope="col" className="px-6 py-3">
+//                 Email
+//               </th>
+//               <th scope="col" className="px-6 py-3">
+//                 Banned Status
+//               </th>
+//               <th scope="col" className="px-6 py-3">
+//                 Action
+//               </th>
+//             </tr>
+//           </thead>
+//           <tbody>
+//             {users.map((user, index) => (
+//               <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700" key={index}>
+//                 <td className="px-6 py-4">{index + 1}</td>
+//                 <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+//                   {user.name}
+//                 </td>
+//                 <td className="px-6 py-4">{user.email}</td>
+//                 {user.ban ? (
+//                   <td className="px-6 py-4 text-red-700">Banned</td>
+//                 ) : (
+//                   <td className="px-6 py-4 text-green-700">Active</td>
+//                 )}
+//                 <td>
+//                   {user.ban ? (
+//                     <button
+//                       className="text-red-500 bg-transparent border border-red-500 rounded-md px-3 py-2 hover:bg-red-500 hover:text-white transition-colors duration-300"
+//                       onClick={() => handleUnBanUser(user._id)}
+//                     >
+//                       Unban User
+//                     </button>
+//                   ) : (
+//                     <button
+//                       className="text-green-500 bg-transparent border border-green-500 rounded-md px-3 py-2 hover:bg-green-500 hover:text-white transition-colors duration-300"
+//                       onClick={() => handleBanUser(user._id)}
+//                     >
+//                       Ban User
+//                     </button>
+//                   )}
+//                 </td>
+//               </tr>
+//             ))}
+//           </tbody>
+//         </table>
+//       </div>
+//       {isBanModalOpen && (
+//         <div className="fixed inset-0 flex items-center justify-center z-50">
+//           <div className="bg-white w-96 rounded shadow-lg p-6">
+//             <p className="mb-4">Are you sure you want to ban this user?</p>
+//             <div className="flex justify-end">
+//               <button
+//                 className="text-red-500 bg-transparent border border-red-500 rounded-md px-3 py-2 hover:bg-red-500 hover:text-white transition-colors duration-300 mr-2"
+//                 onClick={() => setIsBanModalOpen(false)}
+//               >
+//                 Cancel
+//               </button>
+//               <button
+//                 className="text-white bg-red-500 rounded-md px-3 py-2 hover:bg-red-600 transition-colors duration-300"
+//                 onClick={confirmBanUser}
+//               >
+//                 YES
+//               </button>
+//             </div>
+//           </div>
+//         </div> 
+//       )}
+//       {isUnbanModalOpen && (
+//         <div className="fixed inset-0 flex items-center justify-center z-50">
+//           <div className="bg-white w-96 rounded shadow-lg p-6">
+//             <p className="mb-4">Are you sure you want to unban this user?</p>
+//             <div className="flex justify-end">
+//               <button
+//                 className="text-gray-500 bg-transparent border border-gray-500 rounded-md px-3 py-2 hover:bg-gray-500 hover:text-white transition-colors duration-300 mr-2"
+//                 onClick={() => setIsUnbanModalOpen(false)}
+//               >
+//                 Cancel
+//               </button>
+//               <button
+//                 className="text-white bg-green-500 rounded-md px-3 py-2 hover:bg-green-600 transition-colors duration-300"
+//                 onClick={confirmUnbanUser}
+//               >
+//                 YES
+//               </button>
+//             </div>
+//           </div>
+//         </div>
+//       )}
+//     </div>
+//   );
+// };
+
+// export default UserTable;
+
+
+
+
+// import React, { useEffect, useState } from 'react';
+// import axios from '../../axios';
+// import DataTable from 'react-data-table-component';
+
+// const UserTable = () => {
+//   const [users, setUsers] = useState([]);
+//   const [selectedUserId, setSelectedUserId] = useState(null);
+//   const [isBanModalOpen, setIsBanModalOpen] = useState(false);
+//   const [isUnbanModalOpen, setIsUnbanModalOpen] = useState(false);
+
+//   const fetchUserList = async () => {
+//     try {
+//       const response = await axios.get('/admin/userList');
+//       if (!response.data.err) {
+//         setUsers(response.data.data);
+//       }
+//     } catch (error) {
+//       console.log(error);
+//     }
+//   };
+
+//   useEffect(() => {
+//     fetchUserList();
+//   }, []);
+
+//   const handleBanUser = (userId) => {
+//     setSelectedUserId(userId);
+//     setIsBanModalOpen(true);
+//   };
+
+//   const handleUnBanUser = (userId) => {
+//     setSelectedUserId(userId);
+//     setIsUnbanModalOpen(true);
+//   };
+
+//   const confirmBanUser = async () => {
+//     try {
+//       const response = await axios.put(`/admin/userList/${selectedUserId}`, {
+//         ban: true,
+//       });
+//       if (response.data.success) {
+//         setUsers((prevUsers) =>
+//           prevUsers.map((user) =>
+//             user._id === selectedUserId ? { ...user, ban: true } : user
+//           )
+//         );
+//       }
+//     } catch (error) {
+//       console.log(error);
+//     }
+//     setIsBanModalOpen(false);
+//   };
+
+//   const confirmUnbanUser = async () => {
+//     try {
+//       const response = await axios.put(`/admin/userList/unban/${selectedUserId}`, {
+//         ban: false,
+//       });
+//       if (response.data.success) {
+//         setUsers((prevUsers) =>
+//           prevUsers.map((user) =>
+//             user._id === selectedUserId ? { ...user, ban: false } : user
+//           )
+//         );
+//       }
+//     } catch (error) {
+//       console.log(error);
+//     }
+//     setIsUnbanModalOpen(false);
+//   };
+
+//   const columns = [
+//     {
+//       name: 'No',
+//       selector: (row, index) => index + 1,
+//       sortable: true,
+//     },
+//     {
+//       name: 'User name',
+//       selector: 'name',
+//       sortable: true,
+//     },
+//     {
+//       name: 'Email',
+//       selector: 'email',
+//       sortable: true,
+//     },
+//     {
+//       name: 'Banned Status',
+//       cell: (row) => (row.ban ? 'Banned' : 'Active'),
+//       sortable: true,
+//     },
+//     {
+//       name: 'Action',
+//       cell: (row) => (
+//         <>
+//           {row.ban ? (
+//             <button
+//               className="text-red-500 bg-transparent border border-red-500 rounded-md px-3 py-2 hover:bg-red-500 hover:text-white transition-colors duration-300"
+//               onClick={() => handleUnBanUser(row._id)}
+//             >
+//               Unban User
+//             </button>
+//           ) : (
+//             <button
+//               className="text-green-500 bg-transparent border border-green-500 rounded-md px-3 py-2 hover:bg-green-500 hover:text-white transition-colors duration-300"
+//               onClick={() => handleBanUser(row._id)}
+//             >
+//               Ban User
+//             </button>
+//           )}
+//         </>
+//       ),
+//     },
+//   ];
+
+//   return (
+//     <div>
+//       <DataTable
+//         columns={columns}
+//         data={users}
+//         pagination
+//         highlightOnHover
+//         noHeader
+//         striped
+//         dense
+//       />
+//       {isBanModalOpen && (
+//         <div className="fixed inset-0 flex items-center justify-center z-50">
+//           <div className="bg-white w-96 rounded shadow-lg p-6">
+//             <p className="mb-4">Are you sure you want to ban this user?</p>
+//             <div className="flex justify-end">
+//               <button
+//                 className="text-red-500 bg-transparent border border-red-500 rounded-md px-3 py-2 hover:bg-red-500 hover:text-white transition-colors duration-300 mr-2"
+//                 onClick={() => setIsBanModalOpen(false)}
+//               >
+//                 Cancel
+//               </button>
+//               <button
+//                 className="text-white bg-red-500 rounded-md px-3 py-2 hover:bg-red-600 transition-colors duration-300"
+//                 onClick={confirmBanUser}
+//               >
+//                 YES
+//               </button>
+//             </div>
+//           </div>
+//         </div>
+//       )}
+//       {isUnbanModalOpen && (
+//         <div className="fixed inset-0 flex items-center justify-center z-50">
+//           <div className="bg-white w-96 rounded shadow-lg p-6">
+//             <p className="mb-4">Are you sure you want to unban this user?</p>
+//             <div className="flex justify-end">
+//               <button
+//                 className="text-gray-500 bg-transparent border border-gray-500 rounded-md px-3 py-2 hover:bg-gray-500 hover:text-white transition-colors duration-300 mr-2"
+//                 onClick={() => setIsUnbanModalOpen(false)}
+//               >
+//                 Cancel
+//               </button>
+//               <button
+//                 className="text-white bg-green-500 rounded-md px-3 py-2 hover:bg-green-600 transition-colors duration-300"
+//                 onClick={confirmUnbanUser}
+//               >
+//                 YES
+//               </button>
+//             </div>
+//           </div>
+//         </div>
+//       )}
+//     </div>
+//   );
+// };
+
+// export default UserTable;
+
+
+
+
+
+
+import React, { useEffect, useState } from 'react';
+import axios from '../../axios';
+import DataTable from 'react-data-table-component';
+
+const UserTable = () => {
+  const [users, setUsers] = useState([]);
+  const [selectedUserId, setSelectedUserId] = useState(null);
+  const [isBanModalOpen, setIsBanModalOpen] = useState(false);
+  const [isUnbanModalOpen, setIsUnbanModalOpen] = useState(false);
+  const [searchText, setSearchText] = useState('');
+
+  const fetchUserList = async () => {
+    try {
+      const response = await axios.get('/admin/userList');
+      if (!response.data.err) {
+        setUsers(response.data.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchUserList();
+  }, []);
+
+  const handleBanUser = (userId) => {
+    setSelectedUserId(userId);
+    setIsBanModalOpen(true);
+  };
+
+  const handleUnBanUser = (userId) => {
+    setSelectedUserId(userId);
+    setIsUnbanModalOpen(true);
+  };
+
+  const confirmBanUser = async () => {
+    try {
+      const response = await axios.put(`/admin/userList/${selectedUserId}`, {
+        ban: true,
+      });
+      if (response.data.success) {
+        setUsers((prevUsers) =>
+          prevUsers.map((user) =>
+            user._id === selectedUserId ? { ...user, ban: true } : user
+          )
+        );
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    setIsBanModalOpen(false);
+  };
+
+  const confirmUnbanUser = async () => {
+    try {
+      const response = await axios.put(`/admin/userList/unban/${selectedUserId}`, {
+        ban: false,
+      });
+      if (response.data.success) {
+        setUsers((prevUsers) =>
+          prevUsers.map((user) =>
+            user._id === selectedUserId ? { ...user, ban: false } : user
+          )
+        );
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    setIsUnbanModalOpen(false);
+  };
+
+  const columns = [
+    {
+      name: 'No',
+      selector: (row, index) => index + 1,
+      sortable: true,
+      style: {
+        paddingLeft: '16px',
+      },
+    },
+    {
+      name: 'User name',
+      selector: 'name',
+      sortable: true,
+    },
+    {
+      name: 'Email',
+      selector: 'email',
+      sortable: true,
+    },
+    {
+      name: 'Banned Status',
+      cell: (row) => (row.ban ? 'Banned' : 'Active'),
+      sortable: true,
+    },
+    {
+      name: 'Action',
+      cell: (row) => (
+        <>
+          {row.ban ? (
+            <button
+              className="text-red-500 bg-transparent border border-red-500 rounded-md px-3 py-2 hover:bg-red-500 hover:text-white transition-colors duration-300"
+              onClick={() => handleUnBanUser(row._id)}
+            >
+              Unban User
+            </button>
+          ) : (
+            <button
+              className="text-green-500 bg-transparent border border-green-500 rounded-md px-3 py-2 hover:bg-green-500 hover:text-white transition-colors duration-300"
+              onClick={() => handleBanUser(row._id)}
+            >
+              Ban User
+            </button>
+          )}
+        </>
+      ),
+    },
+  ];
+
+  return (
+    <div className="  rounded-md"   style={{paddingRight:'300px',paddingTop:'200px'}}
+    >
+      <div className="mb-4" >
+        <input
+          type="text"
+          placeholder="Search by name"
+          value={searchText}
+          onChange={(e) => setSearchText(e.target.value)}
+          className="border border-gray-300 rounded-md px-3 py-2"
+        />
+      </div>
+      <DataTable
+        columns={columns}
+        data={users.filter((user) =>
+          user.name.toLowerCase().includes(searchText.toLowerCase())
+        )}
+        pagination
+        highlightOnHover
+        noHeader
+        striped
+        responsive
+        customStyles={{
+          table: {
+            marginBottom: 0,
+          },
+          header: {
+            fontSize: '1rem',
+            fontWeight: 'bold',
+            backgroundColor: '#F3F4F6',
+            color: '#111827',
+            paddingTop: '12px',
+            paddingBottom: '12px',
+          },
+          rows: {
+            style: {
+              minHeight: '56px', // Adjust the row height as needed
+            },
+          },
+        }}
+      />
+      {isBanModalOpen && (
+        <div className="fixed inset-0 flex items-center justify-center z-50">
+          <div className="bg-white w-96 rounded shadow-lg p-6">
+            <p className="mb-4">Are you sure you want to ban this user?</p>
+            <div className="flex justify-end">
+              <button
+                className="text-red-500 bg-transparent border border-red-500 rounded-md px-3 py-2 hover:bg-red-500 hover:text-white transition-colors duration-300 mr-2"
+                onClick={() => setIsBanModalOpen(false)}
+              >
+                Cancel
+              </button>
+              <button
+                className="text-white bg-red-500 rounded-md px-3 py-2 hover:bg-red-600 transition-colors duration-300"
+                onClick={confirmBanUser}
+              >
+                YES
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      {isUnbanModalOpen && (
+        <div className="fixed inset-0 flex items-center justify-center z-50">
+          <div className="bg-white w-96 rounded shadow-lg p-6">
+            <p className="mb-4">Are you sure you want to unban this user?</p>
+            <div className="flex justify-end">
+              <button
+                className="text-gray-500 bg-transparent border border-gray-500 rounded-md px-3 py-2 hover:bg-gray-500 hover:text-white transition-colors duration-300 mr-2"
+                onClick={() => setIsUnbanModalOpen(false)}
+              >
+                Cancel
+              </button>
+              <button
+                className="text-white bg-green-500 rounded-md px-3 py-2 hover:bg-green-600 transition-colors duration-300"
+                onClick={confirmUnbanUser}
+              >
+                YES
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default UserTable;
+
+
+
+
+
+
+
+
+
+
+
+
+// import React, { useEffect, useState } from 'react';
+// import axios from '../../axios';
+
+// const VendorTable = () => {
+//   const [vendors, setVendors] = useState([]);
+//   const [selectedVendor, setSelectedVendor] = useState(null);
+//   const [isBanModalOpen, setIsBanModalOpen] = useState(false);
+//   const [isUnbanModalOpen, setIsUnbanModalOpen] = useState(false);
+
+//   const fetchVendorList = async () => {
+//     try {
+//       const response = await axios.get('/admin/vendorList');
+//       if (!response.data.err) {
+//         setVendors(response.data.data);
+//       }
+//     } catch (error) {
+//       console.log(error);
+//     }
+//   };
+
+//   useEffect(() => {
+//     fetchVendorList();
+//   }, []);
+
+//   const handleBanVendor = (vendorId) => {
+//     setSelectedVendor(vendorId);
+//     setIsBanModalOpen(true);
+//   };
+
+//   const handleUnBanVendor = (vendorId) => {
+//     setSelectedVendor(vendorId);
+//     setIsUnbanModalOpen(true);
+//   };
+
+//   const confirmBanAction = async () => {
+//     try {
+//       if (selectedVendor) {
+//         const response = await axios.put(`/admin/vendorList/${selectedVendor}`, {
+//           ban: true,
+//         });
+//         if (response.data.success) {
+//           setVendors((prevVendors) =>
+//             prevVendors.map((vendor) =>
+//               vendor._id === selectedVendor ? { ...vendor, ban: true } : vendor
+//             )
+//           );
+//         }
+//       }
+//     } catch (error) {
+//       console.log(error);
+//     }
+//     setIsBanModalOpen(false);
+//     setSelectedVendor(null);
+//   };
+
+//   const confirmUnbanAction = async () => {
+//     try {
+//       if (selectedVendor) {
+//         const response = await axios.put(`/admin/vendorList/unban/${selectedVendor}`, {
+//           ban: false,
+//         });
+//         if (response.data.success) {
+//           setVendors((prevVendors) =>
+//             prevVendors.map((vendor) =>
+//               vendor._id === selectedVendor ? { ...vendor, ban: false } : vendor
+//             )
+//           );
+//         }
+//       }
+//     } catch (error) {
+//       console.log(error);
+//     }
+//     setIsUnbanModalOpen(false);
+//     setSelectedVendor(null);
+//   };
+
+//   const cancelAction = () => {
+//     setIsBanModalOpen(false);
+//     setIsUnbanModalOpen(false);
+//     setSelectedVendor(null);
+//   };
+
+//   return (
+//     <div>
+//       <div className="relative overflow-x-auto" style={{ marginTop: '100px', marginRight: '100px' }}>
+//         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400" style={{ marginTop: '100px' }}>
+//           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+//             <tr>
+//               <th scope="col" className="px-6 py-3">
+//                 No
+//               </th>
+//               <th scope="col" className="px-6 py-3">
+//                 Vendor name
+//               </th>
+//               <th scope="col" className="px-6 py-3">
+//                 Email
+//               </th>
+//               <th scope="col" className="px-6 py-3">
+//                 Phone Number
+//               </th>
+//               <th scope="col" className="px-6 py-3">
+//                 Banned Status
+//               </th>
+//               <th scope="col" className="px-6 py-3">
+//                 Action
+//               </th>
+//             </tr>
+//           </thead>
+//           <tbody>
+//             {vendors.map((vendor, index) => (
+//               <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700" key={index}>
+//                 <td className="px-6 py-4">{index + 1}</td>
+//                 <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+//                   {vendor.name}
+//                 </td>
+//                 <td className="px-6 py-4">{vendor.email}</td>
+//                 <td className="px-6 py-4">{vendor.phoneNumber}</td>
+//                 {vendor.ban ? (
+//                   <td className="px-6 py-4 text-red-700">Banned</td>
+//                 ) : (
+//                   <td className="px-6 py-4 text-green-700">Active</td>
+//                 )}
+//                 <td>
+//                   {vendor.ban ? (
+//                     <button
+//                       className="text-red-500 bg-transparent border border-red-500 rounded-md px-3 py-2 hover:bg-red-500 hover:text-white transition-colors duration-300"
+//                       onClick={() => handleUnBanVendor(vendor._id)}
+//                     >
+//                       Unban Vendor
+//                     </button>
+//                   ) : (
+//                     <button
+//                       className="text-green-500 bg-transparent border border-green-500 rounded-md px-3 py-2 hover:bg-green-500 hover:text-white transition-colors duration-300"
+//                       onClick={() => handleBanVendor(vendor._id)}
+//                     >
+//                       Ban Vendor
+//                     </button>
+//                   )}
+//                 </td>
+//               </tr>
+//             ))}
+//           </tbody>
+//         </table>
+//       </div>
+
+//       {isBanModalOpen && (
+//         <div className="fixed inset-0 flex items-center justify-center z-50">
+//           <div className="bg-white w-1/3 p-6 rounded-md shadow-lg">
+//             <p className="text-lg font-semibold mb-4">Confirm Ban</p>
+//             <p className="text-gray-700 mb-8">
+//               Are you sure you want to ban this vendor?
+//             </p>
+//             <div className="flex justify-end">
+//               <button
+//                 className="px-4 py-2 bg-red-500 text-white rounded-md mr-2 hover:bg-red-600 transition-colors duration-300"
+//                 onClick={confirmBanAction}
+//               >
+//                 Yes
+//               </button>
+//               <button
+//                 className="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-colors duration-300"
+//                 onClick={cancelAction}
+//               >
+//                 Cancel
+//               </button>
+//             </div>
+//           </div>
+//         </div>
+//       )}
+
+//       {isUnbanModalOpen && (
+//         <div className="fixed inset-0 flex items-center justify-center z-50">
+//           <div className="bg-white w-1/3 p-6 rounded-md shadow-lg">
+//             <p className="text-lg font-semibold mb-4">Confirm Unban</p>
+//             <p className="text-gray-700 mb-8">
+//               Are you sure you want to unban this vendor?
+//             </p>
+//             <div className="flex justify-end">
+//               <button
+//                 className="px-4 py-2 bg-red-500 text-white rounded-md mr-2 hover:bg-red-600 transition-colors duration-300"
+//                 onClick={confirmUnbanAction}
+//               >
+//                 Yes
+//               </button>
+//               <button
+//                 className="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300 transition-colors duration-300"
+//                 onClick={cancelAction}
+//               >
+//                 Cancel
+//               </button>
+//             </div>
+//           </div>
+//         </div>
+//       )}
+//     </div>
+//   );
+// };
+
+// export default VendorTable;
+
+
+
+
+
+
+
+
         // MdDashboard
         import React, { useState } from "react";
 import { HiMenuAlt3 } from "react-icons/hi";
@@ -1469,125 +2464,125 @@ export default Home;
 
 
 
-// import React, { useEffect, useState } from 'react';
-// import axios from '../../axios';
+import React, { useEffect, useState } from 'react';
+import axios from '../../axios';
 
-// const VendorTable = () => {
-//   const [vendors, setVendors] = useState([]);
+const VendorTable = () => {
+  const [vendors, setVendors] = useState([]);
 
-//   const fetchVendorList = async () => {
-//     try {
-//       const response = await axios.get('/admin/vendorList');
-//       if (!response.data.err) {
-//         setVendors(response.data.data);
-//       }
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   };
+  const fetchVendorList = async () => {
+    try {
+      const response = await axios.get('/admin/vendorList');
+      if (!response.data.err) {
+        setVendors(response.data.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-//   useEffect(() => {
-//     fetchVendorList();
-//   }, []);
+  useEffect(() => {
+    fetchVendorList();
+  }, []);
 
-//   const handleBanVendor = async (vendorId) => {
-//     try {
-//       const response = await axios.put(`/admin/vendorList/${vendorId}`, {
-//         ban: true,
-//       });
-//       if (response.data.success) {
-//         setVendors((prevVendors) =>
-//           prevVendors.map((vendor) =>
-//             vendor._id === vendorId ? { ...vendor, ban: true } : vendor
-//           )
-//         );
-//       }
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   };
+  const handleBanVendor = async (vendorId) => {
+    try {
+      const response = await axios.put(`/admin/vendorList/${vendorId}`, {
+        ban: true,
+      });
+      if (response.data.success) {
+        setVendors((prevVendors) =>
+          prevVendors.map((vendor) =>
+            vendor._id === vendorId ? { ...vendor, ban: true } : vendor
+          )
+        );
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-//   const handleUnBanVendor = async (vendorId) => {
-//     try {
-//       const response = await axios.put(`/admin/vendorList/unban/${vendorId}`, {
-//         ban: false,
-//       });
-//       if (response.data.success) {
-//         setVendors((prevVendors) =>
-//           prevVendors.map((vendor) =>
-//             vendor._id === vendorId ? { ...vendor, ban: false } : vendor
-//           )
-//         );
-//       }
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   };
+  const handleUnBanVendor = async (vendorId) => {
+    try {
+      const response = await axios.put(`/admin/vendorList/unban/${vendorId}`, {
+        ban: false,
+      });
+      if (response.data.success) {
+        setVendors((prevVendors) =>
+          prevVendors.map((vendor) =>
+            vendor._id === vendorId ? { ...vendor, ban: false } : vendor
+          )
+        );
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-//   return (
-//     <div>
-//       <div className="relative overflow-x-auto" style={{ marginTop: '100px', marginRight: '100px' }}>
-//         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400" style={{ marginTop: '100px' }}>
-//           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-//             <tr>
-//               <th scope="col" className="px-6 py-3">
-//                 No
-//               </th>
-//               <th scope="col" className="px-6 py-3">
-//                 Vendor name
-//               </th>
-//               <th scope="col" className="px-6 py-3">
-//                 Email
-//               </th>
-//               <th scope="col" className="px-6 py-3">
-//                 Phone Number
-//               </th>
-//               <th scope="col" className="px-6 py-3">
-//                 Banned Status
-//               </th>
-//               <th scope="col" className="px-6 py-3">
-//                 Action
-//               </th>
-//             </tr>
-//           </thead>
-//           <tbody>
-//             {vendors.map((vendor, index) => (
-//               <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700" key={index}>
-//                 <td className="px-6 py-4">{index + 1}</td>
-//                 <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-//                   {vendor.name}
-//                 </td>
-//                 <td className="px-6 py-4">{vendor.email}</td>
-//                 <td className="px-6 py-4">{vendor.phoneNumber}</td>
-//                 {vendor.ban ? (
-//                   <td className="px-6 py-4 text-red-700">Banned</td>
-//                 ) : (
-//                   <td className="px-6 py-4 text-green-700">Active</td>
-//                 )}
-//                 <td>
-//                   {vendor.ban ? (
-//                     <button
-//                       className="text-red-500 bg-transparent border border-red-500 rounded-md px-3 py-2 hover:bg-red-500 hover:text-white transition-colors duration-300"
-//                       onClick={() => handleUnBanVendor(vendor._id)}
-//                     >
-//                       Unban Vendor
-//                     </button>
-//                   ) : (
-//                     <button
-//                       className="text-green-500 bg-transparent border border-green-500 rounded-md px-3 py-2 hover:bg-green-500 hover:text-white transition-colors duration-300"
-//                       onClick={() => handleBanVendor(vendor._id)}
-//                     >
-//                       Ban Vendor
-//                     </button>
-//                   )}
-//                 </td>
-//               </tr>
-//             ))}
-//           </tbody>
-//         </table>
-//       </div>
-//     </div>
-//   );
-// };
+  return (
+    <div>
+      <div className="relative overflow-x-auto" style={{ marginTop: '100px', marginRight: '100px' }}>
+        <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400" style={{ marginTop: '100px' }}>
+          <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <tr>
+              <th scope="col" className="px-6 py-3">
+                No
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Vendor name
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Email
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Phone Number
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Banned Status
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Action
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {vendors.map((vendor, index) => (
+              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700" key={index}>
+                <td className="px-6 py-4">{index + 1}</td>
+                <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                  {vendor.name}
+                </td>
+                <td className="px-6 py-4">{vendor.email}</td>
+                <td className="px-6 py-4">{vendor.phoneNumber}</td>
+                {vendor.ban ? (
+                  <td className="px-6 py-4 text-red-700">Banned</td>
+                ) : (
+                  <td className="px-6 py-4 text-green-700">Active</td>
+                )}
+                <td>
+                  {vendor.ban ? (
+                    <button
+                      className="text-red-500 bg-transparent border border-red-500 rounded-md px-3 py-2 hover:bg-red-500 hover:text-white transition-colors duration-300"
+                      onClick={() => handleUnBanVendor(vendor._id)}
+                    >
+                      Unban Vendor
+                    </button>
+                  ) : (
+                    <button
+                      className="text-green-500 bg-transparent border border-green-500 rounded-md px-3 py-2 hover:bg-green-500 hover:text-white transition-colors duration-300"
+                      onClick={() => handleBanVendor(vendor._id)}
+                    >
+                      Ban Vendor
+                    </button>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+};
 
-// export default VendorTable;
+export default VendorTable;

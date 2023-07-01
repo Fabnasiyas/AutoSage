@@ -3,6 +3,7 @@ import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken';
 import userModel from '../model/userModel.js';
 import vendorModel from '../model/vendorModel.js'
+import carModel from '../model/carModel.js';
 
 export const  adminLogin=async(req,res)=>{
     try {
@@ -30,7 +31,7 @@ export const  adminLogin=async(req,res)=>{
         console.log(error);                   
       }     
     
-}
+} 
 
 export const adminLogout = (req, res) => {
     return res
@@ -47,7 +48,6 @@ export const adminLogout = (req, res) => {
 
         const users=await userModel.find({}).lean()
         res.json({data:users})
-        console.log("........................",users);
     }
     catch(error){
         console.log(error);
@@ -57,7 +57,6 @@ export const adminLogout = (req, res) => {
  export const handleBanUser= async (req, res) => {
     try {
       const userId = req.params.userId;
-      console.log("UserId",userId );
       // Update the user's ban status in the database
       await userModel.findByIdAndUpdate(userId, { ban: true });
   
@@ -70,7 +69,6 @@ export const adminLogout = (req, res) => {
   export const handleunBanUser= async (req, res) => {
     try {
       const userId = req.params.userId;
-      console.log("UserId",userId );
       // Update the user's ban status in the database
       await userModel.findByIdAndUpdate(userId, { ban: false });
   
@@ -95,7 +93,6 @@ export const adminLogout = (req, res) => {
   export const handleBanVendor= async (req, res) => {
     try {
       const vendorId = req.params.vendorId;
-      console.log("vendor",vendorId );
       await vendorModel.findByIdAndUpdate(vendorId, { ban: true });
   
       res.json({ success: true });
@@ -107,7 +104,6 @@ export const adminLogout = (req, res) => {
   export const handleUnBanVendor = async (req, res) => {
     try {
       const vendorId = req.params.vendorId;
-      console.log("VendorIddddddddddddd", vendorId);
       await vendorModel.findByIdAndUpdate(vendorId, { ban: false });
   
       res.json({ success: true });
@@ -116,4 +112,12 @@ export const adminLogout = (req, res) => {
       res.status(500).json({ success: false, error: 'Server error' });
     }
   };
+  export const getallCarDetails=async (req,res)=>{
+    try {
+      const cars=await carModel.find({}).lean()
+      res.json({data:cars});
+    } catch (error) {
+      console.log(error);
+    }
+  }
   

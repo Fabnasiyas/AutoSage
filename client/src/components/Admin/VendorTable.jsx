@@ -1,12 +1,14 @@
 
 import React, { useEffect, useState } from 'react';
 import axios from '../../axios';
+import DataTable from 'react-data-table-component';
 
 const VendorTable = () => {
   const [vendors, setVendors] = useState([]);
   const [selectedVendor, setSelectedVendor] = useState(null);
   const [isBanModalOpen, setIsBanModalOpen] = useState(false);
   const [isUnbanModalOpen, setIsUnbanModalOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
 
   const fetchVendorList = async () => {
     try {
@@ -81,68 +83,87 @@ const VendorTable = () => {
     setSelectedVendor(null);
   };
 
+  const handleSearch = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  const filteredVendors = vendors.filter((vendor) =>
+    vendor.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const columns = [
+    {
+      name: 'No',
+      selector: (row, index) => index + 1,
+      sortable: true,
+    },
+    {
+      name: 'Vendor Name',
+      selector: 'name',
+      sortable: true,
+    },
+    {
+      name: 'Email',
+      selector: 'email',
+      sortable: true,
+    },
+    {
+      name: 'Phone Number',
+      selector: 'phoneNumber',
+      sortable: true,
+    },
+    {
+      name: 'Pincode',
+      selector: 'pincode',
+      sortable: true,
+    },
+    {
+      name: 'Banned Status',
+      selector: 'ban',
+      sortable: true,
+      cell: (row) => (row.ban ? 'Banned' : 'Active'),
+    },
+    {
+      name: 'Action',
+      cell: (row) =>
+        row.ban ? (
+          <button
+            className="text-red-500 bg-transparent border border-red-500 rounded-md px-3 py-2 hover:bg-red-500 hover:text-white transition-colors duration-300"
+            onClick={() => handleUnBanVendor(row._id)}
+          >
+            Unban Vendor
+          </button>
+        ) : (
+          <button
+            className="text-green-500 bg-transparent border border-green-500 rounded-md px-3 py-2 hover:bg-green-500 hover:text-white transition-colors duration-300"
+            onClick={() => handleBanVendor(row._id)}
+          >
+            Ban Vendor
+          </button>
+        ),
+    },
+  ];
+
   return (
-    <div>
-      <div className="relative overflow-x-auto" style={{ marginTop: '100px', marginRight: '100px' }}>
-        <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400" style={{ marginTop: '100px' }}>
-          <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-            <tr>
-              <th scope="col" className="px-6 py-3">
-                No
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Vendor name
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Email
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Phone Number
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Banned Status
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Action
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {vendors.map((vendor, index) => (
-              <tr className="bg-white border-b dark:bg-gray-800 dark:border-gray-700" key={index}>
-                <td className="px-6 py-4">{index + 1}</td>
-                <td className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                  {vendor.name}
-                </td>
-                <td className="px-6 py-4">{vendor.email}</td>
-                <td className="px-6 py-4">{vendor.phoneNumber}</td>
-                {vendor.ban ? (
-                  <td className="px-6 py-4 text-red-700">Banned</td>
-                ) : (
-                  <td className="px-6 py-4 text-green-700">Active</td>
-                )}
-                <td>
-                  {vendor.ban ? (
-                    <button
-                      className="text-red-500 bg-transparent border border-red-500 rounded-md px-3 py-2 hover:bg-red-500 hover:text-white transition-colors duration-300"
-                      onClick={() => handleUnBanVendor(vendor._id)}
-                    >
-                      Unban Vendor
-                    </button>
-                  ) : (
-                    <button
-                      className="text-green-500 bg-transparent border border-green-500 rounded-md px-3 py-2 hover:bg-green-500 hover:text-white transition-colors duration-300"
-                      onClick={() => handleBanVendor(vendor._id)}
-                    >
-                      Ban Vendor
-                    </button>
-                  )}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+    <div style={{paddingRight:'200px',paddingTop:'200px',paddingLeft:'50px'}}>
+      <div>
+        <input
+          type="text"
+          placeholder="Search vendors"
+          value={searchQuery}
+          onChange={handleSearch}
+          className="border border-gray-300 rounded-md px-3 py-2 mb-6"
+
+        />
       </div>
+      <DataTable
+        columns={columns}
+        data={filteredVendors}
+        pagination
+        highlightOnHover
+        striped
+        noHeader
+      />
 
       {isBanModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center z-50">

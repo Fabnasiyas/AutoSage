@@ -6,6 +6,7 @@ import { MdOutlineDashboard } from "react-icons/md";
 import { RiSettings4Line } from "react-icons/ri";
 import { TbReportAnalytics } from "react-icons/tb";
 import { AiOutlineUser } from "react-icons/ai";
+import {  FiFolder} from "react-icons/fi";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom'
@@ -16,7 +17,9 @@ const Sidebar = () => {
     { name: "Dashboard", link: "/admin/home", icon: MdOutlineDashboard, margin: true },
     { name: "User Managment", link: "/admin/usermanagment", icon: AiOutlineUser },
     { name: "Vendor Managment", link: "/admin/vendormanagment", icon: TbReportAnalytics },
+    { name: "Registered Cars", link: "/admin/carManagment", icon: FiFolder },
     { name: "Setting", link: "/", icon: RiSettings4Line },
+
   ];
   const [open, setOpen] = useState(true);
 

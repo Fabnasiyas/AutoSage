@@ -2,13 +2,17 @@
 import React, { useState } from 'react';
 import axios from '../../axios'
 import {  useNavigate } from 'react-router-dom'
-import { useDispatch} from 'react-redux';
+import { useDispatch, useSelector} from 'react-redux';
 import { toast } from 'react-toastify';
 const CarRegistrationPage = () => {
 
       axios.defaults.withCredentials = true;
       const navigate = useNavigate();
       const dispatch=useDispatch();
+     const {vendor} =useSelector(state=>state)
+     console.log("aaaaaaaaaaaaaaaaa",vendor);
+     const vendorId=vendor.details._id
+     console.log("rrrrrrrrrrrrr",vendorId);
       const [model,setModel]=useState('');
       const [err, setErr] = useState(null)
       const [year,setYear]=useState('');
@@ -16,7 +20,7 @@ const CarRegistrationPage = () => {
   const [fuelType, setFuelType] = useState('');
   const [transmissionMode, setTransmissionMode] = useState('');
   const [specifications, setSpecifications] = useState('');
-const [rent,setRent]=useState('');
+const [rentPerDay,setRent]=useState('');
 const [rcImage,setRcimage]=useState([]);
 const [carImages,setcarImages]=useState([]);
 const handleSubmit=(e)=>{
@@ -24,13 +28,14 @@ const handleSubmit=(e)=>{
     console.log(rcImage);
     console.log(carImages);
     let formData= new FormData();
+    formData.append('vendorId',vendorId)
     formData.append('model', model)
     formData.append('year', year)
     formData.append('mileage', mileage)
     formData.append('fuelType', fuelType)
     formData.append('transmissionMode', transmissionMode)
     formData.append('specifications', specifications)
-    formData.append('rent', rent)
+    formData.append('rentPerDay', rentPerDay)
     rcImage.forEach((item)=>{
       formData.append('rcImage', item)
     })
@@ -193,9 +198,10 @@ const handleCarImages=(e)=>{
                   type="number"
                   autoComplete="rent-per-day"
                   required
-                  value={rent}
+                  value={rentPerDay}
                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-                  onChange={e=>setRent(e.target.value)}
+                  onChange={e => setRent(parseFloat(e.target.value))}
+
                 />
               </div>
             </div>

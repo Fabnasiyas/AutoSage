@@ -23,7 +23,10 @@ import UserManagmentPage from './pages/Admin/UserManagmentPage';
 // import VerifRestOtp from './pages/User/ResetPassPage2'
 import Newpassword from './components/User/NewPassword'; 
 import VendorProfile from './pages/Vendor/ProfilePage' ;
-import AddCarPage from './pages/Vendor/AddCarPage'
+import AddCarPage from './pages/Vendor/AddCarPage';
+import EditProfile from './pages/Vendor/editProfilePage';
+import CarListPage from './pages/Vendor/VendorCarlistpage'
+import Carmanagment from './pages/Admin/carManagmentPage'
 function App() {
   const { user,vendor,admin,refresh} = useSelector((state) => state);
   axios.defaults.withCredentials = true;
@@ -64,8 +67,11 @@ function App() {
 <Route exact path="/admin/home" element={<AdminDashboard/>} />
 <Route exact path="/admin/usermanagment" element={<UserManagmentPage/>} />
 <Route exact path="/admin/vendormanagment" element={<VendorList/>} />
-<Route exact path="/admin/vendorprofile" element={<VendorProfile/>} />
+<Route exact path="/vendor/vendorprofile" element={<VendorProfile/>} />
 <Route exact path="/vendor/addcar" element={<AddCarPage/>} />
+<Route exact path="/vendor/editprofile" element={<EditProfile/>} />
+<Route exact path="/vendor/carlist" element={<CarListPage/>} />
+<Route exact path="/admin/carManagment" element={<Carmanagment/>} />
 
 </Routes>
 <ToastContainer />

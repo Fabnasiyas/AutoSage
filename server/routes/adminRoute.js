@@ -1,5 +1,5 @@
 import express from 'express'
-import { adminLogin,adminLogout,getAllUsers,handleBanUser,handleunBanUser,getAllVendors,handleUnBanVendor,handleBanVendor } from  '../controllers/adminController.js'
+import { adminLogin,adminLogout,getAllUsers,handleBanUser,handleunBanUser,getAllVendors,handleUnBanVendor,handleBanVendor,getallCarDetails } from  '../controllers/adminController.js'
 import { adminCheckAuth } from '../middleware/adminAuth.js'
 const router=express.Router()
 
@@ -12,4 +12,5 @@ router.put('/userList/unban/:userId',handleunBanUser )
 router.get('/vendorList',getAllVendors)
 router.put('/vendorList/:vendorId',handleBanVendor)
 router.put('/vendorList/unban/:vendorId',handleUnBanVendor)
+router.get('/allcarlist',getallCarDetails)
 export default router

@@ -16,6 +16,10 @@ const userSchema=mongoose.Schema({
     ban:{
         type:Boolean,
         default:false
+    },
+    bookingStatus:{
+        type:Boolean,
+        default:false
     }
     
 })

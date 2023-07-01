@@ -39,33 +39,7 @@ const Navbar = () => {
           </div>
 
           <div className="hidden md:block">
-            <div className="ml-10 flex items-baseline space-x-4">
-              <a
-                href="/#"
-                className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-bold"
-              >
-                Home
-              </a>
            
-
-              <a
-                href="/#"
-                className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-bold"
-              >
-                Contact
-              </a>
-              <a
-                href="/#"
-                className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-bold"
-              >
-                Cars
-              </a>
-              <a
-                href="/#"
-                className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-bold"
-              >
-                About
-              </a>
             <div>
               
              
@@ -77,22 +51,30 @@ const Navbar = () => {
     <p className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
       {user.details.name} {/* Display the name from the user state */}
     </p>
-  
-    <button className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" onClick={handleLogout}>
+    {/* <button type="button" class="py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Login</button> */}
+    {/* <button className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium" onClick={handleLogout}>
       Logout
-    </button>
+    </button> */}
+        <button type="button" class="py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" onClick={handleLogout}>Logout</button>
+
   </div>
 </>
 
                   
                  
                 ) : (
+                  // <Link to={'/login'}>
+                  //   <p className='text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium'>
+                  //     Login
+                  //   </p>
+                  // </Link>
+                  <>
                   <Link to={'/login'}>
-                    <p className='text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium'>
-                      Login
-                    </p>
+                  <button type="button" class="py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 " >  Login  </button>
                   </Link>
-                 
+                  <button type="button" class="py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" >  Register  </button>
+
+                  </>
                 )}
               
             </div>
@@ -133,37 +115,11 @@ const Navbar = () => {
         </div>
         {isOpen && (
           <div className="md:hidden">
-            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-              <a
-                href="/#"
-                className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-              >
-                Home
-              </a>
-              <a
-                href="/#"
-                className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-              >
-                Contact
-              </a>
-              <a
-                href="/#"
-                className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-              >
-                Cars
-              </a>
-              <a
-                href="/#"
-                className="text-gray-300 hover:bg-gray-700 hover:text-white block px-3 py-2 rounded-md text-base font-medium"
-              >
-                About
-              </a>
-              
-            </div>
+            
             
           </div>
         )}
-      </div>
+      
     </nav>
   );
 };

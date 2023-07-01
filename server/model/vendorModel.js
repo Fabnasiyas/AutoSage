@@ -21,6 +21,10 @@ const vendorSchema=mongoose.Schema({
     ban:{
         type:Boolean,
         default:false
+    },
+    pincode:{
+        type:Number,
+        required:true
     }
     
 })
