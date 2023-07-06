@@ -17,6 +17,7 @@ const CarList = () => {
       console.log(error);
     }
   };
+  console.log(cars,'fghfhghjgjkgj');
 
   useEffect(() => {
     fetchCars();
@@ -68,8 +69,9 @@ const CarList = () => {
         </thead>
         <tbody>
           {cars.map((car, index) => (
+           
             <tr
-
+            
               className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
             >
               <th
@@ -90,13 +92,15 @@ const CarList = () => {
               <td className="px-6 py-4">{car.isBooked ? 'Booked' : 'Available'}</td>
               <td className="px-6 py-4">
                 {car.rcImage.map((image, index) => (
-                  <img key={index} src={image.url} alt={`RC Image `} />
+                  <img key={index} src={`http://localhost:5000/images/${image.filename}`}  alt={`RC Image `} />
                 ))}
+
+
               </td>
 
               <td className="px-6 py-4">
                 {car.carImages.map((image, index) => (
-                  <img key={index} src={image.url} alt={`Car Image `} />
+                  <img key={index} src={`http://localhost:5000/images/${image.filename}`}alt={`Car Image `} />
                 ))}
               </td>
               <td>

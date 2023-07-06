@@ -16,5 +16,5 @@ router.post('/addcardetails',multipleUpload.fields([
   ]),postCarRegistration)
 router.post('/editprofile',editProfile)
 router.get('/carlist/:vendorId',getCatLists)
-  
+
 export default router;

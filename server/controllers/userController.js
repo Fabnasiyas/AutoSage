@@ -3,12 +3,17 @@ import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import { randomNumber } from '../helper/RandomNumber.js'
 import { sentOTP } from '../helper/mail.js'
+import carModel from '../model/carModel.js'
 
  export const postSignup=async(req,res)=>{
        
         try {
 
-            let {name,email,password,confirmPassword}=req.body;
+            let {name,email,phoneNumber,password,confirmPassword}=req.body
+            console.log(req.body);
+            // console.log(req.files);
+            // const{aadharCard,drivingLicense}=req.files;
+            console.log(req.body);
             const oldUser=await userModel.findOne({email})
             if(oldUser){
                 res.json({err:true,message:'User already exsist'})
@@ -16,6 +21,8 @@ import { sentOTP } from '../helper/mail.js'
                 if(password==confirmPassword){
                     
                    let otp=randomNumber()
+                   console.log(otp,"user");
+
                    sentOTP(email,otp);
                     const signupToken=jwt.sign({
                         otp:otp,
@@ -42,7 +49,10 @@ import { sentOTP } from '../helper/mail.js'
             }
     }
     export const verifyUserSignup=async(req,res)=>{
-        const {name,email,password,confirmPassword}=req.body
+        const {name,email,phoneNumber,password,confirmPassword}=req.body
+        // const{aadharCard,drivingLicense}=req.files;
+        console.log(req.files);
+
         let otp=req.body.OTP;
         let userToken=req.cookies.signupToken;
          const OtpToken = jwt.verify(userToken,'00f3f20c9fc43a29d4c9b6b3c2a3e18918f0b23a379c152b577ceda3256f3ffa')
@@ -52,6 +62,9 @@ import { sentOTP } from '../helper/mail.js'
             let user= await userModel.create({
                 name,
                 email,
+                // aadharCard,
+                // drivingLicense,
+                phoneNumber,
                 password:bcrypPassword
             });
             const userToken=jwt.sign({
@@ -184,4 +197,45 @@ import { sentOTP } from '../helper/mail.js'
         }).catch(err=>{
             res.json({err:true,message:'something went wrong'})
         })
+    }
+    export const getCars = async (req, res) => {
+      try {
+        const cars = await carModel.find({}).limit(4).skip(1);
+        res.json(cars);
+      } catch (error) {
+        console.log(error);
+        res.status(500).json({ error: 'Internal server error' });
+      }
+    };
+    export const getviewcardetails =async(req,res)=>{
+      try {
+       const carId=req.params.id
+        const car = await carModel.findOne({ _id: carId });
+        res.json(car);
+      } catch (error) {
+        res.status(500).json({ error: 'Internal server error' });
+        console.log(error);
+      }
+    }
+   
+    export const editprofile=async(req,res)=>{
+      try {
+        let {name,phoneNumber,userId}=req.body
+        await userModel.updateOne({ _id: userId }, { $set: { name, phoneNumber} });
+        res.status(200).json({ message: 'Vendor profile updated successfully' });
+      } catch (error) {
+        console.log(error);
+        res.status(500).json({ error: 'An error occurred while updating the vendor profile' });
+      }
+    }
+    export const uploadDocument=async(req,res)=>{
+      try {
+        const {drivingLicense,aadharCard}=req.files;
+        console.log(req.files,'............................');
+        console.log(req.params._id,"888888888888888888");
+        // res.status(200).json({ success: true, message: 'Documents updated successfully' });
+      } catch (error) {
+        // res.status(500).json({ err: true, message: 'Internal server error' });
+
+      }
     }

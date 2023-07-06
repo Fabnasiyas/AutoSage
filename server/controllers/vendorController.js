@@ -10,6 +10,7 @@ export const postSignup=async(req,res)=>{
     try {
 
         let {name,email,phoneNumber,password,pincode,confirmPassword}=req.body;
+
         const oldUser=await vendorModel.findOne({email})
         if(oldUser){
             res.json({err:true,message:'Vendor already exsist'})
@@ -17,6 +18,7 @@ export const postSignup=async(req,res)=>{
             if(password==confirmPassword){
                 
                let otp=randomNumber()
+               console.log(otp);
                sentOTP(email,otp);
                 const signupToken=jwt.sign({
                     otp:otp,
@@ -44,6 +46,7 @@ export const postSignup=async(req,res)=>{
 }
 
 export const verifyVendorSignup=async(req,res)=>{
+  console.log(req.body)
     const {name,email,phoneNumber,pincode,password,confirmPassword}=req.body
     let otp=req.body.OTP;
     let vendorToken=req.cookies.signupToken;
@@ -56,6 +59,8 @@ export const verifyVendorSignup=async(req,res)=>{
             email,
             phoneNumber,
             pincode,
+            location:req.body.location.location,
+            coordinates:req.body.location.coordinates,
             password:bcrypPassword
         });
         const vendorToken=jwt.sign({
@@ -169,4 +174,3 @@ export const vendorLogin = async (req, res) => {
       console.log(error);
     }
   };
-  

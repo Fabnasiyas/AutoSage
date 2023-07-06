@@ -25,6 +25,14 @@ const vendorSchema=mongoose.Schema({
     pincode:{
         type:Number,
         required:true
+    },
+    location:{
+        type:String,
+        required:true
+    },
+    coordinates:{
+        type:Array,
+        require:true
     }
     
 })

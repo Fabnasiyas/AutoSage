@@ -118,6 +118,11 @@ const VendorTable = () => {
       sortable: true,
     },
     {
+      name: 'Location',
+      selector: 'location',
+      sortable: true,
+    },
+    {
       name: 'Banned Status',
       selector: 'ban',
       sortable: true,

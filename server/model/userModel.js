@@ -9,6 +9,10 @@ const userSchema=mongoose.Schema({
         type:String,
         required:true
     },
+    phoneNumber:{
+        type:Number,
+        required:true
+    },
     password:{
         type:String,
         required:true
@@ -20,7 +24,16 @@ const userSchema=mongoose.Schema({
     bookingStatus:{
         type:Boolean,
         default:false
+    },
+    drivingLicense:{
+        type:Array,
+        require:true
+    },
+    aadharCard:{
+        type:Array,
+        require:true
     }
+   
     
 })
 

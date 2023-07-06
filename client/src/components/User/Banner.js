@@ -3,7 +3,7 @@ import carImage from '../../assets/car2.jpeg';
 
 
 const Banner = () => {
-  const bannerHeight = "900px"; // Adjust the height as needed
+  const bannerHeight = "600px"; // Adjust the height as needed
 
   return (
       <div className="relative mt-1" >
