@@ -59,8 +59,8 @@ export const verifyVendorSignup=async(req,res)=>{
             email,
             phoneNumber,
             pincode,
-            location:req.body.location.location,
-            coordinates:req.body.location.coordinates,
+            // location:req.body.location.location,
+            // coordinates:req.body.location.coordinates,
             password:bcrypPassword
         });
         const vendorToken=jwt.sign({
@@ -132,6 +132,7 @@ export const vendorLogin = async (req, res) => {
     try {
       const { model, year, mileage, fuelType, transmissionMode, specifications,  rentPerDay,vendorId } = req.body;
       const { rcImage, carImages } = req.files
+      
       if (!rcImage) {
         return res.status(400).json({ err: true, message: 'rcImage is required' });
       }  
@@ -145,8 +146,12 @@ export const vendorLogin = async (req, res) => {
         specifications,
         rentPerDay,
         rcImage,
-        carImages
+        carImages,
+        location:req.body.location,
+        coordinates:req.body.coordinates,
       });
+
+
   
       res.json({ err: false, message: 'car details added' });
     }

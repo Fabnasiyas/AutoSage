@@ -117,11 +117,7 @@ const VendorTable = () => {
       selector: 'pincode',
       sortable: true,
     },
-    {
-      name: 'Location',
-      selector: 'location',
-      sortable: true,
-    },
+    
     {
       name: 'Banned Status',
       selector: 'ban',

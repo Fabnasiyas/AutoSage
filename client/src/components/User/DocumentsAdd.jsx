@@ -1,5 +1,7 @@
+
+
 import React, { useState } from 'react';
-import { useDispatch ,useSelector} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import axios from '../../axios';
@@ -9,33 +11,41 @@ const AddDocumentPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector(state => state.user.details);
-  const userId=user._id;
-console.log(user,'..................');
-  const [drivingLicense, setDrivingLicense] = useState(null);
-  const [aadharCard, setAadharCard] = useState(null);
+  const userId = user._id;
+
+
+  const [drivingLicense, setDrivingLicense] = useState([]);
+  const [aadharCard, setAadharCard] = useState([]);
 
   const handleDrivingLicenseChange = (e) => {
-    const file = e.target.files;
-    setDrivingLicense(...file);
+    const img = e.target.files;
+    setDrivingLicense([...img]);
   };
 
   const handleAadharCardChange = (e) => {
-    const file = e.target.files;
-    setAadharCard(...file);
+    const img = e.target.files;
+    setAadharCard([...img]);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
     if (drivingLicense) {
-      formData.append('drivingLicense', drivingLicense);
+      drivingLicense.forEach((item) => {
+        formData.append('drivingLicense', item);
+      });
     }
     if (aadharCard) {
-      formData.append('aadharCard', aadharCard);
+      aadharCard.forEach((item) => {
+        formData.append('aadharCard', item);
+      });
     }
-    
+
+    formData.append('userId', userId);
+    console.log(formData,'******************');
+
     try {
-      const response = await axios.post(`/uploadDocuments/${userId}`, formData, {
+      const response = await axios.post('/uploadDocuments', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -76,6 +86,8 @@ console.log(user,'..................');
                 id="drivingLicense"
                 name='drivingLicense'
                 accept="image/*"
+                multiple
+                required
                 onChange={handleDrivingLicenseChange}
                 className="mt-1"
               />
@@ -89,12 +101,16 @@ console.log(user,'..................');
                 id="aadharCard"
                 name='aadharCard'
                 accept="image/*"
+                multiple
+                required
                 onChange={handleAadharCardChange}
                 className="mt-1"
               />
             </div>
             <div className="flex justify-center">
               <button
+                
+             
                 type="submit"
                 className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
               >

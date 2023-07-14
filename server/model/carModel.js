@@ -45,6 +45,14 @@ const carSchema=mongoose.Schema({
     isBooked:{
         type:Boolean,
         default:false
+    },
+    location:{
+        type:String,
+        required:true
+    },
+    coordinates:{
+        type:Array,
+        require:true
     }
     
 })

@@ -14,6 +14,7 @@ const EditProfile = () => {
   const userId=user.details._id;
   const [name, setName] = useState(user.details.name);
   const [phoneNumber, setPhoneNumber] = useState(user.details.phoneNumber);
+  console.log("aaaaaaaaaaaaaaaaaaaaaaaaaa",phoneNumber);
   const handleSubmit = (e) => {
     e.preventDefault();
     if (name.trim() && phoneNumber.trim()) {

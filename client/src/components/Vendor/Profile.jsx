@@ -51,12 +51,7 @@ const ProfilePage = () => {
               </label>
               <p className="mt-1 text-md text-gray-900">{vendor.details.pincode}</p>
             </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Location
-              </label>
-              <p className="mt-1 text-md text-gray-900">{vendor.details.location}</p>
-            </div>
+           
             {/* Edit Profile and Add Car Buttons */}
             <div className="flex">
               <div className="w-1/2">

@@ -9,15 +9,16 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import  Axios  from 'axios';
+import img from '../../assets/car3.webp';
 
 // const mapToken = process.env.MAP_TOKEN;
 const RegisterForm = () => {
   axios.defaults.withCredentials = true;
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [searchValue, setSearchValue] = useState('');
-  const [suggestions, setSuggestions] = useState([]);
-  const [coordinates, setCoordinates] = useState([]);
+  // const [searchValue, setSearchValue] = useState('');
+  // const [suggestions, setSuggestions] = useState([]);
+  // const [coordinates, setCoordinates] = useState([]);
 
   const validationSchema = Yup.object().shape({
     name: Yup.string().required('Name is required'),
@@ -42,8 +43,8 @@ const RegisterForm = () => {
       pincode: '',
       password: '',
       confirmPassword: '',
-      location:'',
-      coordinates: [],
+      // location:'',
+      // coordinates: [],
     },
     validationSchema,
     onSubmit: (values) => {
@@ -58,8 +59,8 @@ const RegisterForm = () => {
             phoneNumber: values.phoneNumber,
             pincode: values.pincode,
             password: values.password,
-            location: searchValue, // Use searchValue directly
-      coordinates: coordinates // Use coordinates state variable
+      //       location: searchValue, // Use searchValue directly
+      // coordinates: coordinates // Use coordinates state variable
           };
           toast.error(response.data.message, {
             position: 'top-center',
@@ -74,47 +75,25 @@ const RegisterForm = () => {
       });
     },
   });
-  const handleSearchChange = (e) => {
-    const { value } = e.target;
-    setSearchValue(value);
-    fetchSuggestions(value);
-  }
-   
-const fetchSuggestions=async(value)=>{
-
-  try {
-    const response = await Axios.get(
-      `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(value)}.json?access_token=`
-    );
-    console.log(response);
-    const suggestions = response.data.features.map((feature) => ({
-      location: feature.place_name,
-      coordinates: feature.center
-    }));
-
-    setSuggestions(suggestions);
-    setCoordinates(response.data.features[0].center); // Store coordinates in state
-
-  } catch (error) {
-    console.error('Error fetching suggestions:', error);
-  }
-};
-console.log("+++++++++++++++++",suggestions)
-const handleSuggestionClick = (suggestion) => {
-  // When a suggestion is clicked, update the search value and clear the suggestions list
-  setSearchValue(suggestion);
-  setSuggestions([]);
-};
+  
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-      <div className="sm:mx-auto sm:w-full sm:max-w-md">
+    <div className="min-h-screen bg-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8"
+    style={{
+      background: `url(${img})`,
+      backgroundSize: '100% auto',
+      backgroundPosition: 'center',
+      backgroundRepeat: 'no-repeat',
+    }}>
+      
+      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+        
+        <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+        <div className="sm:mx-auto sm:w-full sm:max-w-md mb-9">
         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
           Vendor Registration
         </h2>
       </div>
-      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
           <form className="space-y-6" onSubmit={formik.handleSubmit}>
             <div>
               <label htmlFor="name" className="block text-sm font-medium text-gray-700">
@@ -190,28 +169,7 @@ const handleSuggestionClick = (suggestion) => {
               className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             />
 
-            <div style={{ position: 'relative' }}>
-  <input
-    type="text"
-    placeholder="Location"
-    value={searchValue}
-    onChange={handleSearchChange}
-    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-  />
-  {suggestions.length > 0 && (
-    <div className="suggestion-box">
-      {suggestions.map((suggestion) => (
-        <div
-          key={suggestion}
-          onClick={() => handleSuggestionClick(suggestion)}
-          // style={{ cursor: 'pointer' }}
-        >
-          {suggestion.location.substring(0, 20)}
-        </div>
-      ))}
-    </div>
-  )}
-</div>
+            
 
 
             <div>

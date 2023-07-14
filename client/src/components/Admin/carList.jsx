@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import axios from '../../axios';
 
@@ -45,6 +44,9 @@ const AdminCarList = () => {
                 Rent Per Day
               </th>
               <th scope="col" className="px-6 py-3">
+                Location
+              </th>
+              <th scope="col" className="px-6 py-3">
                 Status
               </th>
             </tr>
@@ -58,6 +60,8 @@ const AdminCarList = () => {
                 <td className="px-6 py-4 ">{car.model}</td>
                 <td className="px-6 py-4">{car.year}</td>
                 <td className="px-6 py-4">{car.rentPerDay}</td>
+                <td className="px-6 py-4">{car.location}</td>
+
                 <td className="px-6 py-4">{car.isBooked ? 'Booked' : 'Available'}</td>
               </tr>
             ))}

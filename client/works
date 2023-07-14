@@ -1,3 +1,567 @@
+app.js
+
+
+
+
+// import React from 'react';
+// import Home from './pages/User/HomePage'
+// import {BrowserRouter as Router,Routes,Route} from 'react-router-dom'
+// import LoginPage from './pages/User/LoginPage';
+// import RegisterFormPage from './pages/User/RegisterFormPage';
+// import ResetPass1 from './pages/User/ResetPassPage1'
+// import OtpPage from './components/User/OtpPage';
+// import 'react-toastify/dist/ReactToastify.css';
+// import { ToastContainer } from 'react-toastify';
+// import VendorDashboard from './pages/Vendor/HomePage'
+// import VendorLoginPage from './pages/Vendor/LoginPage'
+// import axios from './axios';
+// import { useSelector, useDispatch } from 'react-redux';
+// import { useEffect } from 'react';
+// import ResetPass2 from './pages/User/ResetPassPage2'
+// import VendorLogin from './pages/Vendor/LoginPage'
+// import VendorRegister from './pages/Vendor/RegisterPage'
+// import VendorOtpPage from './components/Vendor/OtpPage';
+// import AdminLogin from './pages/Admin/LoginPage'
+// import AdminDashboard from './pages/Admin/DashboardPage';
+// import VendorList from './pages/Admin/VendorManagmentPage'
+// import UserManagmentPage from './pages/Admin/UserManagmentPage';
+// // import VerifRestOtp from './pages/User/ResetPassPage2'
+// import Newpassword from './components/User/NewPassword'; 
+// import VendorProfile from './pages/Vendor/ProfilePage' ;
+// import AddCarPage from './pages/Vendor/AddCarPage';
+// import EditProfile from './pages/Vendor/editProfilePage';
+// import CarListPage from './pages/Vendor/VendorCarlistpage'
+// import Carmanagment from './pages/Admin/carManagmentPage'
+// function App() {
+//   const { user,vendor,admin,refresh} = useSelector((state) => state);
+//   axios.defaults.withCredentials = true;
+//   const dispatch = useDispatch();
+
+//   useEffect(() => {
+//     axios.get('/auth/').then((response) => {
+//       console.log("USER:", response.data);
+//       dispatch({ type: 'user', payload: { login: response.data.logged, details: response.data.details } });
+//     }); 
+//     axios.get('/vendor/auth').then((response) => {
+//       console.log("VENDOR: ", response.data);
+//       dispatch({ type: 'vendor', payload: { vendorLog: response.data.logged, details: response.data.details } });
+//     });
+//     axios.get('/admin/auth').then((response) => {
+//       console.log("ADMIN: ", response.data);
+//       dispatch({ type: 'admin', payload: { adminLog: response.data.logged, details: response.data.details } });
+//     });
+//   }, [refresh, dispatch]);
+//   return (
+//     <div className="App">
+// <Router>
+//   <Routes>
+// <Route exact path="/" element={<Home/>} />
+// <Route exact path="/login" element={<LoginPage/>} />
+// <Route exact path="/register" element={<RegisterFormPage/>} />
+// <Route exact path="/otp" element={<OtpPage/>} />
+// <Route exact path="/resetpassword" element={<ResetPass1/>} />
+// <Route exact path='/resetpassotp' element={<ResetPass2/>} />
+// {/* <Router exact path='/verify-otp' element={<VerifRestOtp/>}/> */}
+// <Route exact path="/vendor" element={<VendorLogin/>} />
+// <Route exact path="/vendor/login" element={<VendorLoginPage/>} />
+// <Route exact path="/vendor/register" element={<VendorRegister/>} />
+// <Route exact path="/vendor/otp" element={<VendorOtpPage/>} />
+// <Route exact path='/vendor/vendorhome' element={<VendorDashboard/>} />
+// <Route exact path='/SetNewPassword' element={<Newpassword/>} />
+// <Route exact path="/admin" element={<AdminLogin/>} />
+// <Route exact path="/admin/home" element={<AdminDashboard/>} />
+// <Route exact path="/admin/usermanagment" element={<UserManagmentPage/>} />
+// <Route exact path="/admin/vendormanagment" element={<VendorList/>} />
+// <Route exact path="/vendor/vendorprofile" element={<VendorProfile/>} />
+// <Route exact path="/vendor/addcar" element={<AddCarPage/>} />
+// <Route exact path="/vendor/editprofile" element={<EditProfile/>} />
+// <Route exact path="/vendor/carlist" element={<CarListPage/>} />
+// <Route exact path="/admin/carManagment" element={<Carmanagment/>} />
+
+// </Routes>
+// <ToastContainer />
+
+// </Router>
+      
+      
+//     </div>
+//   );
+// }
+
+// export default App;
+
+
+
+
+
+
+add documrnet
+
+
+
+// import React, { useState } from 'react';
+// import { useDispatch ,useSelector} from 'react-redux';
+// import { useNavigate } from 'react-router-dom';
+// import { toast } from 'react-toastify';
+// import axios from '../../axios';
+
+// const AddDocumentPage = () => {
+//   axios.defaults.withCredentials = true;
+//   const navigate = useNavigate();
+//   const dispatch = useDispatch();
+//   const user = useSelector(state => state.user.details);
+//   const userId=user._id;
+// console.log(user,'..................');
+//   const [drivingLicense, setDrivingLicense] = useState([]);
+//   const [aadharCard, setAadharCard] = useState([]);
+
+//   const handleDrivingLicenseChange = (e) => {
+//     const img = e.target.files;
+//     setDrivingLicense([...img]);
+//   };
+
+//   const handleAadharCardChange = (e) => {
+//     const img = e.target.files;
+//     setAadharCard([...img]);
+//   };
+
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+//     const formData = new FormData();
+//     if (drivingLicense) {
+//       drivingLicense.forEach((item)=>{
+
+//         formData.append('drivingLicense', drivingLicense);
+//       })
+//     }
+//     if (aadharCard) {
+//       aadharCard.forEach((item)=>{
+
+//         formData.append('aadharCard', aadharCard);
+//       })
+//     }
+//     formData.append('userId',userId)
+    
+//     try {
+//       const response = await axios.post('/uploadDocuments', formData, {
+//         headers: {
+//           'Content-Type': 'multipart/form-data',
+//         },
+//       });
+//       if (!response.data.err) {
+//         dispatch({ type: 'refresh' });
+//         console.log('2222222222222222222',response.data);
+//         return navigate('/userprofile');
+//       }
+//     } catch (error) {
+//       if (error.response) {
+//         const errorMessage = error.response.data.message;
+//         toast.error(errorMessage, {
+//           position: 'top-center',
+//         });
+//       } else {
+//         toast.error('An error occurred. Please try again later.', {
+//           position: 'top-center',
+//         });
+//       }
+//     }
+//   };
+
+//   return (
+//     <div className="min-h-screen bg-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+//       <div className="sm:mx-auto sm:w-full sm:max-w-md">
+//         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Add Documents</h2>
+//       </div>
+//       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+//         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+//           <form className="space-y-6" onSubmit={handleSubmit}>
+//             <div className="mb-4">
+//               <label htmlFor="drivingLicense" className="text-gray-700 font-medium">
+//                 Driving License:
+//               </label>
+//               <input
+//                 type="file"
+//                 id="drivingLicense"
+//                 name='drivingLicense'
+//                 accept="image/*"
+//                 multiple
+//                 required
+//                 onChange={handleDrivingLicenseChange}
+//                 className="mt-1"
+//               />
+//             </div>
+//             <div className="mb-4">
+//               <label htmlFor="aadharCard" className="text-gray-700 font-medium">
+//                 Aadhaar Card:
+//               </label>
+//               <input
+//                 type="file"
+//                 id="aadharCard"
+//                 name='aadharCard'
+//                 accept="image/*"
+//                 multiple
+//                 required
+//                 onChange={handleAadharCardChange}
+//                 className="mt-1"
+//               />
+//             </div>
+//             <div className="flex justify-center">
+//               <button
+//                 type="submit"
+//                 className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+//               >
+//                 Upload
+//               </button>
+//             </div>
+//           </form>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default AddDocumentPage;
+
+
+
+
+
+
+
+
+
+
+
+
+
+// import React from 'react';
+// import { useSelector } from 'react-redux';
+// import { Link } from 'react-router-dom';
+
+// const ProfilePage = () => {
+//   const user = useSelector(state => state.user.details);
+
+//   return (
+//     if(user){
+//     <div className="flex min-h-screen mt-2">
+//       <div className="lg:w-1/3 p-8 bg-gray-100 flex flex-col justify-center">
+//         <div className="text-center">
+//           {/* User details */}
+//           <p><strong>Name:</strong> {user.name}</p>
+//           <p><strong>Email:</strong> {user.email}</p>
+//           <p><strong>Phone Number:</strong> {user.phoneNumber}</p>
+//           <Link to='/adddocuments'>
+//           <button className="mt-2 px-4 py-2 bg-blue-500 text-white rounded-md">Add Document</button>
+//           </Link>
+//           <Link to='/edituserProfile'>
+//           <button className="mt-2 px-4 py-2 bg-gray-500 text-white rounded-md ml-2">Edit</button>
+//           </Link>
+//         </div>
+//       </div>
+//       <div className="w-full lg:w-2/3 p-8">
+//         <h2 className="text-2xl font-bold">Documents</h2>
+//         <table className="w-full mt-4">
+//           <thead>
+//             <tr>
+//               <th className="px-4 py-2 bg-gray-200">Document Name</th>
+//               <th className="px-4 py-2 bg-gray-200">Category</th>
+//               <th className="px-4 py-2 bg-gray-200">Status</th>
+//             </tr>
+//           </thead>
+//           <tbody>
+//             <tr>
+//               <td className="px-4 py-2">Document 1</td>
+//               <td className="px-4 py-2">Category 1</td>
+//               <td className="px-4 py-2">Approved</td>
+//             </tr>
+//             <tr>
+//               <td className="px-4 py-2">Document 2</td>
+//               <td className="px-4 py-2">Category 2</td>
+//               <td className="px-4 py-2">Pending</td>
+//             </tr>
+//             {/* Add more rows as needed */}
+//           </tbody>
+//         </table>
+//       </div>
+//     </div>
+//     }
+//   );
+// }
+
+// export default ProfilePage;
+
+
+
+
+
+
+
+
+
+
+// import React from 'react';
+// import { useSelector } from 'react-redux';
+
+// const ProfilePage = () => {
+//   const {user}=useSelector(state=>state.user)
+//   console.log(user,'0000000000000000000000000000000000000');
+//   return (
+//     <div className="flex min-h-screen mt-2">
+//       <div className=" lg:w-1/3 p-8 bg-gray-100 flex flex-col justify-center">
+        
+//         <div className="text-center">
+//           {/* User details */}
+//           <p><strong>Name:</strong> John Doe</p>
+//           <p><strong>Email:</strong> john@example.com</p>
+//           <p><strong>Location:</strong> New York, USA</p>
+//           <button className="mt-2 px-4 py-2 bg-blue-500 text-white rounded-md">Add Document</button>
+//           <button className="mt-2 px-4 py-2 bg-gray-500 text-white rounded-md ml-2">Edit</button>
+//         </div>
+//       </div>
+//       <div className="w-full lg:w-2/3 p-8">
+//         <h2 className="text-2xl font-bold">Documents</h2>
+//         <table className="w-full mt-4">
+//           <thead>
+//             <tr>
+//               <th className="px-4 py-2 bg-gray-200">Document Name</th>
+//               <th className="px-4 py-2 bg-gray-200">Category</th>
+//               <th className="px-4 py-2 bg-gray-200">Status</th>
+//             </tr>
+//           </thead>
+//           <tbody>
+//             <tr>
+//               <td className="px-4 py-2">Document 1</td>
+//               <td className="px-4 py-2">Category 1</td>
+//               <td className="px-4 py-2">Approved</td>
+//             </tr>
+//             <tr>
+//               <td className="px-4 py-2">Document 2</td>
+//               <td className="px-4 py-2">Category 2</td>
+//               <td className="px-4 py-2">Pending</td>
+//             </tr>
+//             {/* Add more rows as needed */}
+//           </tbody>
+//         </table>
+//       </div>
+//     </div>
+//   );
+// }
+
+// export default ProfilePage;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div className="pagination flex justify-center mt-4">
+  {currentPage > 1 && (
+    <button
+      onClick={() => handlePageChange(currentPage - 1)}
+      className="pagination-button px-2 py-1 mx-1 rounded bg-white text-gray-800"
+    >
+      <svg
+        className="w-4 h-4 fill-current"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 20 20"
+        fill="currentColor"
+      >
+        <path
+          fillRule="evenodd"
+          d="M10.707 14.707a1 1 0 0 1-1.414 0l-4-4a1 1 0 0 1 0-1.414l4-4a1 1 0 1 1 1.414 1.414L7.414 9H16a1 1 0 0 1 0 2H7.414l3.293 3.293a1 1 0 0 1 0 1.414z"
+          clipRule="evenodd"
+        />
+      </svg>
+    </button>
+  )}
+  {pageNumbers.map((pageNumber) => (
+    <button
+      key={pageNumber}
+      onClick={() => handlePageChange(pageNumber)}
+      className={`pagination-button px-2 py-1 mx-1 rounded ${
+        currentPage === pageNumber ? "bg-blue-500 text-white" : "bg-white text-gray-800"
+      }`}
+    >
+      {pageNumber}
+    </button>
+  ))}
+  {currentPage < totalPages && (
+    <button
+      onClick={() => handlePageChange(currentPage + 1)}
+      className="pagination-button px-2 py-1 mx-1 rounded bg-white text-gray-800"
+    >
+      <svg
+        className="w-4 h-4 fill-current"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 20 20"
+        fill="currentColor"
+      >
+        <path
+          fillRule="evenodd"
+          d="M9.293 5.293a1 1 0 0 1 1.414 0l4 4a1 1 0 0 1 0 1.414l-4 4a1 1 0 0 1-1.414-1.414L12.586 11H4a1 1 0 0 1 0-2h8.586l-3.293-3.293a1 1 0 0 1 0-1.414z"
+          clipRule="evenodd"
+        />
+      </svg>
+    </button>
+  )}
+</div>
+
+
+
+
+
+
+
+// import React, { useEffect, useState } from 'react';
+// import { FaCar, FaCog, FaGasPump } from 'react-icons/fa';
+// import axios from '../../axios';
+
+// const Card = () => {
+
+//     const [cars, setCars] = useState([])
+//     const fetchCars = async () => {
+//         try {
+//             const response = await axios.get('/getcars');
+//             console.log('+++++++++++++++++++++++++++++++++++++++', response);
+//             if (!response.data.err) {
+//                 setCars(response.data)
+//                 console.log(response.data, "12346");
+//             }
+//         } catch (error) {
+//             console.log(error);
+//         }
+//     }
+//     useEffect(() => {
+//         fetchCars()
+//     }, []);
+//     console.log(cars, "cars");
+//     return (
+
+//         <>
+//             {cars.map((car, index) => (
+//                 <div className="flex flex-col items-center max-w-xs bg-white shadow-md rounded-lg overflow-hidden">
+
+//                     <img src={`http://localhost:5000/images/${car.carImages[0].filename}`} alt={`Car Image `} className="object-cover w-full h-40" />
+
+//                     <div className="flex flex-col items-center p-4">
+//                         <h2 className="text-lg font-semibold text-center">{car.model}</h2>
+//                         <p className="mt-2">{car.rentPerDay}/Days</p>
+//                         <div className="flex items-center mt-4">
+//                             <div className="flex items-center mr-2">
+//                                 <FaCar className="mr-1" />
+//                                 <p className="mt-1 text-sm">Model-{car.year}</p>
+//                             </div>
+//                             <div className="flex items-center mr-2">
+//                                 <FaCog className="mx-1" />
+//                                 <p className="mt-1 text-sm">{car.specifications}</p>
+//                             </div>
+//                             <div className="flex items-center">
+//                                 <FaGasPump className="mx-1" />
+//                                 <p className="mt-1 text-sm">{car.mileage} kmpl</p>
+//                             </div>
+//                         </div>
+//                         <div className="mt-4 flex space-x-2">
+//                             <button className="px-3 py-1 bg-blue-500 hover:bg-blue-600 text-white rounded">
+//                                 Book Now
+//                             </button>
+//                             <button className="px-3 py-1 bg-gray-500 hover:bg-gray-600 text-white rounded">
+//                                 Details
+//                             </button>
+//                         </div>
+//                     </div>
+//                 </div>
+
+//             ))}
+//         </>
+//     );
+// };
+
+// export default Card;
+// import React, { useEffect, useState } from 'react';
+// import { FaCar, FaCog, FaGasPump } from 'react-icons/fa';
+// import axios from '../../axios';
+
+// const Card = () => {
+//   const [cars, setCars] = useState([]);
+//   const fetchCars = async () => {
+//     try {
+//       const response = await axios.get('/getcars');
+//       if (!response.data.err) {
+//         setCars(response.data);
+//       }
+//     } catch (error) {
+//       console.log(error);
+//     }
+//   };
+
+//   useEffect(() => {
+//     fetchCars();
+//   }, []);
+
+//   return (
+//     <div className="flex flex-wrap justify-center mt-10">
+//       {cars.map((car, index) => (
+//         <div
+//           key={index}
+//           className="flex flex-col items-center max-w-xs bg-white shadow-md rounded-lg overflow-hidden mx-4 my-4"
+//         >
+//           <img
+//             src={`http://localhost:5000/images/${car.carImages[0].filename}`}
+//             alt={`carImage`}
+//             className="object-cover w-full h-40"
+//           />
+//           <div className="flex flex-col items-center p-4">
+//             <h2 className="text-lg font-semibold text-center">{car.model}</h2>
+//             <p className="mt-2">{car.rentPerDay} / Days</p>
+//             <div className="flex items-center mt-4">
+//               <div className="flex items-center mr-2">
+//                 <FaCar className="mr-1" />
+//                 <p className="mt-1 text-sm">Model-{car.year}</p>
+//               </div>
+//               <div className="flex items-center mr-2">
+//                 <FaCog className="mx-1" />
+//                 <p className="mt-1 text-sm">{car.specifications}</p>
+//               </div>
+//               <div className="flex items-center">
+//                 <FaGasPump className="mx-1" />
+//                 <p className="mt-1 text-sm">{car.mileage} kmpl</p>
+//               </div>
+//             </div>
+//             <div className="mt-4 flex space-x-2">
+//               <button className="px-3 py-1 bg-blue-500 hover:bg-blue-600 text-white rounded">
+//                 Book Now
+//               </button>
+//               <button className="px-3 py-1 bg-gray-500 hover:bg-gray-600 text-white rounded">
+//                 Details
+//               </button>
+//             </div>
+//           </div>
+//         </div>
+//       ))}
+//     </div>
+//   );
+// };
+
+// export default Card;
+
+
+
+
 import React, { useState } from 'react'
 import axios from '../../axios'
 import {  useNavigate } from 'react-router-dom'

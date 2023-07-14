@@ -27,6 +27,7 @@ const Navbar = () => {
       }
     })
   }
+  
   return (
     
     <nav className="bg-blue-900  ">

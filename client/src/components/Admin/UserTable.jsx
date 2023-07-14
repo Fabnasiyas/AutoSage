@@ -90,6 +90,7 @@ const UserTable = () => {
       selector: 'email',
       sortable: true,
     },
+
     {
       name: 'Banned Status',
       cell: (row) => (row.ban ? 'Banned' : 'Active'),
@@ -120,7 +121,7 @@ const UserTable = () => {
   ];
 
   return (
-    <div className="  rounded-md"   style={{paddingRight:'300px',paddingTop:'200px',paddingLeft:'50px'}}
+    <div className="  rounded-md" style={{ paddingRight: '300px', paddingTop: '200px', paddingLeft: '50px' }}
     >
       <div className="mb-4" >
         <input
