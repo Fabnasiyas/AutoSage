@@ -37,7 +37,7 @@ import Carmanagment from './pages/Admin/carManagmentPage';
 import PaymentsuccessPage from './components/User/Paymentsuccess'
 import ErrorPage from './components/User/404'
 import 'react-toastify/dist/ReactToastify.css';
-
+import BookPage from './pages/Vendor/BookingListPage'
 function App() {
   const { user, vendor, admin, refresh } = useSelector((state) => state);
   axios.defaults.withCredentials = true;
@@ -176,6 +176,12 @@ function App() {
             path="/vendor/carlist"
             element={<ProtectedVendorRoute element={<CarListPage />} />}
           />
+          <Route
+            exact
+            path="/vendor/bookings"
+            element={<ProtectedVendorRoute element={<BookPage />} />}
+          />
+          
           
         </Routes>
         <ToastContainer />

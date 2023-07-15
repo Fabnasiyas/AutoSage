@@ -5,6 +5,8 @@ import { randomNumber } from '../helper/RandomNumber.js'
 import { sentOTP } from '../helper/mail.js'
 import carModel from '../model/carModel.js'
 import bookingModel from '../model/bookingModel.js'
+import { sendCancelMail } from '../helper/bookingcancelMail.js';
+
 export const postSignup = async (req, res) => {
 
   try {
@@ -202,16 +204,34 @@ export const getCars = async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 };
+// export const getviewcardetails = async (req, res) => {
+//   try {
+//     const carId = req.params.id
+//     const car = await carModel.findOne({ _id: carId });
+//     // const booked=await bookingModel.find({ carId: carId });
+//     res.json(car);
+//   } catch (error) {
+//     res.status(500).json({ error: 'Internal server error' });
+//     console.log(error);
+//   }
+// }
 export const getviewcardetails = async (req, res) => {
   try {
-    const carId = req.params.id
+    const carId = req.params.id;
     const car = await carModel.findOne({ _id: carId });
-    res.json(car);
+    const books = await bookingModel.findOne({ carId: carId });
+
+   
+const data={
+  car:car,
+  books:books
+}
+    res.json(data);
   } catch (error) {
     res.status(500).json({ error: 'Internal server error' });
     console.log(error);
   }
-}
+};
 
 export const editprofile = async (req, res) => {
   try {
@@ -261,9 +281,60 @@ export const bookCar=async (req,res)=>{
       balance,
       totalAmount
     });
+      // Update isBooked field in carmodel
+      const updatedCar = await carModel.findByIdAndUpdate(carId, { isBooked: true }, { new: true });
+
+      res.status(200).json({ booking, updatedCar });
 
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: 'Internal server error' });
   }
 }
+export const getUserbookings=async (req,res)=>{
+  try {
+    const userId = req.query.userId
+      
+    const userbookings = await bookingModel.find({ userId });
+
+    res.json(userbookings);
+    
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+};
+export const cancelBooking = async (req, res) => {
+  try {
+    const { bookingId, message } = req.body;
+    console.log(req.body);
+    const booking = await bookingModel.findById(bookingId);
+    console.log(booking, 'bookinggg');
+    if (!booking) {
+      return res.status(404).json({ error: 'Booking not found' });
+    }
+
+    const userId = booking.userId;
+    const user = await userModel.findById(userId);
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    const userEmail = user.email;
+
+    const carUpdate = await carModel.updateOne(
+      { _id: booking.carId },
+      { $set: { isBooked: false } }
+    );
+    if (carUpdate.nModified === 0) {
+      return res.status(404).json({ error: 'Car not found' });
+    }
+
+    // Send cancellation email to the user
+    await sendCancelMail(userEmail, bookingId, message);
+
+    res.json({ message: 'Booking cancelled and email sent' });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: 'An error occurred' });
+  }
+};

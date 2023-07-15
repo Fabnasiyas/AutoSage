@@ -17,7 +17,7 @@ const Home = () => {
   const menus = [
     { name: "dashboard", link: "/", icon: MdOutlineDashboard , margin: true },
     { name: "Profile", link: "/vendor/vendorprofile", icon: AiOutlineUser },
-    { name: "Bookings", link: "/", icon: TbReportAnalytics},
+    { name: "Bookings", link: "/vendor/bookings", icon: TbReportAnalytics},
     { name: "My Cars", link: "/vendor/carlist", icon: FiFolder },
 
     { name: "Logout", link: "/vendor/logout", icon: RiSettings4Line },

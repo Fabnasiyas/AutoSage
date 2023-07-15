@@ -1,6 +1,6 @@
 import express from 'express'
 const router=express.Router()
-import  { postSignup,verifyUserSignup ,resendOtp,userLogin,userLogout,resetPassword, VerifyResetOtp,setpassword,getCars,getviewcardetails,editprofile,uploadDocument,getallCars,bookCar} from '../controllers/userController.js'
+import  { postSignup,verifyUserSignup ,resendOtp,userLogin,userLogout,resetPassword, VerifyResetOtp,setpassword,getCars,getviewcardetails,editprofile,uploadDocument,getallCars,bookCar,getUserbookings,cancelBooking} from '../controllers/userController.js'
 import { userCheckAuth } from '../middleware/userAuth.js';
 import multipleUpload from '../helper/multer.js';
 
@@ -23,4 +23,6 @@ router.post('/uploadDocuments',multipleUpload.fields([{
 ]),uploadDocument)
 router.get('/getallcarlist',getallCars)
 router.post('/bookings',bookCar)
+router.get('/userbookings',getUserbookings)
+router.post('/cancelBooking',cancelBooking)
 export default router

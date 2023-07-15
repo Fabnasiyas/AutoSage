@@ -4,7 +4,8 @@ import jwt from 'jsonwebtoken'
 import { randomNumber } from '../helper/RandomNumber.js'
 import { sentOTP } from '../helper/mail.js'
 import carModel from '../model/carModel.js'
-
+import bookingModel from '../model/bookingModel.js'
+import { sendCancelMail } from '../helper/bookingcancelMail.js';
 export const postSignup=async(req,res)=>{
        
     try {
@@ -170,7 +171,7 @@ export const vendorLogin = async (req, res) => {
       res.status(500).json({ error: 'An error occurred while updating the vendor profile' });
     }
   }
-  export const getCatLists = async (req, res) => {
+  export const getCarLists = async (req, res) => {
     try {
       const vendorid = req.params.vendorId;
       const cars = await carModel.find({ vendorId: vendorid }).lean();
@@ -179,3 +180,38 @@ export const vendorLogin = async (req, res) => {
       console.log(error);
     }
   };
+  export const getBookings = async (req, res) => {
+    try {
+      const vendorId = req.query.vendorId;
+      
+      const bookings = await bookingModel.find({ vendorId });
+  
+      res.json(bookings);
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ error: "An error occurred" });
+    }
+  };
+ export const updateStatus=async(req,res)=>{
+  try {
+    const { bookingId } = req.params;
+console.log(bookingId);
+const booking = await bookingModel.findById(bookingId);
+   // Update the car's isBooked status to false
+   const car = await carModel.findOneAndUpdate(
+    { _id: booking.carId },
+    { $set: { isBooked: false } },
+    { new: true }
+  );
+
+    if (!car) {
+      return res.status(404).json({ error: 'Car not found' });
+    }
+
+    // Return the updated car as the response
+    res.json(car);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: 'An error occurred' });
+  }
+};
