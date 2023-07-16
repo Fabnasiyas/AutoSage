@@ -349,9 +349,7 @@ const CarDetailsPage = () => {
   const doc = user && Array.isArray(user.drivingLicense) && Array.isArray(user.aadharCard)
     ? [...user.drivingLicense, ...user.aadharCard]
     : null;
-  console.log('====================================');
-  console.log(doc);
-  console.log('====================================');
+  
 
 
   const [dropoffDateAvailable, setDropoffDateAvailable] = useState(null); // New state variable
