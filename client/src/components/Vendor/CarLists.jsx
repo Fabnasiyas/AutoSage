@@ -1,5 +1,7 @@
+
 import React, { useEffect, useState } from "react";
 import axios from "../../axios";
+import DataTable from "react-data-table-component";
 import { useSelector } from 'react-redux';
 
 const CarList = () => {
@@ -17,100 +19,130 @@ const CarList = () => {
       console.log(error);
     }
   };
-  console.log(cars,'fghfhghjgjkgj');
 
   useEffect(() => {
     fetchCars();
   }, []);
-  return (
-    <div className="relative overflow-x-auto" style={{ paddingTop: '100px', paddingRight: '100px' }}>
-      <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-          <tr>
-            <th scope="col" className="px-6 py-3">
-              No
-            </th>
-            <th scope="col" className="px-6 py-3">
-              Car Id
-            </th>
-            <th scope="col" className="px-6 py-3">
-              Car Model
-            </th>
-            <th scope="col" className="px-6 py-3">
-              Year
-            </th>
-            <th scope="col" className="px-6 py-3">
-              Mileage
-            </th>
-            <th scope="col" className="px-6 py-3">
-              fuel Type
-            </th>
-            <th scope="col" className="px-6 py-3">
-              Transmission Mode
-            </th>
-            <th scope="col" className="px-6 py-3">
-              Specification
-            </th>
-            <th scope="col" className="px-6 py-3">
-              Rent Per day
-            </th>
-            <th scope="col" className="px-6 py-3">
-              Status
-            </th>
-            <th scope="col" className="px-6 py-3">
-              RC Image
-            </th>
-            <th scope="col" className="px-6 py-3">
-              car Images
-            </th>
 
-            <th>Option</th>
-          </tr>
-        </thead>
-        <tbody>
-          {cars.map((car, index) => (
-           
-            <tr
-            
-              className="bg-white border-b dark:bg-gray-800 dark:border-gray-700"
-            >
-              <th
-                key={index + 1}
-                scope="row"
-                className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-              >
-              </th>
-              <td className="px-6 py-4">{car._id}</td>
-              <td className="px-6 py-4">{car.model}</td>
-              <td className="px-6 py-4">{car.year}</td>
-              <td className="px-6 py-4">{car.mileage} kmpl</td>
-              <td className="px-6 py-4">{car.fuelType}</td>
-              <td className="px-6 py-4">{car.transmissionMode}</td>
-
-              <td className="px-6 py-4">{car.specifications}</td>
-              <td className="px-6 py-4">{car.rentPerDay}</td>
-              <td className="px-6 py-4">{car.isBooked ? 'Booked' : 'Available'}</td>
-              <td className="px-6 py-4">
-                {car.rcImage.map((image, index) => (
-                  <img key={index} src={`http://localhost:5000/images/${image.filename}`}  alt={`RC Image `} />
-                ))}
-
-
-              </td>
-
-              <td className="px-6 py-4">
-                {car.carImages.map((image, index) => (
-                  <img key={index} src={`http://localhost:5000/images/${image.filename}`}alt={`Car Image `} />
-                ))}
-              </td>
-              <td>
-                <button className="text-red-900">Edit</button>
-              </td>
-
-            </tr>
+  const columns = [
+    {
+      name: "No",
+      selector: (row, index) => index + 1,
+      sortable: true,
+    },
+    {
+      name: "Car Id",
+      selector: "_id",
+      sortable: true,
+    },
+    {
+      name: "Car Model",
+      selector: "model",
+      sortable: true,
+    },
+    {
+      name: "Year",
+      selector: "year",
+      sortable: true,
+    },
+    {
+      name: "Mileage",
+      selector: "mileage",
+      sortable: true,
+      format: (row) => `${row.mileage} kmpl`,
+    },
+    {
+      name: "Fuel Type",
+      selector: "fuelType",
+      sortable: true,
+    },
+    {
+      name: "Transmission Mode",
+      selector: "transmissionMode",
+      sortable: true,
+    },
+    {
+      name: "Specification",
+      selector: "specifications",
+      sortable: true,
+    },
+    {
+      name: "Rent Per day",
+      selector: "rentPerDay",
+      sortable: true,
+    },
+    {
+      name: "Status",
+      selector: "isBooked",
+      sortable: true,
+      format: (row) => (row.isBooked ? "Booked" : "Available"),
+    },
+    {
+      name: "RC Image",
+      cell: (row) => (
+        <>
+          {row.rcImage.map((image, index) => (
+            <img
+              key={index}
+              src={`http://localhost:5000/images/${image.filename}`}
+              alt={`RC Image`}
+            />
           ))}
-        </tbody>
-      </table>
+        </>
+      ),
+    },
+    {
+      name: "Car Images",
+      cell: (row) => (
+        <>
+          {row.carImages.map((image, index) => (
+            <img
+              key={index}
+              src={`http://localhost:5000/images/${image.filename}`}
+              alt={`Car Image`}
+            />
+          ))}
+        </>
+      ),
+    },
+    {
+      name: "Option",
+      cell: () => <button className="text-red-900">Edit</button>,
+    },
+  ];
+
+  return (
+    <div
+      className="relative overflow-x-auto rounded-md"
+      style={{ paddingRight: "300px", paddingTop: "100px" }}
+    >
+      <DataTable
+        columns={columns}
+        data={cars}
+        pagination
+        highlightOnHover
+        noHeader
+        striped
+        responsive
+        customStyles={{
+          table: {
+            marginBottom: 0,
+          },
+          header: {
+            fontSize: "1rem",
+            fontWeight: "bold",
+            backgroundColor: "#F3F4F6",
+            color: "#111827",
+            paddingTop: "12px",
+            paddingBottom: "12px",
+          },
+          rows: {
+            style: {
+              minHeight: "56px", // Adjust the row height as needed
+            },
+          },
+        }}
+      />
     </div>
   );
 };

@@ -18,6 +18,7 @@ const Sidebar = () => {
     { name: "User Managment", link: "/admin/usermanagment", icon: AiOutlineUser },
     { name: "Vendor Managment", link: "/admin/vendormanagment", icon: TbReportAnalytics },
     { name: "Registered Cars", link: "/admin/carManagment", icon: FiFolder },
+    { name: "Bookings", link: "/admin/bookings", icon: TbReportAnalytics},
     { name: "Setting", link: "/", icon: RiSettings4Line },
 
   ];

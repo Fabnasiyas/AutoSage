@@ -10,6 +10,7 @@ import {
   handleUnBanVendor,
   handleBanVendor,
   getallCarDetails,
+  getallBookings,
 } from '../controllers/adminController.js';
 import { adminCheckAuth } from '../middleware/adminAuth.js';
 
@@ -29,5 +30,5 @@ router.get('/vendorList', adminCheckAuth, getAllVendors);
 router.put('/vendorList/:vendorId', adminCheckAuth, handleBanVendor);
 router.put('/vendorList/unban/:vendorId', adminCheckAuth, handleUnBanVendor);
 router.get('/allcarlist', adminCheckAuth, getallCarDetails);
-
+router.get('/bookingList',adminCheckAuth,getallBookings)
 export default router;

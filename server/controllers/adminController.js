@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 import userModel from '../model/userModel.js';
 import vendorModel from '../model/vendorModel.js'
 import carModel from '../model/carModel.js';
-
+import bookingModel from '../model/bookingModel.js'
 export const  adminLogin=async(req,res)=>{
     try {
         let {email,password}=req.body;
@@ -119,5 +119,14 @@ export const adminLogout = (req, res) => {
     } catch (error) {
       console.log(error);
     }
+  };
+  export const getallBookings=async(req,res)=>{
+try {
+ const Bookings=await bookingModel.find({}).lean() 
+res.json(Bookings)
+
+} catch (error) {
+  console.log(error); 
+}
   }
   

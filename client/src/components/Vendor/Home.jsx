@@ -5,6 +5,7 @@ import { RiSettings4Line } from "react-icons/ri";
 import { TbReportAnalytics } from "react-icons/tb";
 import { AiOutlineUser } from "react-icons/ai";
 import {  FiFolder} from "react-icons/fi";
+import { FaCar } from 'react-icons/fa';
 
 import { Link } from "react-router-dom";
 import { useSelector,useDispatch } from 'react-redux';
@@ -19,6 +20,7 @@ const Home = () => {
     { name: "Profile", link: "/vendor/vendorprofile", icon: AiOutlineUser },
     { name: "Bookings", link: "/vendor/bookings", icon: TbReportAnalytics},
     { name: "My Cars", link: "/vendor/carlist", icon: FiFolder },
+    { name: "Add car", link: "/vendor/addcar", icon: FaCar },
 
     { name: "Logout", link: "/vendor/logout", icon: RiSettings4Line },
   ];
