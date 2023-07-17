@@ -11,15 +11,10 @@ const BookTable = () => {
   const fetchBookList = async () => {
     try {
       const response = await axios.get('/admin/bookingList');
-      console.log('====================================');
-      console.log(response.data);
-      console.log('====================================');
       if (!response.data.err) {
         setBook(response.data);
       }
-      console.log('====================================');
-      console.log(book);
-      console.log('====================================');
+      
     } catch (error) {
       console.log(error);
     }

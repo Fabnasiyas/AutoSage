@@ -5,10 +5,28 @@ import userModel from '../model/userModel.js';
 import vendorModel from '../model/vendorModel.js'
 import carModel from '../model/carModel.js';
 import bookingModel from '../model/bookingModel.js'
+
+
+
+ export const adminCheckAuth=async(req,res)=>{
+  console.log('====================================');
+  console.log('jdfkjdjkfkjdkjfdj');
+  console.log('====================================');
+        const token = req.cookies.adminToken;
+        if(token){
+        const verifyJwt= jwt.verify(token,'00f3f20c9fc43a29d4c9b6b3c2a3e18918f0b23a379c152b577ceda3256f3ffa');
+        const admin=await adminModel.find({_id:verifyJwt.id})
+        res.json({logged:true,details:admin})
+        }else{
+         res.json({logged:false,err:true,message:'No token'})
+        }
+     }
 export const  adminLogin=async(req,res)=>{
     try {
         let {email,password}=req.body;
+        console.log('enter hereeee');
         let account=await adminModel.findOne({email:email})
+        console.log(account,'accounttttt');
         if(account){
             let status= await bcrypt.compare(password,account.password)
             if(status){

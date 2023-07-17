@@ -48,7 +48,9 @@ function App() {
     axios.get('/auth/').then((response) => {
       console.log("USER:", response.data);
       dispatch({ type: 'user', payload: { login: response.data.logged, details: response.data.details } });
-    }); 
+    }).catch((err)=>{
+      console.log(err)
+    })
     axios.get('/vendor/auth').then((response) => {
       console.log("VENDOR: ", response.data);
       dispatch({ type: 'vendor', payload: { vendorLog: response.data.logged, details: response.data.details } });
@@ -60,17 +62,32 @@ function App() {
   }, [refresh, dispatch ]);
 
   const ProtectedUserRoute = ({ element, path }) => {
+    if (user.login === null) {
+      return null; // or you can show a loading spinner or another component
+    }
+  
     return user.login ? element : <Navigate to="/login" />;
   };
-
+  
   const ProtectedVendorRoute = ({ element, path }) => {
+    
+    if (!vendor.vendorLog) {
+      return null; // or show a loading spinner or another component
+    }
   
     return vendor.vendorLog ? element : <Navigate to="/vendor/login" />;
   };
+  
 
   const ProtectedAdminRoute = ({ element, path }) => {
+    console.log(admin.adminLog,"+++++++++")
+    if (!admin.adminLog ) {
+      return null; // or show a loading spinner or another component
+    }
+  
     return admin.adminLog ? element : <Navigate to="/admin" />;
   };
+  
 
   return (
     <div className="App">

@@ -18,9 +18,9 @@ app.use(cookieParser());
 app.use(express.static(path.resolve()+"/public"))
 
 
-app.use('/',userRoute)
 app.use('/vendor',vendorRoute)
 app.use('/admin',adminRoute)
+app.use('/',userRoute)
 app.listen(port,()=>{
     console.log(`Node Js Server Started at Port ${port}`);
 })

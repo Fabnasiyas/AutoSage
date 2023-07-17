@@ -16,7 +16,7 @@ const Login = () => {
     if (email.trim() && password.trim()) {
       try {
         const response = await axios.post('/admin/login', { email, password });
-        console.log(response.data);
+        console.log(response.data,'rsp dataa');
         if (!response.data.err) {    
           dispatch({type:'refresh'})        
          return navigate('/admin/home');
