@@ -544,6 +544,9 @@ const CarDetailsPage = () => {
                 <strong>Car Model:</strong> {car.model}
               </p>
               <p>
+                <strong>Location:</strong> {car.location}
+              </p>
+              <p>
                 <strong>Year:</strong> {car.year}
               </p>
               <p>
@@ -696,7 +699,22 @@ const CarDetailsPage = () => {
               </PayPalScriptProvider>
             </>
           )}
-          {/* <p className="text-center">Amount to Pay: {bookingData.amountToPay}</p>
+        
+          <button
+            className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded w-full"
+            onClick={closeModal}
+          >
+            Close
+          </button>
+        </div>
+      </Modal>
+    </>
+  );
+};
+
+export default CarDetailsPage;
+<>
+  {/* <p className="text-center">Amount to Pay: {bookingData.amountToPay}</p>
           <PayPalScriptProvider
             options={{
               'client-id': 'Abhp9DIDpqLlpmwjLxCUOBJhsJPefegAgL7aTXjA8Q6CBkR5oV4IeeRI4EpMXjdRjPmdWDWMmgK0T0m2',
@@ -734,17 +752,4 @@ const CarDetailsPage = () => {
                 closeModal();
               }}
             />
-          </PayPalScriptProvider> */}
-          <button
-            className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded w-full"
-            onClick={closeModal}
-          >
-            Close
-          </button>
-        </div>
-      </Modal>
-    </>
-  );
-};
-
-export default CarDetailsPage;
+          </PayPalScriptProvider> */}</>

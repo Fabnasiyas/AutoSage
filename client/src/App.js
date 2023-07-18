@@ -115,12 +115,12 @@ function App() {
 
           <Route
             exact
-            path="/userprofile"
+            path="/profile"
             element={<ProtectedUserRoute element={<UserProfile />} />}
           />
           <Route
             exact
-            path="/edituserProfile"
+            path="/editProfile"
             element={<ProtectedUserRoute element={<UserEditProfilePage />} />}
           />
            <Route

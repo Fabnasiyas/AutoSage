@@ -182,6 +182,7 @@ export const resetPassword = async (req, res) => {
   let oldUser = await userModel.findOne({ email: email })
   if (oldUser) {
     let otp = randomNumber()
+    console.log("Reset Password OTP",otp);
     sentOTP(email, otp)
     const userToken = jwt.sign({
       otp: otp,
@@ -319,25 +320,46 @@ export const bookCar=async (req,res)=>{
     res.status(500).json({ error: 'Internal server error' });
   }
 }
-export const getUserbookings=async (req,res)=>{
+// export const getUserbookings=async (req,res)=>{
+//   try {
+//     const userId = req.query.userId
+      
+//     const userbookings = await bookingModel.find({ userId });
+
+//     res.json(userbookings);
+    
+//   } catch (error) {
+//     console.log(error);
+//     res.status(500).json({ error: 'Internal server error' });
+//   }
+// };
+
+export const getUserbookings = async (req, res) => {
   try {
-    const userId = req.query.userId
+    const userId = req.query.userId;
       
     const userbookings = await bookingModel.find({ userId });
 
-    res.json(userbookings);
+    const bookingsWithCarDetails = await Promise.all(
+      userbookings.map(async (booking) => {
+        const carData = await carModel.findById(booking.carId);
+        return { ...booking._doc, carData };
+      })
+    );
+
+    res.json(bookingsWithCarDetails);
     
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: 'Internal server error' });
   }
 };
+
 export const cancelBooking = async (req, res) => {
   try {
     const { bookingId, message } = req.body;
-    console.log(req.body);
     const booking = await bookingModel.findById(bookingId);
-    console.log(booking, 'bookinggg');
+
     if (!booking) {
       return res.status(404).json({ error: 'Booking not found' });
     }
@@ -356,6 +378,12 @@ export const cancelBooking = async (req, res) => {
     if (carUpdate.nModified === 0) {
       return res.status(404).json({ error: 'Car not found' });
     }
+
+    // Update the booking status to "cancelled"
+    await bookingModel.updateOne(
+      { _id: bookingId },
+      { $set: { isCancelled: true } }
+    );
 
     // Send cancellation email to the user
     await sendCancelMail(userEmail, bookingId, message);

@@ -19,14 +19,14 @@ const EditProfile = () => {
     e.preventDefault();
     if (name.trim() && phoneNumber.trim()) {
       axios
-        .post("/usereditprofile", { name,userId, phoneNumber })
+        .post("/editprofile", { name,userId, phoneNumber })
         .then((response) => {
           if (!response.data.err) {
             toast.success(response.message);
             dispatch({ type: 'refresh' });
             console.log(response.data);
 
-            navigate('/userprofile', { state: { data: response.data } });
+            navigate('/profile', { state: { data: response.data } });
           }
         })
         .catch((error) => {

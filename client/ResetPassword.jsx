@@ -9,7 +9,7 @@ const ResetPassword = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('/api/reset-password', { email: resetEmail });
+      const response = await axios.post('/reset-password', { email: resetEmail });
       toast.success(response.data.message, {
         position: 'top-center',
       });

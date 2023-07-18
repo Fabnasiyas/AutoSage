@@ -40,7 +40,11 @@ const bookingSchema=mongoose.Schema({
           paymentType:{
             type:'String',
             required:true
-          } 
+          },
+          isCancelled:{
+            type:Boolean,
+            default:false
+          }
             
     
 })

@@ -16,14 +16,14 @@ router.post('/setnewPassword',setpassword)
 router.get('/getcars',getCars)
 
 router.get('/viewcardetails/:id',getviewcardetails)  
+router.get('/getallcarlist',getallCars)
 router.use(verifyUser)
 router.get('/logout',userLogout )
-router.post('/usereditprofile',editprofile)
+router.post('/editprofile',editprofile)
 router.post('/uploadDocuments',multipleUpload.fields([{
     name:'aadharCard',maxCount:3},
     {name:'drivingLicense',maxCount:3}
 ]),uploadDocument)
-router.get('/getallcarlist',getallCars)
 router.post('/bookings',bookCar)
 router.get('/userbookings',getUserbookings)
 router.post('/cancelBooking',cancelBooking)

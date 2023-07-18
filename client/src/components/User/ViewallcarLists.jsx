@@ -173,7 +173,7 @@ const Card = () => {
           placeholder="Search by model, fuel type, transmission mode, specifications, or year"
           value={searchQuery}
           onChange={(e) => handleSearch(e.target.value)}
-          className={`pl-10 pr-4 py-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 ${
+          className={`pl-10 pr-4 py-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 mb-5 ${
             searchQuery === '' ? 'text-gray-500' : 'text-black'
           }`}
         />
