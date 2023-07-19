@@ -144,4 +144,75 @@ res.json(Bookings)
   console.log(error); 
 }
   }
+  export const TotalDetails = async (req, res) => {
+    try {
+      const totalUsers = await userModel.countDocuments();
+      const totalVendors = await vendorModel.countDocuments();
+      const totalBookings = await bookingModel.countDocuments();
+      const totalCars=await carModel.countDocuments();
+      const today = new Date().toISOString();
+const bookings = await bookingModel.find({ pickupDate: { $lte: today } });
+
+let trevenue = 0;
+for (const booking of bookings) {
+  if (typeof booking.totalAmount === 'number' && !isNaN(booking.totalAmount)) {
+    trevenue += booking.totalAmount;
+  }
+}
+
+  
+      const totalDetails = {
+        totalUsers: totalUsers,
+        totalVendors: totalVendors,
+        totalBookings: totalBookings,
+        revenue: trevenue,
+        cars:totalCars
+      };
+  
+    
+      res.json(totalDetails);
+    } catch (error) {
+      console.error('Error calculating total details:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+  };
+  
+  
+  export const monthlyRevenue = async (req, res) => {
+    try {
+      const bookings = await bookingModel.find({}).lean();
+  
+     
+      const months = [
+        'January', 'February', 'March', 'April', 'May', 'June',
+        'July', 'August', 'September', 'October', 'November', 'December'
+      ];
+      const monthlyRevenue = {};
+      months.forEach((monthName) => {
+        monthlyRevenue[monthName] = 0;
+      });
+  
+      bookings.forEach((booking) => {
+        const pickupDateStr = booking.pickupDate;
+        const dateObject = new Date(pickupDateStr);
+        const monthName = months[dateObject.getMonth()];
+        const totalAmount = booking.totalAmount;
+  
+        
+        if (typeof totalAmount === 'number') {
+          monthlyRevenue[monthName] += totalAmount;
+        }
+      });
+  
+      const monthlyRevenueData = months.map((monthName) => ({
+        month: monthName,
+        revenue: monthlyRevenue[monthName],
+      }));
+      
+      res.status(200).json(monthlyRevenueData);
+    } catch (error) {
+      console.error('Error fetching monthly revenue:', error);
+      res.status(500).json({ error: 'Error fetching monthly revenue' });
+    }
+  };
   

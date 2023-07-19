@@ -3,7 +3,7 @@ import mongoose from 'mongoose'
 const carSchema=mongoose.Schema({
     
     vendorId:{
-        type: mongoose.Schema.Types.ObjectId, // change type to ObjectId
+        type: mongoose.Schema.Types.ObjectId, 
         ref: 'userModel', 
         },
     model:{

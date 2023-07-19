@@ -20,14 +20,12 @@ export const userCheckAuth = async (req, res) => {
       const ID = verifyJwt.id;
       const user = await userModel.findOne({ _id: ID });
       if (user.ban) {
-        // User is banned, clear the token and log them out immediately
         res.clearCookie('userToken');
         res.json({ logged: false, err: true, message: 'User banned', ban: true });
       } else {
         res.json({ logged: true, details: user, ban: false });
       }
     } catch (error) {
-      // Handle JWT verification error
       res.json({ logged: false, err: true, message: 'Invalid token', ban: false });
     }
   } else {
@@ -148,7 +146,7 @@ export const userLogin = async (req, res) => {
           res.json({ err: true, message: "Invalid email or password" });
         }
       } else {
-        // User is banned, so log them out immediately
+       
         res.clearCookie("userToken").json({ err: true, message: 'User banned' });
       }
     } else {
@@ -233,17 +231,7 @@ export const getCars = async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 };
-// export const getviewcardetails = async (req, res) => {
-//   try {
-//     const carId = req.params.id
-//     const car = await carModel.findOne({ _id: carId });
-//     // const booked=await bookingModel.find({ carId: carId });
-//     res.json(car);
-//   } catch (error) {
-//     res.status(500).json({ error: 'Internal server error' });
-//     console.log(error);
-//   }
-// }
+
 export const getviewcardetails = async (req, res) => {
   try {
     const carId = req.params.id;
@@ -310,7 +298,7 @@ export const bookCar=async (req,res)=>{
       balance,
       totalAmount
     });
-      // Update isBooked field in carmodel
+  
       const updatedCar = await carModel.findByIdAndUpdate(carId, { isBooked: true }, { new: true });
 
       res.status(200).json({ booking, updatedCar });
@@ -320,19 +308,7 @@ export const bookCar=async (req,res)=>{
     res.status(500).json({ error: 'Internal server error' });
   }
 }
-// export const getUserbookings=async (req,res)=>{
-//   try {
-//     const userId = req.query.userId
-      
-//     const userbookings = await bookingModel.find({ userId });
 
-//     res.json(userbookings);
-    
-//   } catch (error) {
-//     console.log(error);
-//     res.status(500).json({ error: 'Internal server error' });
-//   }
-// };
 
 export const getUserbookings = async (req, res) => {
   try {
@@ -379,13 +355,13 @@ export const cancelBooking = async (req, res) => {
       return res.status(404).json({ error: 'Car not found' });
     }
 
-    // Update the booking status to "cancelled"
+    
     await bookingModel.updateOne(
       { _id: bookingId },
       { $set: { isCancelled: true } }
     );
 
-    // Send cancellation email to the user
+ 
     await sendCancelMail(userEmail, bookingId, message);
 
     res.json({ message: 'Booking cancelled and email sent' });
@@ -394,3 +370,19 @@ export const cancelBooking = async (req, res) => {
     res.status(500).json({ error: 'An error occurred' });
   }
 };
+export const advanceComplete = async (req, res) => {
+  const { bookingDetails, paymentAmount } = req.body;
+  console.log(bookingDetails);
+  const { _id } = bookingDetails;
+
+  try {
+   
+    const updateResult = await bookingModel.updateOne({ _id }, { $set: { balance: 0 } });
+    
+    res.sendStatus(200);
+  } catch (error) {
+    console.error('Error updating booking:', error);
+    res.sendStatus(500);
+  }
+};
+

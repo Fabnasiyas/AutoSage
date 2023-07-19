@@ -475,7 +475,7 @@ const CarDetailsPage = () => {
         onRequestClose={() => setPaymentSelection(null)}
         contentLabel="Payment Selection"
         className="fixed inset-0 flex items-center justify-center z-50"
-        overlayClassName="fixed inset-0 bg-black opacity-50"
+        overlayClassName="fixed inset-0 bg-black opacity-70"
       >
         <div className="bg-white rounded-lg p-8 max-w-md mx-auto">
           <h2 className="text-2xl font-bold mb-6 text-center">Payment Selection</h2>
@@ -648,7 +648,7 @@ const CarDetailsPage = () => {
         onRequestClose={closeModal}
         contentLabel="PayPal Payment"
         className="fixed inset-0 flex items-center justify-center z-50"
-        overlayClassName="fixed inset-0 bg-black opacity-50"
+        overlayClassName="fixed inset-0 bg-black opacity-80"
       >
         <div style={{ width: '500px' }} className="bg-white rounded-lg p-8 max-w-md mx-auto">
           <h2 className="text-2xl font-bold mb-6 text-center">PayPal Payment</h2>
@@ -713,43 +713,11 @@ const CarDetailsPage = () => {
 };
 
 export default CarDetailsPage;
-<>
-  {/* <p className="text-center">Amount to Pay: {bookingData.amountToPay}</p>
-          <PayPalScriptProvider
-            options={{
-              'client-id': 'Abhp9DIDpqLlpmwjLxCUOBJhsJPefegAgL7aTXjA8Q6CBkR5oV4IeeRI4EpMXjdRjPmdWDWMmgK0T0m2',
-            }}
-          >
-            <PayPalButtons
-              createOrder={(data, actions) => {
-                return actions.order.create({
-                  purchase_units: [{ amount: { value: bookingData.amountToPay } }],
-                });
-              }}
-              onApprove={async (data, actions) => {
-                await actions.order.capture();
 
-                closeModal();
 
-                // Send booking data to the server
-                axios
-                  .post('/bookings', bookingData)
-                  .then((response) => {
-                    console.log('Booking by advance payment:', pickupDate, dropoffDate);
-                    console.log('Booking details:', response.data);
-                  })
-                  .catch((error) => {
-                    console.error('Error booking:', error);
-                  });
 
-                navigate('/success');
-              }}
-              onCancel={() => {
-                closeModal();
-              }}
-              onError={() => {
-                navigate('/payment-failure');
-                closeModal();
-              }}
-            />
-          </PayPalScriptProvider> */}</>
+
+
+
+
+

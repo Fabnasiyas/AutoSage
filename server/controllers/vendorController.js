@@ -241,3 +241,72 @@ const booking = await bookingModel.findById(bookingId);
     res.status(500).json({ error: 'An error occurred' });
   }
 };
+export const getDashbordData=async(req,res)=>{
+try {
+  const vendorId = req.query.vendorId;
+  const carsForVendor = await carModel.find({ vendorId: vendorId });
+
+  const numberOfCars = carsForVendor.length;
+  const bookings=await bookingModel.find({vendorId:vendorId})
+  const bookingNum=bookings.length
+  const amount = bookings.reduce((acc, booking) => {
+    const totalAmount = booking.totalAmount;
+    if (typeof totalAmount === 'number') {
+      return acc + totalAmount;
+    }
+    return acc; // Skip undefined or non-numeric values
+  }, 0);
+
+  const Details={
+    
+    totalCars:numberOfCars,
+    totalBookings:bookingNum,
+    revenue:amount,
+  }
+  res.json(Details)
+} catch (error) {
+  
+}
+}
+export const getMonthlyData=async(req,res)=>{
+  try{
+  const vendorId=req.query.vendorId
+  
+  const bookings = await bookingModel.find({ vendorId }).lean();
+
+
+  const months = [
+    'January', 'February', 'March', 'April', 'May', 'June',
+    'July', 'August', 'September', 'October', 'November', 'December'
+  ];
+  const monthlyRevenue = {};
+  months.forEach((monthName) => {
+    monthlyRevenue[monthName] = 0;
+  });
+
+  bookings.forEach((booking) => {
+    const pickupDateStr = booking.pickupDate;
+    const dateObject = new Date(pickupDateStr);
+    const monthName = months[dateObject.getMonth()];
+    const totalAmount = booking.totalAmount;
+
+
+
+    // Check if totalAmount is a valid number before adding to monthlyRevenue
+    if (typeof totalAmount === 'number') {
+      monthlyRevenue[monthName] += totalAmount;
+    }
+  });
+
+  const monthlyRevenueData = months.map((monthName) => ({
+    month: monthName,
+    revenue: monthlyRevenue[monthName],
+  }));
+
+  res.status(200).json(monthlyRevenueData);
+} catch (error) {
+  console.error('Error fetching monthly revenue:', error);
+  res.status(500).json({ error: 'Error fetching monthly revenue' });
+}
+};
+
