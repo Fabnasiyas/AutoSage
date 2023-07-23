@@ -70,13 +70,19 @@ const AdminCarList = () => {
   ];
 
   const filteredCars = cars.filter((car) => {
+    const vendorId = car.vendorId ? car.vendorId.toLowerCase() : '';
+    const carId = car._id ? car._id.toLowerCase() : '';
+    const model = car.model ? car.model.toLowerCase() : '';
+    const location = car.location ? car.location.toLowerCase() : '';
+  
     return (
-      car.vendorId.toLowerCase().includes(searchText.toLowerCase()) ||
-      car._id.toLowerCase().includes(searchText.toLowerCase()) ||
-      car.model.toLowerCase().includes(searchText.toLowerCase()) ||
-      car.location.toLowerCase().includes(searchText.toLowerCase())
+      vendorId.includes(searchText.toLowerCase()) ||
+      carId.includes(searchText.toLowerCase()) ||
+      model.includes(searchText.toLowerCase()) ||
+      location.includes(searchText.toLowerCase())
     );
   });
+  
 
   return (
     <div className="relative overflow-x-auto" style={{ marginRight: '100px', marginTop: '100px' }}>

@@ -28,4 +28,5 @@ router.post('/bookings',bookCar)
 router.get('/userbookings',getUserbookings)
 router.post('/cancelBooking',cancelBooking)
 router.post('/advanceComplete',advanceComplete)
+// router.get('/geocode/:location',getLocations)
 export default router

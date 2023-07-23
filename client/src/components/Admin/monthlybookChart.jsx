@@ -62,7 +62,7 @@ const MonthlyBookingBarChart = () => {
 
   const fetchMonthlyRevenueData = async () => {
     try {
-      const response = await axios.get('/admin/monthlyRevenueData'); // Replace with the correct API endpoint to fetch monthly revenue data
+      const response = await axios.get('/admin/monthlyRevenueData'); 
       setMonthlyRevenue(response.data);
     } catch (error) {
       console.error('Error fetching monthly revenue data:', error);

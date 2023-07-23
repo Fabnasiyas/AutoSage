@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { ToastContainer } from 'react-toastify';
 import axios from './axios';
 import { useSelector, useDispatch } from 'react-redux';
+
  
 
 import Home from './pages/User/HomePage';
@@ -47,6 +48,9 @@ function App() {
   useEffect(() => {
     axios.get('/auth/').then((response) => {
       console.log("USER:", response.data);
+      console.log('====================================');
+      
+      console.log('====================================');
       dispatch({ type: 'user', payload: { login: response.data.logged, details: response.data.details } });
     }).catch((err)=>{
       console.log(err)
@@ -63,7 +67,7 @@ function App() {
 
   const ProtectedUserRoute = ({ element, path }) => {
     if (user.login === null) {
-      return null; // or you can show a loading spinner or another component
+      return null;
     }
   
     return user.login ? element : <Navigate to="/login" />;
@@ -72,7 +76,7 @@ function App() {
   const ProtectedVendorRoute = ({ element, path }) => {
     
     if (!vendor.vendorLog) {
-      return null; // or show a loading spinner or another component
+      return null; 
     }
   
     return vendor.vendorLog ? element : <Navigate to="/vendor/login" />;
@@ -80,18 +84,19 @@ function App() {
   
 
   const ProtectedAdminRoute = ({ element, path }) => {
-    console.log(admin.adminLog,"+++++++++")
+    
     if (!admin.adminLog ) {
-      return null; // or show a loading spinner or another component
+      return null; 
     }
   
     return admin.adminLog ? element : <Navigate to="/admin" />;
   };
   
-
+  
   return (
     <div className="App">
       <Router>
+     
         <Routes>
           <Route path="*" element={<ErrorPage/> } />
           <Route exact path="/" element={<Home />} />

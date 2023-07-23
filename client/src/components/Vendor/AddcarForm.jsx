@@ -90,7 +90,7 @@ const CarRegistrationPage = () => {
   const fetchSuggestions = async (value) => {
     try {
       const response = await Axios.get(
-        `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(value)}.json?access_token=${process.env.REACT_APP_MAP_TOKEN}`
+        `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(value)}.json?access_token=`
       );
       const suggestions = response.data.features.map((feature) => ({
         location: feature.place_name,
@@ -231,8 +231,8 @@ const CarRegistrationPage = () => {
                     className="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   >
                     <option value="">Select a value</option>
-                    <option value="mannual">Mannual Transmissin</option>
-                    <option value="automatic">Automatic Transmissin</option>
+                    <option value="mannual">Mannual Transmission</option>
+                    <option value="automatic">Automatic Transmission</option>
                   </Field>
                   <ErrorMessage name="transmissionMode" component="div" className="text-red-500 mt-1" />
                 </div>
