@@ -40,6 +40,7 @@ import ErrorPage from './components/User/404'
 import 'react-toastify/dist/ReactToastify.css';
 import BookPage from './pages/Vendor/BookingListPage'
 import BookingsPage from './pages/Admin/BookingManagment'
+import Viewcar from './components/User/ViewCarPage'
 function App() {
   const { user, vendor, admin, refresh } = useSelector((state) => state);
   axios.defaults.withCredentials = true;
@@ -110,6 +111,8 @@ function App() {
           {/* <Route exact path='/edituserProfile' element={<UserEditProfilePage/> }/> */}
           {/* <Route exact path='/adddocuments' element={<AddDocumentPage/> }/> */}
           <Route exact path='/viewcardetails/:id' element={<ViewcarDetails/> }/>
+          
+          <Route exact path='/booking/:id' element={<Viewcar/> }/>
           <Route exact path='/allcarsPage' element={<ViewAllCarsPage/> }/>
           <Route exact path="/vendor" element={<VendorLoginPage />} />
           <Route exact path="/vendor/login" element={<VendorLoginPage />} />

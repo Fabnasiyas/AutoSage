@@ -500,39 +500,23 @@ const CarDetailsPage = () => {
 
   return (
     <>
-      <div className="flex h-screen" key={car._id}>
-        {/* Left Side - Main Image */}
-{/*  
-<div className="w-1/3 flex flex-col pt-20 pb-20 px-10">
-  <div className="h-100 w-full">
+  <div className="flex h-screen items-center justify-center" key={car._id}>
+  {/* Left Side - Main Image */}
+  <div className="w-1/3 flex flex-col pt-20 pb-20 px-10">
     <Carousel className="rounded-xl">
       {car.carImages.map((image, index) => (
-        <img
-          key={index}
-          src={`http://localhost:5000/images/${image.filename}`}
-          alt={`Image ${index}`}
-          className="h-full w-full object-cover"
-        />
+        <div key={index} className="image-container flex items-center justify-center border border-gray-300 rounded-xl h-80">
+          <img
+            src={`http://localhost:5000/images/${image.filename}`}
+            alt={`Image ${index}`}
+            className="h-full w-full object-cover rounded-xl"
+            style={{ objectFit: 'cover' }}
+          />
+        </div>
       ))}
     </Carousel>
   </div>
-</div> */}
-<div className="w-1/3 flex flex-col items-center justify-center ml-4 pb-20 px-10">
-<h1 className="text-2xl font-bold mb-8 text-center">{car.model}</h1>
-  
-  <div className="h-100 w-full ">
-    <Carousel className="rounded-xl">
-      {car.carImages.map((image, index) => (
-        <img
-          key={index}
-          src={`http://localhost:5000/images/${image.filename}`}
-          alt={`Image ${index}`}
-          className="h-full w-full object-cover"
-        />
-      ))}
-    </Carousel>
-  </div>
-</div>
+
 
 
         {/* Right Side - Car Details */}

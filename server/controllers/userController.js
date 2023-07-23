@@ -386,18 +386,18 @@ export const advanceComplete = async (req, res) => {
   }
 };
 
-// export const getLocations=async(req,res)=>{
-//    try {
-//     const { location } = req.params;
-//     const mapboxApiKey = 'pk.eyJ1IjoiZmFibmFzaXlhcyIsImEiOiJjbGpudmFyanMxYmQ2M2VudWc0ejdlaTg3In0.v5csurZ_qXhXqWhwrSKUZg';
-//     const apiUrl = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(
-//       location
-//     )}.json?access_token=${mapboxApiKey}`;
+export const viewCar=async(req,res)=>{
 
-//     const response = await axios.get(apiUrl);
-//     res.json(response.data);
-//   } catch (error) {
-//     console.log('Error geocoding the typed location:', error);
-//     res.status(500).json({ error: 'Failed to geocode location' });
-//   }
-// };
+  try {
+    const carId = req.params.id;
+    const car = await carModel.findOne({ _id: carId });
+const data={
+  car:car,
+  
+}
+    res.json(data);
+  } catch (error) {
+    res.status(500).json({ error: 'Internal server error' });
+    console.log(error);
+  }
+};

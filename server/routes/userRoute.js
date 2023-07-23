@@ -1,6 +1,6 @@
 import express from 'express'
 const router=express.Router()
-import  { postSignup,verifyUserSignup ,resendOtp,userLogin,userLogout,resetPassword, VerifyResetOtp,setpassword,getCars,getviewcardetails,editprofile,uploadDocument,getallCars,bookCar,getUserbookings,cancelBooking, userCheckAuth,advanceComplete} from '../controllers/userController.js'
+import  { postSignup,verifyUserSignup ,resendOtp,userLogin,userLogout,resetPassword, VerifyResetOtp,setpassword,getCars,getviewcardetails,editprofile,uploadDocument,getallCars,bookCar,getUserbookings,cancelBooking, userCheckAuth,advanceComplete,viewCar} from '../controllers/userController.js'
 import multipleUpload from '../helper/multer.js';
 import { verifyUser } from '../middleware/userAuth.js';
 
@@ -28,5 +28,6 @@ router.post('/bookings',bookCar)
 router.get('/userbookings',getUserbookings)
 router.post('/cancelBooking',cancelBooking)
 router.post('/advanceComplete',advanceComplete)
+router.get('/viewcar/:id',viewCar)
 // router.get('/geocode/:location',getLocations)
 export default router
