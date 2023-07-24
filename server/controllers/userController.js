@@ -224,7 +224,7 @@ export const setpassword = async (req, res) => {
 }
 export const getCars = async (req, res) => {
   try {
-    const cars = await carModel.find({}).limit(4).skip(1);
+    const cars = await carModel.find({}).limit(4).skip(3);
     res.json(cars);
   } catch (error) {
     console.log(error);
@@ -391,9 +391,10 @@ export const viewCar=async(req,res)=>{
   try {
     const carId = req.params.id;
     const car = await carModel.findOne({ _id: carId });
+    const books = await bookingModel.findOne({ carId: carId });
 const data={
   car:car,
-  
+  books:books
 }
     res.json(data);
   } catch (error) {

@@ -194,12 +194,20 @@ const ProductPage = () => {
   const [carData, setCarData] = useState(null);
   const [activeImg, setActiveImage] = useState(null);
   const { id } = useParams();
+  const [dropoffDateAvailable, setDropoffDateAvailable] = useState(null); // New state variable
   useEffect(() => {
     // Fetch car data from the API
     const res=axios.get(`/viewcar/${id}`)
       .then(response => {
         setCarData(response.data.car);
-        setActiveImage(response.data.car.carImages[0]); // Set the first car image as active by default
+        setActiveImage(response.data.car.carImages[0]);
+        const booking= response.data.books;// Set the first car image as active by default
+        if (booking) {
+          const { dropoffDate } = booking;
+          const options = { day: '2-digit', month: 'long', year: 'numeric' };
+          const formattedDropoffDate = new Date(dropoffDate).toLocaleDateString('en-GB', options);
+          setDropoffDateAvailable(formattedDropoffDate);
+        }
       })
       .catch(error => {
         console.error('Error fetching car data:', error);
@@ -255,9 +263,26 @@ const ProductPage = () => {
             <h2 className='text-lg'>Rent Per Day:  &#8377; {carData.rentPerDay}</h2>
             <h2 className='text-lg'>Location: {carData.location}</h2>
             <h1></h1>
-            <button class="bg-blue-500 text-white font-semibold py-3 px-6 rounded-lg hover:bg-blue-600">
-    Book Now
-  </button>
+            
+            {carData.isBooked ? (
+                dropoffDateAvailable ? (
+                  <div className="flex justify-center">
+                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded">
+                      Already Booked, Available After {dropoffDateAvailable}
+                    </button>
+                  </div>
+                ) : (
+                  <div className="flex justify-center">
+                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded">
+                      Booked
+                    </button>
+                  </div>
+                )
+              ) :(<div className="flex justify-center">
+              <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded">
+                Book Now
+              </button>
+            </div>)}
           </>
         )}
       </div>

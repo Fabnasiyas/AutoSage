@@ -110,9 +110,9 @@ function App() {
           {/* <Route exact path='/userprofile' element={<UserProfile/> }/> */}
           {/* <Route exact path='/edituserProfile' element={<UserEditProfilePage/> }/> */}
           {/* <Route exact path='/adddocuments' element={<AddDocumentPage/> }/> */}
-          <Route exact path='/viewcardetails/:id' element={<ViewcarDetails/> }/>
+          <Route exact path='/booking/:id' element={<ViewcarDetails/> }/>
           
-          <Route exact path='/booking/:id' element={<Viewcar/> }/>
+          <Route exact path='/viewcar/:id' element={<Viewcar/> }/>
           <Route exact path='/allcarsPage' element={<ViewAllCarsPage/> }/>
           <Route exact path="/vendor" element={<VendorLoginPage />} />
           <Route exact path="/vendor/login" element={<VendorLoginPage />} />

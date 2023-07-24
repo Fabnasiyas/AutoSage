@@ -3,7 +3,7 @@ import carImage from '../../assets/car2.jpeg';
 
 
 const Banner = () => {
-  const bannerHeight = "300px"; // Adjust the height as needed
+  const bannerHeight = "400px"; // Adjust the height as needed
 
   return (
     <div className='pt-1'> 
@@ -20,7 +20,7 @@ const Banner = () => {
       >
         <div className="absolute inset-0 bg-black opacity-50" ></div>
         <div className="absolute inset-0 z-10 flex flex-col items-center justify-center px-4">
-          <h1 className="text-4xl text-white mb-4">All Cars</h1>
+          <h1 className="text-4xl text-bold text-white mb-4">All Cars</h1>
         </div>
       </div>
     </div></div>
