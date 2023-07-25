@@ -35,8 +35,6 @@ const CarRegistrationPage = () => {
     values.carImages.forEach((item) => {
       formData.append('carImages', item);
     });
-    // formData.append('location', searchValue);
-    // formData.append('coordinates', coordinates);
     formData.append('location', searchValue);
     formData.append('coordinates', JSON.stringify(coordinates));
     

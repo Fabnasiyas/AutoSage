@@ -24,92 +24,89 @@ const CarList = () => {
     fetchCars();
   }, []);
 
-  const columns = [
-    {
-      name: "No",
-      selector: (row, index) => index + 1,
-      sortable: true,
-    },
-    {
-      name: "Car Id",
-      selector: "_id",
-      sortable: true,
-    },
-    {
-      name: "Car Model",
-      selector: "model",
-      sortable: true,
-    },
-    {
-      name: "Year",
-      selector: "year",
-      sortable: true,
-    },
-    {
-      name: "Mileage",
-      selector: "mileage",
-      sortable: true,
-      format: (row) => `${row.mileage} kmpl`,
-    },
-    {
-      name: "Fuel Type",
-      selector: "fuelType",
-      sortable: true,
-    },
-    {
-      name: "Transmission Mode",
-      selector: "transmissionMode",
-      sortable: true,
-    },
-    {
-      name: "Specification",
-      selector: "specifications",
-      sortable: true,
-    },
-    {
-      name: "Rent Per day",
-      selector: "rentPerDay",
-      sortable: true,
-    },
-    {
-      name: "Status",
-      selector: "isBooked",
-      sortable: true,
-      format: (row) => (row.isBooked ? "Booked" : "Available"),
-    },
-    {
-      name: "RC Image",
-      cell: (row) => (
-        <>
-          {row.rcImage.map((image, index) => (
-            <img
-              key={index}
-              src={`http://localhost:5000/images/${image.filename}`}
-              alt={`RC Image`}
-            />
-          ))}
-        </>
-      ),
-    },
-    {
-      name: "Car Images",
-      cell: (row) => (
-        <>
-          {row.carImages.map((image, index) => (
-            <img
-              key={index}
-              src={`http://localhost:5000/images/${image.filename}`}
-              alt={`Car Image`}
-            />
-          ))}
-        </>
-      ),
-    },
-    {
-      name: "Option",
-      cell: () => <button className="text-red-900">Edit</button>,
-    },
-  ];
+const columns = [
+  {
+    name: "No",
+    selector: (row, index) => index + 1,
+    sortable: true,
+  },
+  {
+    name: "Car Id",
+    selector: "_id",
+    sortable: true,
+  },
+  {
+    name: "Car Model",
+    selector: "model",
+    sortable: true,
+  },
+  {
+    name: "Year",
+    selector: "year",
+    sortable: true,
+  },
+  {
+    name: "Mileage",
+    selector: "mileage",
+    sortable: true,
+    format: (row) => `${row.mileage} kmpl`,
+  },
+  {
+    name: "Fuel Type",
+    selector: "fuelType",
+    sortable: true,
+  },
+  {
+    name: "Transmission Mode",
+    selector: "transmissionMode",
+    sortable: true,
+  },
+  {
+    name: "Specification",
+    selector: "specifications",
+    sortable: true,
+  },
+  {
+    name: "Rent Per day",
+    selector: "rentPerDay",
+    sortable: true,
+  },
+  {
+    name: "Status",
+    selector: "isBooked",
+    sortable: true,
+    format: (row) => (row.isBooked ? "Booked" : "Available"),
+  },
+  {
+    name: "RC Image",
+    cell: (row) => (
+      <>
+        {row.rcImage.map((image, index) => (
+          <img
+            key={index}
+            src={`http://localhost:5000/images/${image.filename}`}
+            alt={`RC Image`}
+          />
+        ))}
+      </>
+    ),
+  },
+  {
+    name: "Car Images",
+    cell: (row) => (
+      <>
+        {row.carImages.map((image, index) => (
+          <img
+            key={index}
+            src={`http://localhost:5000/images/${image.filename}`}
+            alt={`Car Image`}
+          />
+        ))}
+      </>
+    ),
+  },
+  
+];
 
   return (
     <div
@@ -138,7 +135,7 @@ const CarList = () => {
           },
           rows: {
             style: {
-              minHeight: "56px", // Adjust the row height as needed
+              minHeight: "90px", // Adjust the row height as needed
             },
           },
         }}
