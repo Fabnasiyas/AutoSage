@@ -288,7 +288,7 @@ const applyFilters = () => {
 
       {noCarsFoundMessage && <p >No cars found in this location</p>}
     </div>
-      <ul className="flex justify-center mt-4">
+      <ul className="flex justify-center mt-2">
         {Array.from({ length: Math.ceil(filteredCars.length / carsPerPage) }, (_, i) => (
           <li
             key={i}

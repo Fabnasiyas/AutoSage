@@ -1,16 +1,17 @@
+
 import React from 'react';
-import Profile from '../../components/User/UserProfile';
 import Nav from '../../components/User/Nav';
+import ViewPage from '../../components/User/ViewCarPage';
 import Footer from '../../components/User/footer';
 
-const UserProfilePage = () => {
+const viewCarpage = () => {
   return (
     <div className="flex flex-col min-h-screen">
       <Nav />
-      <Profile />
+      <ViewPage className="flex-grow" />
       <Footer />
     </div>
   );
 };
 
-export default UserProfilePage;
+export default viewCarpage;

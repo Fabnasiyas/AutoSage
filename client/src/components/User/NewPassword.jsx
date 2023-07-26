@@ -12,9 +12,8 @@ const navigate=useNavigate()
     e.preventDefault();
 
     if (newPassword === confirmPassword) {
-      // Passwords match, proceed with password reset logic
       console.log('Password reset successful!');
-      // Reset the form
+     
 axios.post('/setnewPassword',{newPassword}).then((response)=>{
   console.log(response.data);
   if(!response.data.err){

@@ -181,7 +181,7 @@ const CarDetailsPage = () => {
 
 return (
   <>
-    <div className="flex flex-col md:flex-row h-screen pt-5">
+    <div className="flex flex-col md:flex-row py-8 md:py-32 mt-4">
       {/* Left Side - Main Image */}
       <div className="w-full md:w-1/2 flex flex-col justify-center items-center">
         {activeImg && (

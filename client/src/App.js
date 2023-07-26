@@ -40,7 +40,7 @@ import ErrorPage from './components/User/404'
 import 'react-toastify/dist/ReactToastify.css';
 import BookPage from './pages/Vendor/BookingListPage'
 import BookingsPage from './pages/Admin/BookingManagment'
-import Viewcar from './components/User/ViewCarPage'
+import Viewcar from './pages/User/viewCarpage'
 import ChatPage from './pages/Chat/Chat'
 function App() {
   const { user, vendor, admin, refresh } = useSelector((state) => state);

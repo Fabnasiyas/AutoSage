@@ -55,11 +55,12 @@ const ProfilePage = () => {
     }
   };
 
+
   return (
     user ? (
-      <div className="flex min-h-screen mt-2">
-        <div className="lg:w-1/4 p-8 bg-gray-100 flex flex-col justify-center">
-        <div className="text-center">
+      <div className="flex flex-col lg:flex-row py-16 lg:py-20">
+        <div className="lg:w-1/4 p-8 bg-gray-100 flex flex-col justify-center mx-7">
+        <div className="text-center ">
             <p className="text-2xl font-bold mb-4">User Profile</p>
             <p className="text-gray-700">
               <strong>Name:</strong> {user.name}

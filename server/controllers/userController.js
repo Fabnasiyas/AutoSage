@@ -211,6 +211,7 @@ export const VerifyResetOtp = async (req, res) => {
 }
 export const setpassword = async (req, res) => {
   const { email, newPassword } = req.body;
+  // console.log(email);
   let bcrypPassword = await bcrypt.hash(newPassword, 10)
   await userModel.updateOne({ email: email }, {
     $set: {
@@ -218,6 +219,7 @@ export const setpassword = async (req, res) => {
     }
   }).then((result) => {
     res.json({ err: false, result, message: 'Reset password successfull' })
+    console.log("reset password sucessful");
   }).catch(err => {
     res.json({ err: true, message: 'something went wrong' })
   })

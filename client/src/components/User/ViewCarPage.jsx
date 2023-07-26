@@ -13,6 +13,7 @@ const ProductPage = () => {
     // Fetch car data from the API
     const res=axios.get(`/viewcar/${id}`)
       .then(response => {
+        console.log(res,'23456890');
         setCarData(response.data.car);
         setActiveImage(response.data.car.carImages[0]);
         const booking= response.data.books;// Set the first car image as active by default
@@ -35,7 +36,7 @@ const ProductPage = () => {
   };
 
   return (
-    <div className='flex flex-col lg:flex-row h-screen items-center justify-center gap-16 lg:items-center mx-10'>
+    <div className='flex flex-col lg:flex-row  items-center justify-center gap-16 lg:items-center mx-10 py-20 mt-4'>
       {/* Left Side - Carousel */}
       <div className='w-full lg:w-1/2 flex flex-col items-center justify-center mx-10'>
         {activeImg && (
@@ -65,10 +66,10 @@ const ProductPage = () => {
 
       {/* Right Side - Car Details */}
       <div className='w-full lg:w-1/2 flex flex-col gap-4 items-center lg:items-start'>
-      <h1 className='font-bold text-4xl'>Car Details</h1>
+      <h1 className='text-4xl'>Car Details</h1>
         {carData && (
           <>
-            <h1 className='text-2xl font-semibold'>Model: {carData.model}</h1>
+            <h1 className=' text-2xl font-semibold'>Model: {carData.model}</h1>
             <h2 className='text-lg'>Year: {carData.year}</h2>
             <h2 className='text-lg'>Mileage: {carData.mileage} kmpl</h2>
             <h2 className='text-lg'>Fuel Type: {carData.fuelType}</h2>
