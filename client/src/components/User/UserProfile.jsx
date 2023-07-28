@@ -9,12 +9,14 @@ const ProfilePage = () => {
   const user = useSelector(state => state.user.details);
   const [bookings, setBookings] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const bookingsPerPage = 2; // Number of bookings to show per page
-
+  const bookingsPerPage = 5; // Number of bookings to show per page
+  const [showRefundModal, setShowRefundModal] = useState(false);
   useEffect(() => {
     fetchBookings();
   }, [user]);
-
+  const handleRefundModal = () => {
+    setShowRefundModal(!showRefundModal);
+  };
   const handleCancel = async (bookingId, pickupDate) => {
     try {
       const currentDate = new Date();
@@ -32,6 +34,7 @@ const ProfilePage = () => {
           booking._id === bookingId ? { ...booking, isCancelled: true } : booking
         );
         setBookings(updatedBookings);
+        handleRefundModal();
       } else {
         console.log('Cannot cancel after pickup date');
       }
@@ -83,30 +86,7 @@ const ProfilePage = () => {
     
     user ? (
       <div className="flex flex-col lg:flex-row py-16 lg:py-20">
-        {/* <div className="lg:w-1/4 p-8 bg-gray-100 flex flex-col justify-center mx-7">
-          <div className="text-center">
-            <p className="text-2xl font-bold mb-4">User Profile</p>
-            <p className="text-gray-700">
-              <strong>Name:</strong> {user.name}
-            </p>
-            <p className="text-gray-700">
-              <strong>Email:</strong> {user.email}
-            </p>
-            <p className="text-gray-700">
-              <strong>Phone Number:</strong> {user.phoneNumber}
-            </p>
-            <Link to={`/adddocuments`}>
-              <button className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md">
-                Add Document
-              </button>
-            </Link>
-            <Link to="/editProfile">
-              <button className="mt-2 px-4 py-2 bg-gray-500 text-white rounded-md ml-2">
-                Edit Profile
-              </button>
-            </Link>
-          </div>
-        </div> */}
+        
         <div className="lg:w-1/4 p-8 bg-gray-100 flex flex-col justify-center mx-7">
   <div className="text-center">
     <p className="text-2xl font-bold mb-4">User Profile</p>
@@ -135,7 +115,7 @@ const ProfilePage = () => {
         <p className="text-2xl font-bold mb-4 text-center">Wallet</p>
         <div className="border-t-2 border-gray-200 py-4">
           
-          <p className="text-gray-700">
+          <p className="text-gray-700 text-center">
             <strong>Amount:</strong> {user.wallet}
           </p>
         </div>
@@ -183,7 +163,26 @@ const ProfilePage = () => {
               {renderPaginationNumbers()}
             </div>
         </div>
-        
+        {showRefundModal && (
+        <div className="fixed inset-0 z-10 flex items-center justify-center bg-gray-800 bg-opacity-50">
+          <div className="bg-white p-6 rounded-md shadow-lg">
+            <p className="text-xl font-semibold mb-4">
+              Payment Refunded to Your Wallet
+            </p>
+            <p>
+              The payment for this booking has been refunded to your wallet.
+            </p>
+            <div className="mt-4 flex justify-end">
+              <button
+                onClick={handleRefundModal}
+                className="px-4 py-2 bg-blue-500 text-white rounded-md"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
       </div>
       
     ) : null

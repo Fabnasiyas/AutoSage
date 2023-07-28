@@ -30,7 +30,7 @@ const CarDetailsPage = () => {
     };
   
 
-  const [dropoffDateAvailable, setDropoffDateAvailable] = useState(null); // New state variable
+  const [dropoffDateAvailable, setDropoffDateAvailable] = useState(null);
   const fetchCar = async () => {
     try {
       const response = await axios.get(`/viewcardetails/${id}`);
