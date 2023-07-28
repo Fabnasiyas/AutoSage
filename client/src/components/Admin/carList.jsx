@@ -31,16 +31,7 @@ const AdminCarList = () => {
         paddingLeft: '16px',
       },
     },
-    {
-      name: 'VendorId',
-      selector: 'vendorId',
-      sortable: true,
-    },
-    {
-      name: 'CarId',
-      selector: '_id',
-      sortable: true,
-    },
+   
     {
       name: 'Car Model',
       selector: 'model',

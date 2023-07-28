@@ -134,6 +134,7 @@ const Card = () => {
                 </div>
               </div>
               <div className="mt-4 flex ">
+                
                 {car.isBooked ? (
                   <button className="px-4 py-1 bg-gray-400 text-white" disabled>
                     Booked

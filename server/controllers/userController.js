@@ -337,7 +337,7 @@ export const cancelBooking = async (req, res) => {
   try {
     const { bookingId, message } = req.body;
     const booking = await bookingModel.findById(bookingId);
-
+const amount=booking.amountToPay;
     if (!booking) {
       return res.status(404).json({ error: 'Booking not found' });
     }
@@ -349,6 +349,12 @@ export const cancelBooking = async (req, res) => {
     }
     const userEmail = user.email;
 
+    const userUpdate=await userModel.updateOne(
+      {
+      _id:userId
+      },
+      {$set:{wallet:amount}}
+    );
     const carUpdate = await carModel.updateOne(
       { _id: booking.carId },
       { $set: { isBooked: false } }
@@ -402,5 +408,21 @@ const data={
   } catch (error) {
     res.status(500).json({ error: 'Internal server error' });
     console.log(error);
+  }
+};
+export const updateWallet=async(req,res)=>{
+  const { userId } = req.params;
+  const { wallet } = req.body;
+  try {
+ 
+    const updatedUser = await userModel.updateOne({ _id: userId }, { $set: { wallet: wallet } });
+    if (updatedUser.nModified === 1) {
+      return res.json({ message: 'Wallet updated successfully', wallet: wallet });
+    } else {
+      return res.status(404).json({ error: 'User not found or wallet not updated' });
+    }
+  } catch (error) {
+    console.error('Error updating wallet:', error);
+    return res.status(500).json({ error: 'Error updating wallet' });
   }
 };

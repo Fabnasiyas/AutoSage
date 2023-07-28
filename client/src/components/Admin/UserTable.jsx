@@ -8,6 +8,9 @@ const UserTable = () => {
   const [selectedUserId, setSelectedUserId] = useState(null);
   const [isBanModalOpen, setIsBanModalOpen] = useState(false);
   const [isUnbanModalOpen, setIsUnbanModalOpen] = useState(false);
+
+  const [isApproveModalOpen, setIsapproveModalOpen] = useState(false);
+  const [isDisapproveModalOpen, setIsdisapproveModalOpen] = useState(false);
   const [searchText, setSearchText] = useState('');
 
   const fetchUserList = async () => {
@@ -25,6 +28,15 @@ const UserTable = () => {
     fetchUserList();
   }, []);
 
+  const handleapproveUser = (userId) => {
+    setSelectedUserId(userId);
+    setIsapproveModalOpen(true);
+  };
+
+  const handledisapproveUser = (userId) => {
+    setSelectedUserId(userId);
+    setIsdisapproveModalOpen(true);
+  };
   const handleBanUser = (userId) => {
     setSelectedUserId(userId);
     setIsBanModalOpen(true);
@@ -34,10 +46,9 @@ const UserTable = () => {
     setSelectedUserId(userId);
     setIsUnbanModalOpen(true);
   };
-
   const confirmBanUser = async () => {
     try {
-      const response = await axios.put(`/admin/userList/${selectedUserId}`, {
+      const response = await axios.put(`/admin/userList/ban/${selectedUserId}`, {
         ban: true,
       });
       if (response.data.success) {
@@ -70,6 +81,47 @@ const UserTable = () => {
     }
     setIsUnbanModalOpen(false);
   };
+
+
+
+
+
+  const confirmApproveUser = async () => {
+    try {
+      const response = await axios.put(`/admin/userList/approve/${selectedUserId}`, {
+        isadminVerified: true,
+      });
+      if (response.data.success) {
+        setUsers((prevUsers) =>
+          prevUsers.map((user) =>
+            user._id === selectedUserId ? { ...user, isadminVerified: true } : user
+          )
+        );
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    setIsapproveModalOpen(false);
+  };
+
+  const confirmDisapproveUser = async () => {
+    try {
+      const response = await axios.put(`/admin/userList/disapprove/${selectedUserId}`, {
+        isadminVerified: false,
+      });
+      if (response.data.success) {
+        setUsers((prevUsers) =>
+          prevUsers.map((user) =>
+            user._id === selectedUserId ? { ...user, isadminVerified: false } : user
+          )
+        );
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    setIsdisapproveModalOpen(false);
+  };
+
 
   const columns = [
     {
@@ -113,6 +165,28 @@ const UserTable = () => {
               onClick={() => handleBanUser(row._id)}
             >
               Ban User
+            </button>
+          )}
+        </>
+      ),
+    },
+    {
+      name: 'verify',
+      cell: (row) => (
+        <>
+          {row.isadminVerified? (
+            <button
+              className="text-red-500 bg-transparent border border-red-500 rounded-md px-3 py-2 hover:bg-red-500 hover:text-white transition-colors duration-300"
+              onClick={() => handledisapproveUser(row._id)}
+            >
+              Dispprove User
+            </button>
+          ) : (
+            <button
+              className="text-green-500 bg-transparent border border-green-500 rounded-md px-3 py-2 hover:bg-green-500 hover:text-white transition-colors duration-300"
+              onClick={() => handleapproveUser(row._id)}
+            >
+             Approve User
             </button>
           )}
         </>
@@ -196,6 +270,48 @@ const UserTable = () => {
               <button
                 className="text-white bg-green-500 rounded-md px-3 py-2 hover:bg-green-600 transition-colors duration-300"
                 onClick={confirmUnbanUser}
+              >
+                YES
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      {isApproveModalOpen && (
+        <div className="fixed inset-0 flex items-center justify-center z-50">
+          <div className="bg-white w-96 rounded shadow-lg p-6">
+            <p className="mb-4">Are you sure you want to Approve this user?</p>
+            <div className="flex justify-end">
+              <button
+                className="text-red-500 bg-transparent border border-red-500 rounded-md px-3 py-2 hover:bg-red-500 hover:text-white transition-colors duration-300 mr-2"
+                onClick={() => setIsapproveModalOpen(false)}
+              >
+                Cancel
+              </button>
+              <button
+                className="text-white bg-red-500 rounded-md px-3 py-2 hover:bg-red-600 transition-colors duration-300"
+                onClick={confirmApproveUser}
+              >
+                YES
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      {isDisapproveModalOpen && (
+        <div className="fixed inset-0 flex items-center justify-center z-50">
+          <div className="bg-white w-96 rounded shadow-lg p-6">
+            <p className="mb-4">Are you sure you want to Disapprove this user?</p>
+            <div className="flex justify-end">
+              <button
+                className="text-gray-500 bg-transparent border border-gray-500 rounded-md px-3 py-2 hover:bg-gray-500 hover:text-white transition-colors duration-300 mr-2"
+                onClick={() => setIsdisapproveModalOpen(false)}
+              >
+                Cancel
+              </button>
+              <button
+                className="text-white bg-green-500 rounded-md px-3 py-2 hover:bg-green-600 transition-colors duration-300"
+                onClick={confirmDisapproveUser}
               >
                 YES
               </button>

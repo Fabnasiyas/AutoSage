@@ -60,16 +60,7 @@ const BookingList = () => {
       selector: (row, index) => index + 1,
       sortable: false
     },
-    {
-      name: 'Booking Id',
-      selector: '_id',
-      sortable: true
-    },
-    {
-      name: 'Car Id',
-      selector: 'carId',
-      sortable: true
-    },
+    
     {
       name: 'Booking Date',
       selector: 'bookingDate',

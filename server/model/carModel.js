@@ -54,7 +54,6 @@ const carSchema=mongoose.Schema({
         type:Array,
         require:true
     }
-    
 })
 
 const carModel=mongoose.model('carDetails',carSchema)

@@ -81,6 +81,30 @@ export const adminLogout = (req, res) => {
       res.status(500).json({ success: false, error: 'Server error' });
     }
   }
+
+  export const handleApproveUser=async (req,res)=>{
+    try{
+    const userId = req.params.userId;
+    // await userModel.findByIdAndUpdate(userId, { isadminVerified: true });
+  await userModel.updateOne({_id:userId},{$set:{isadminVerified: true}})
+    res.json({ success: true });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ success: false, error: 'Server error' });
+  }
+  };
+  export const handleDisapproveUser=async(req,res)=>{
+    try {
+      const userId = req.params.userId;
+      await userModel.findByIdAndUpdate(userId, { isadminVerified: false });
+  
+      res.json({ success: true });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ success: false, error: 'Server error' });
+    } 
+  }
+
   export const handleunBanUser= async (req, res) => {
     try {
       const userId = req.params.userId;

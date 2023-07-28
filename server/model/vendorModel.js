@@ -26,6 +26,10 @@ const vendorSchema=mongoose.Schema({
         type:Number,
         required:true
     },
+    isadminVerified:{
+        type:Boolean,
+        default:false 
+    }
   
     
 })

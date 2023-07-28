@@ -29,28 +29,15 @@ const BookTable = () => {
 
 
   const columns = [
+   
     {
-        name: 'Booking Id',
-        selector: '_id',
-        sortable: true,
+      name: 'No',
+      selector: (row, index) => index + 1,
+      sortable: true,
+      style: {
+        paddingLeft: '16px',
       },
-      {
-        name: 'User Id',
-        selector: 'userId',
-        sortable: true,
-      },
-      {
-        name: 'Vendor Id',
-        selector: 'vendorId',
-        sortable: true,
-      },
-     
-      {
-        name: 'CarId',
-        selector: 'carId',
-        sortable: true,
-      },
-    
+    },
     
       {
         name: 'Booking Date',

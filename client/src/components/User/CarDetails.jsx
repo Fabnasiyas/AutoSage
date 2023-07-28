@@ -3,8 +3,6 @@ import { useSelector } from 'react-redux';
 import React, { useState, useEffect } from 'react';
 import axios from '../../axios';
 import { useParams, useNavigate, Link } from 'react-router-dom';
-import { Carousel } from 'react-responsive-carousel';
-import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import Modal from 'react-modal';
@@ -55,7 +53,7 @@ const CarDetailsPage = () => {
 
   useEffect(() => {
     fetchCar();
-  }, []);
+  }, [userId]);
 
   const handlePickupDateChange = (date) => {
     setPickupDate(date);
@@ -64,8 +62,7 @@ const CarDetailsPage = () => {
   const handleDropoffDateChange = (date) => {
     setDropoffDate(date);
   };
-
-  const handleProceed = () => {
+   const handleProceed = () => {
     if (pickupDate && dropoffDate) {
       const oneDay = 24 * 60 * 60 * 1000; // Number of milliseconds in one day
       const totalDays = Math.round(Math.abs((dropoffDate - pickupDate) / oneDay));
@@ -81,7 +78,8 @@ const CarDetailsPage = () => {
     }
   };
 
-  const handleBookAdvancePayment = () => {
+ 
+  const handleBookAdvancePayment = async () => {
     if (userId) {
       if (pickupDate && dropoffDate) {
         const oneDay = 24 * 60 * 60 * 1000; // Number of milliseconds in one day
@@ -89,22 +87,88 @@ const CarDetailsPage = () => {
         const totalAmount = totalDays * car.rentPerDay;
         const amountToPay = totalAmount / 2;
         const balance = totalAmount - amountToPay;
+  
+        if (user.wallet === 0) {
+          // Case 1: Wallet amount is 0, pay directly using PayPal.
+          try {
+            const bookingData = {
+              userId: userId,
+              vendorId: car.vendorId,
+              carId: car._id,
+              pickupDate,
+              dropoffDate,
+              bookingDate: new Date(),
+              amountToPay,
+              totalAmount,
+              balance,
+              paymentType: 'Advance Payment',
+              paymentAmount: amountToPay, 
+            };
+  
+            setBookingData(bookingData);
+            setPaymentSelection(null); 
+            setCheckout(true);
+          } catch (error) {
+            console.error('Error processing PayPal payment:', error);
+            alert('Error processing payment. Please try again later.');
+          }
+        } else if (user.wallet >= amountToPay) {
+          // Case 2: Wallet amount is greater than or equal to the payable amount.
+          try {
+            
+  
+            const updatedWalletAmount = user.wallet - amountToPay;
+            const bookingData = {
+              userId: userId,
+              vendorId: car.vendorId,
+              carId: car._id,
+              pickupDate,
+              dropoffDate,
+              bookingDate: new Date(),
+              amountToPay,
+              totalAmount,
+              balance,
+              paymentType: 'Advance Payment',
+              paymentAmount: 0,
+              updatedWalletAmount, 
+            };
+  console.log(bookingData,'1111111111111111111111');
+            setBookingData(bookingData);
+            setPaymentSelection(null); 
+            setCheckout(true);
+          } catch (error) {
+            console.error('Error updating wallet:', error);
+            alert('Error processing payment. Please try again later.');
+          }
+        } else {
+          // Case 3: Wallet amount is less than the payable amount. Use the wallet amount for payment
+        
+          try {
+   
+  
+            const bookingData = {
+              userId: userId,
+              vendorId: car.vendorId,
+              carId: car._id,
+              pickupDate,
+              dropoffDate,
+              bookingDate: new Date(),
+              amountToPay,
+              totalAmount,
+              balance,
+              paymentType: 'Advance Payment',
+              paymentAmount: amountToPay-user.wallet,
+              updatedWalletAmount:0,
+            };
 
-        const bookingData = {
-          userId: userId,
-          vendorId: car.vendorId,
-          carId: car._id,
-          pickupDate,
-          dropoffDate,
-          bookingDate: new Date(),
-          amountToPay,
-          totalAmount,
-          balance,
-          paymentType: 'Advance Payment'
-        };
-        setBookingData(bookingData);
-        setPaymentSelection(null);
-        setCheckout(true);
+            setBookingData(bookingData);
+            setPaymentSelection(null); 
+            setCheckout(true);
+          } catch (error) {
+            console.error('Error updating wallet:', error);
+            alert('Error processing payment. Please try again later.');
+          }
+        }
       } else {
         alert('Please select both pickup and drop-off dates');
       }
@@ -112,35 +176,114 @@ const CarDetailsPage = () => {
       navigate('/login');
     }
   };
-  const currentDate = new Date();
-  const handleBookFullPayment = () => {
-    if (pickupDate && dropoffDate) {
-      const oneDay = 24 * 60 * 60 * 1000; // Number of milliseconds in one day
-      const totalDays = Math.round(Math.abs((dropoffDate - pickupDate) / oneDay));
-      const totalAmount = totalDays * car.rentPerDay;
-      const amountToPay = totalAmount;
-      const balance = totalAmount - amountToPay;
+  
+  const handleBookFullPayment = async () => {
+    if (userId) {
+      if (pickupDate && dropoffDate) {
+        const oneDay = 24 * 60 * 60 * 1000; // Number of milliseconds in one day
+        const totalDays = Math.round(Math.abs((dropoffDate - pickupDate) / oneDay));
+        const totalAmount = totalDays * car.rentPerDay;
+        const amountToPay = totalAmount;
+        const balance = totalAmount - amountToPay;
+  
+        if (user.wallet === 0) {
+          // Case 1: Wallet amount is 0, pay directly using PayPal.
+          try {
+            const bookingData = {
+              userId: userId,
+              vendorId: car.vendorId,
+              carId: car._id,
+              pickupDate,
+              dropoffDate,
+              bookingDate: new Date(),
+              amountToPay,
+              totalAmount,
+              balance,
+              paymentType: 'Full Payment',
+              paymentAmount: amountToPay, 
+            };
+  
+            setBookingData(bookingData);
+            setPaymentSelection(null); 
+            setCheckout(true);
+          } catch (error) {
+            console.error('Error processing PayPal payment:', error);
+            alert('Error processing payment. Please try again later.');
+          }
+        } else if (user.wallet >= amountToPay) {
+          // Case 2: Wallet amount is greater than or equal to the payable amount.
+          try {
+            
+  
+            const updatedWalletAmount = user.wallet - amountToPay;
+            const bookingData = {
+              userId: userId,
+              vendorId: car.vendorId,
+              carId: car._id,
+              pickupDate,
+              dropoffDate,
+              bookingDate: new Date(),
+              amountToPay,
+              totalAmount,
+              balance,
+              paymentType: 'Advance Payment',
+              paymentAmount: 0,
+              updatedWalletAmount, 
+            };
+            setBookingData(bookingData);
+            setPaymentSelection(null); 
+            setCheckout(true);
+          } catch (error) {
+            console.error('Error updating wallet:', error);
+            alert('Error processing payment. Please try again later.');
+          }
+        } else {
+          // Case 3: Wallet amount is less than the payable amount. Use the wallet amount for payment
+        
+          try {
+   
+  
+            const bookingData = {
+              userId: userId,
+              vendorId: car.vendorId,
+              carId: car._id,
+              pickupDate,
+              dropoffDate,
+              bookingDate: new Date(),
+              amountToPay,
+              totalAmount,
+              balance,
+              paymentType: 'Advance Payment',
+              paymentAmount: amountToPay-user.wallet,
+              updatedWalletAmount:0,
+            };
 
-      const bookingData = {
-        userId: userId,
-        vendorId: car.vendorId,
-        carId: car._id,
-        pickupDate,
-        dropoffDate,
-        bookingDate: new Date(),
-        amountToPay,
-        totalAmount,
-        balance,
-        paymentType: 'Full Payment'
-      };
-      setBookingData(bookingData);
-      setPaymentSelection(null);
-      setCheckout(true);
+            setBookingData(bookingData);
+            setPaymentSelection(null); 
+            setCheckout(true);
+          } catch (error) {
+            console.error('Error updating wallet:', error);
+            alert('Error processing payment. Please try again later.');
+          }
+        }
+      } else {
+        alert('Please select both pickup and drop-off dates');
+      }
     } else {
-      alert('Please select both pickup and drop-off dates');
+      navigate('/login');
     }
   };
 
+
+
+
+
+
+
+  
+  const currentDate = new Date();
+
+  
   const closeModal = () => {
     setCheckout(false);
   };
@@ -204,7 +347,7 @@ return (
                 onClick={() => handleImageClick(image)}
               >
                 <img
-                  src={`http://localhost:5000/images/${image.filename}`} // Assuming the image object has a "url" field with the image URL
+                  src={`http://localhost:5000/images/${image.filename}`} 
                   alt={`Car Image ${image._id}`}
                   className="w-full h-full object-cover rounded-md"
                 />
@@ -284,7 +427,9 @@ return (
                     <p className="text-red-500">Please select both pickup and drop-off dates.</p>
                   )}
                   {userId ? (
-                    doc && doc.length > 0 ? ( // Check if doc exists and is not an empty array
+                    doc && doc.length > 0 ? ( 
+                      user.isadminVerified ? (
+
                       <div className="flex justify-center">
                         <button
                           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded"
@@ -293,7 +438,14 @@ return (
                           Proceed
                         </button>
                       </div>
-                    ) : (
+                    ):
+                    (
+                      <div>
+                         <p className="text-red-500 mb-4">
+                         You are Not approved by the Admin.
+                        </p>
+                      </div>
+                    ) ): (
                       <div>
                         <p className="text-red-500 mb-4">
                           Please add your driving license and Aadhaar card before proceeding.
@@ -332,8 +484,18 @@ return (
           {bookingData && (
             <>
               <p className="text-center mb-3">
-                Payment Amount: {'\u20B9'}
+                Total Amount: {'\u20B9'}
                 {bookingData.amountToPay}
+              </p>
+              <p className="text-center mb-3">
+                Wallet Amount: {'\u20B9'}
+                {user.wallet}
+              </p>
+             
+              <p className="text-center mb-3">
+              Payment Due: {'\u20B9'}
+                
+                {bookingData.paymentAmount}
               </p>
 
               <PayPalScriptProvider
@@ -360,6 +522,11 @@ return (
                         console.log('Booking details:', response.data);
                       })
                       .catch((error) => {
+                        console.error('Error booking:', error);
+                      });
+                      axios.post(`/update-wallet/${userId}`, { wallet: bookingData.updatedWalletAmount }).then((response)=>{
+                        console.log(response.data);
+                      }).catch((error) => {
                         console.error('Error booking:', error);
                       });
 

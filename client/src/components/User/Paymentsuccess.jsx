@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 function OrderSuccess() {
     const navigate = useNavigate();
     setTimeout(() => {
-        navigate('/')
+        navigate('/profile')
     }, 5000)
     return (
         <div class="bg-white-100 h-screen flex justify-center items-center">

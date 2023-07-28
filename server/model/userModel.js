@@ -32,6 +32,14 @@ const userSchema=mongoose.Schema({
     aadharCard:{
         type:Array,
         require:true
+    },
+    isadminVerified:{
+        type:Boolean,
+        default:false 
+    },
+    wallet:{
+        type:Number,
+        default:0 
     }
    
     
