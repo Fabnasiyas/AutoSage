@@ -1,26 +1,35 @@
+
 import React, { useState } from 'react';
 import axios from '../../axios';
-import { useNavigate } from 'react-router-dom';
-
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const ResetPasswordPage = () => {
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
-const navigate=useNavigate()
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const email = location?.state?.email;
+
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    if (newPassword.length < 6) {
+      setError('Password must contain at least 6 characters');
+      return;
+    }
+
     if (newPassword === confirmPassword) {
       console.log('Password reset successful!');
-     
-axios.post('/setnewPassword',{newPassword}).then((response)=>{
-  console.log(response.data);
-  if(!response.data.err){
-    console.log(response.data);
-  navigate('/login')
-  }
-})
+
+      axios.post('/setnewPassword', { email, newPassword }).then((response) => {
+        if (!response.data.err) {
+          console.log(response.data);
+          navigate('/login');
+        }
+      });
+
       setNewPassword('');
       setConfirmPassword('');
       setError('');

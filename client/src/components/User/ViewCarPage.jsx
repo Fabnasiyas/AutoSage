@@ -88,18 +88,22 @@ const ProductPage = () => {
                   </div>
                 ) : (
                   <div className="flex justify-center">
+                        
                     <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded">
                       Booked
                     </button>
+                 
                   </div>
                 )
               ) :(<div className="flex justify-center">
+                  <Link to={`/booking/${carData._id}`}>
               <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded">
                 Book Now
               </button>
+              </Link>
             </div>
             )}
-<Link to='/chat'>
+           <Link to='/chat'>
                 <p className='text-green-500'>Chat with Us</p> </Link>
              
           </>

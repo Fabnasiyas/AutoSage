@@ -7,8 +7,9 @@ import { toast } from 'react-toastify';
 function OtpPage() {
   const navigate = useNavigate();
   const [otp, setOtp] = useState('');
-const email=useLocation()
-console.log(email.state);
+  const location = useLocation();
+  const email = location?.state?.email;
+console.log(email,'111111');
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(otp);
@@ -18,11 +19,11 @@ console.log(email.state);
       .post('/verify-otp', { otp })
       .then((response) => {
         if (!response.data.err) {
-          console.log(response.data.message);
+          console.log(response.data);
           toast.success(response.data.message, {
             position: 'top-center',
           });
-          navigate('/SetNewPassword');
+          navigate('/SetNewPassword',{ state: { email } })
         } else {
           toast.error(response.data.message);
         }
