@@ -88,7 +88,7 @@ const CarRegistrationPage = () => {
   const fetchSuggestions = async (value) => {
     try {
       const response = await Axios.get(
-        `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(value)}.json?access_token=pk.eyJ1IjoiZmFibmFzaXlhcyIsImEiOiJjbGpudmFyanMxYmQ2M2VudWc0ejdlaTg3In0.v5csurZ_qXhXqWhwrSKUZg`
+        `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(value)}.json?access_token=${process.env.REACT_APP_MAP_TOKEN}`
       );
       const suggestions = response.data.features.map((feature) => ({
         location: feature.place_name,
