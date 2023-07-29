@@ -162,7 +162,17 @@ export const adminLogout = (req, res) => {
   export const getallBookings=async(req,res)=>{
 try {
  const Bookings=await bookingModel.find({}).lean() 
-res.json(Bookings)
+ const users=await userModel.find({}).lean();
+ const cars=await carModel.find({}).lean();
+ const vendors=await vendorModel.find({}).lean();
+ const responseData = {
+  bookings: Bookings,
+  users: users,
+  cars: cars,
+  vendors:vendors
+};
+
+res.json(responseData )
 
 } catch (error) {
   console.log(error); 
