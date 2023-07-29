@@ -5,6 +5,7 @@ import userModel from '../model/userModel.js';
 import vendorModel from '../model/vendorModel.js'
 import carModel from '../model/carModel.js';
 import bookingModel from '../model/bookingModel.js'
+import { sendapprovalMail } from '../helper/userapproveEmail.js';
 
 
 
@@ -85,7 +86,10 @@ export const adminLogout = (req, res) => {
   export const handleApproveUser=async (req,res)=>{
     try{
     const userId = req.params.userId;
-    // await userModel.findByIdAndUpdate(userId, { isadminVerified: true });
+    const user = await userModel.findById(userId);
+    const useremail=user.email;
+    await sendapprovalMail(useremail, userId);
+    
   await userModel.updateOne({_id:userId},{$set:{isadminVerified: true}})
     res.json({ success: true });
   } catch (error) {
