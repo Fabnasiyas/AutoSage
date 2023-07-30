@@ -2,11 +2,9 @@
 import React, { useState } from "react";
 import { HiMenuAlt3 } from "react-icons/hi";
 import { MdOutlineDashboard } from "react-icons/md";
-import { RiSettings4Line } from "react-icons/ri";
 import { TbReportAnalytics } from "react-icons/tb";
 import { AiOutlineUser } from "react-icons/ai";
-import { FiFolder } from "react-icons/fi";
-import { FaCar } from 'react-icons/fa';
+import { FaCar, FaPlus } from 'react-icons/fa';
 
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
@@ -15,13 +13,12 @@ import axios from '../../axios'
 
 const Home = () => {
   const menus = [
-    { name: "Dashboard", link: "/vendor/vendorhome", icon: MdOutlineDashboard },
-    { name: "Profile", link: "/vendor/vendorprofile", icon: AiOutlineUser },
-    { name: "Bookings", link: "/vendor/bookings", icon: TbReportAnalytics },
-    { name: "My Cars", link: "/vendor/carlist", icon: FiFolder },
-    { name: "Add Car", link: "/vendor/addcar", icon: FaCar },
-    { name: "Logout", link: "/vendor/logout", icon: RiSettings4Line },
-  ];
+    { name: " Dashboard", link: "/vendor/vendorhome", icon: MdOutlineDashboard, },
+    { name: " Profile", link: "/vendor/vendorprofile", icon: AiOutlineUser },
+    { name: " Bookings", link: "/vendor/bookings", icon: TbReportAnalytics },
+    { name: " My Cars", link: "/vendor/carlist", icon: FaCar },
+    { name: " Add Car", link: "/vendor/addcar", icon: FaPlus },
+      ];
 
   const [open, setOpen] = useState(true);
   const { vendor } = useSelector(state => state);
@@ -47,7 +44,7 @@ const Home = () => {
           onClick={() => setOpen(!open)}
         />
       </div>
-      <div className="mt-4 flex flex-col gap-4 relative">
+      <div className="mt-4 flex flex-col gap-7 relative">
         {menus.map((menu, i) => (
           <Link
             to={menu.link}
@@ -59,7 +56,7 @@ const Home = () => {
               style={{
                 transitionDelay: `${i + 3}00ms`,
               }}
-              className={`whitespace-pre duration-500 ${
+              className={`whitespace-pre duration-500 ml-5 ${
                 !open && "opacity-0 translate-x-28 overflow-hidden"
               }`}
             >
@@ -74,7 +71,7 @@ const Home = () => {
             </h2>
           </Link>
         ))}
-        <button className="text-gray-300 hover:bg-gray-700 hover:text-white py-2 rounded-md text-sm font-semibold" onClick={handleLogout}>
+        <button className="text-gray-300 hover:bg-gray-700 hover:text-white  rounded-md text-sm font-semibold" onClick={handleLogout}>
           Logout
         </button>
       </div>
@@ -83,3 +80,6 @@ const Home = () => {
 };
 
 export default Home;
+
+
+

@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import { HiMenuAlt3 } from "react-icons/hi";
 import { MdOutlineDashboard } from "react-icons/md";
-import { RiSettings4Line } from "react-icons/ri";
 import { TbReportAnalytics } from "react-icons/tb";
 import { AiOutlineUser } from "react-icons/ai";
 import {  FiFolder} from "react-icons/fi";
@@ -19,7 +18,6 @@ const Sidebar = () => {
     { name: "Vendor Managment", link: "/admin/vendormanagment", icon: TbReportAnalytics },
     { name: "Registered Cars", link: "/admin/carManagment", icon: FiFolder },
     { name: "Bookings", link: "/admin/bookings", icon: TbReportAnalytics},
-    { name: "Setting", link: "/", icon: RiSettings4Line },
 
   ];
   const [open, setOpen] = useState(true);
@@ -47,7 +45,7 @@ const Sidebar = () => {
           onClick={() => setOpen(!open)}
         />
       </div>
-      <div className="mt-4 flex flex-col gap-4 relative">
+      <div className="mt-4 flex flex-col gap-7 relative">
         {menus?.map((menu, i) => (
           <Link
             to={menu?.link}
@@ -59,7 +57,7 @@ const Sidebar = () => {
               style={{
                 transitionDelay: `${i + 3}00ms`,
               }}
-              className={`whitespace-pre duration-500 ${
+              className={`whitespace-pre duration-500 ml-3 ${
                 !open && "opacity-0 translate-x-28 overflow-hidden"
               }`}
             >
