@@ -1,19 +1,26 @@
 
 import React, { useState, useEffect } from 'react';
 import axios from '../../axios';
-import { Link } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 
 import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 const ProductPage = () => {
+  const {user}=useSelector((state)=>state)
+  console.log('====================================');
+  const userId=user.details._id;
+  console.log(userId,'userId');
+  console.log('====================================');
   const [carData, setCarData] = useState(null);
   const [activeImg, setActiveImage] = useState(null);
   const { id } = useParams();
   const [dropoffDateAvailable, setDropoffDateAvailable] = useState(null); // New state variable
+  const navigate=useNavigate()
   useEffect(() => {
     // Fetch car data from the API
     const res=axios.get(`/viewcar/${id}`)
       .then(response => {
-        console.log(res,'23456890');
+        
         setCarData(response.data.car);
         setActiveImage(response.data.car.carImages[0]);
         const booking= response.data.books;// Set the first car image as active by default
@@ -23,6 +30,7 @@ const ProductPage = () => {
           const formattedDropoffDate = new Date(dropoffDate).toLocaleDateString('en-GB', options);
           setDropoffDateAvailable(formattedDropoffDate);
         }
+        
       })
       .catch(error => {
         console.error('Error fetching car data:', error);
@@ -30,7 +38,19 @@ const ProductPage = () => {
   }, []);
 
   
-
+const chatHandler=()=>{
+  const { vendorId } = carData; 
+    // console.log(vendorId);
+  const  response=axios.post('/chat',{vendorId,userId}).then(response =>{
+    console.log(response);
+    if (response.data.success) {
+      navigate('/chat'); // If the response indicates success, navigate to /chat
+    } else {
+      console.error('Chat creation failed'); // Handle the case where chat creation failed
+    }
+  })
+ 
+}
   const handleImageClick = (image) => {
     setActiveImage(image);
   };
@@ -103,8 +123,8 @@ const ProductPage = () => {
               </Link>
             </div>
             )}
-           <Link to='/chat'>
-                <p className='text-green-500'>Chat with Us</p> </Link>
+           
+                <p className='text-green-500' onClick={chatHandler}>Chat with Us</p> 
              
           </>
         )}
