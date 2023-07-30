@@ -1,6 +1,7 @@
 
 import React from 'react';
 import img from '../../assets/white.png';
+import { Link } from 'react-router-dom';
 
 const MyPage = () => {
   return (
@@ -20,7 +21,9 @@ const MyPage = () => {
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus auctor, lacus eget
           consectetur volutpat, lorem quam sagittis nisl, ut pulvinar eros ipsum ac mauris.
         </p>
-        <button className="px-4 py-2 bg-white text-blue rounded-lg mt-4">Register Your Car</button>
+       
+        <Link to='/vendor/login'>
+        <button className="px-4 py-2 bg-white text-blue rounded-lg mt-4">Register Your Car</button></Link>
       </div>
     </div>
   );
