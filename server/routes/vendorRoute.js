@@ -1,7 +1,7 @@
 import express from 'express'
 const router=express.Router()
 import { verifyVendor } from '../middleware/vendorAuth.js';
-import {postSignup,verifyVendorSignup,vendorLogin,vendorLogout,getCarLists,editProfile,postCarRegistration,getBookings,updateStatus, vendorCheckAuth,getDashbordData,getMonthlyData} from '../controllers/vendorController.js'
+import {postSignup,verifyVendorSignup,vendorLogin,vendorLogout,getCarLists,editProfile,postCarRegistration,getBookings,updateStatus, vendorCheckAuth,getDashbordData,getMonthlyData,getvendorData} from '../controllers/vendorController.js'
 import multipleUpload from '../helper/multer.js';
 
 router.get('/auth',vendorCheckAuth)
@@ -21,4 +21,5 @@ router.get('/bookinglist',getBookings)
 router.patch('/updateCarStatus/:bookingId',updateStatus)
 router.get('/dashborddetails',getDashbordData)
 router.get('/monthlyRevenue',getMonthlyData)
+router.get('/vendor/:id',getvendorData)
 export default router;

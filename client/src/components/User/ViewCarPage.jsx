@@ -40,10 +40,10 @@ const ProductPage = () => {
   
 const chatHandler=()=>{
   const { vendorId } = carData; 
-    // console.log(vendorId);
+    console.log(vendorId);
   const  response=axios.post('/chat',{vendorId,userId}).then(response =>{
-    console.log(response);
-    if (response.data.success) {
+   
+    if (response.data.sucess) {
       navigate('/chat'); // If the response indicates success, navigate to /chat
     } else {
       console.error('Chat creation failed'); // Handle the case where chat creation failed

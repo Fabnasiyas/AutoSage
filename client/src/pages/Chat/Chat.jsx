@@ -5,14 +5,14 @@ import Conversation from '../../components/Chat/Conversation';
 import axios from '../../axios';
 
 const Chat = () => {
-  const { vendor } = useSelector((state) => state);
-  console.log(vendor.details,'000000000');
-const vendorId=vendor.details._id;
+  const { user } = useSelector((state) => state);
+  console.log(user.details,'000000000');
+const userId=user.details._id;
   const [chats,setChats]=useState([])
   useEffect(()=>{
     const getChats=async ()=>{
       try {
-        const {data}=await axios.get(`/chat/${vendorId}`);
+        const {data}=await axios.get(`/chat/${userId}`);
         setChats(data)
         console.log(data,'dataaa');
       } catch (error) {
@@ -20,7 +20,8 @@ const vendorId=vendor.details._id;
       }
     }
     getChats()
-  },[vendor])
+  },[user])
+  console.log(chats,'qwertyuiasdfghjkzxcvbnmqwertyui');
   return (
     <div className="Chat">
         {/* left side */}
@@ -31,7 +32,7 @@ const vendorId=vendor.details._id;
             <div className="Chat-list">
             {chats.map((chat) => (
   <div key={chat.id}>
-    <Conversation data={chat} currentVendorId={vendor.details._id}/>
+    <Conversation data={chat} currentVendorId={user.details._id}/>
   </div>
 ))}
 

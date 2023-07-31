@@ -310,3 +310,12 @@ export const getMonthlyData=async(req,res)=>{
 }
 };
 
+export const getvendorData=async(req,res)=>{
+  const vendorId=req.params.id
+try {
+  const vendorData = await vendorModel.findOne({ _id:vendorId });
+  res.json(vendorData)
+} catch (error) {
+  console.log(error);
+}
+}
