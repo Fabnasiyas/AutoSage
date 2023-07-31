@@ -34,6 +34,7 @@
     "react-geocode": "^0.2.3",
     "react-icons": "^4.9.0",
     "react-image-crop": "^10.1.5",
+    "react-input-emoji": "^5.1.1",
     "react-modal": "^3.16.1",
     "react-redux": "^8.1.0",
     "react-responsive-carousel": "^3.2.23",
@@ -45,6 +46,7 @@
     "sharp": "^0.32.1",
     "sweetalert2": "^11.7.12",
     "tailwindcss": "^2.2.19",
+    "timeago.js": "^4.0.2",
     "web-vitals": "^2.1.4",
     "yup": "^1.2.0"
   },
