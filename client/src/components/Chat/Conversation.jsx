@@ -26,12 +26,12 @@ const Conversation = ({data,currentVendorId}) => {
         <div className="online-dot"></div>
         <img src={profilepic} alt="" className='followerImage' style={{width:'50px',height:'50px'}} />
       <div className="name" style={{fontSize:'0.8rem'}}>
-        <span>{vendorData ?. name}</span>
+        <span>{vendorData ?.name}</span>
         <span>Online</span>
       </div>
       </div>
     </div>
-
+<hr />
     </>
 
   )

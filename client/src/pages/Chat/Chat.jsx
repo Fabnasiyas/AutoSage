@@ -3,12 +3,13 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux';
 import Conversation from '../../components/Chat/Conversation';
 import axios from '../../axios';
-
+import ChatBox from '../../components/Chat/chatBox';
 const Chat = () => {
   const { user } = useSelector((state) => state);
   console.log(user.details,'000000000');
 const userId=user.details._id;
-  const [chats,setChats]=useState([])
+  const [chats,setChats]=useState([]);
+  const [currentChat,setCurrentChat]=useState(null)
   useEffect(()=>{
     const getChats=async ()=>{
       try {
@@ -29,9 +30,11 @@ const userId=user.details._id;
         <div className="Chat-container">
 
             <h2>Chats</h2>
-            <div className="Chat-list">
+            <div className="Chat-list" 
+            >
             {chats.map((chat) => (
-  <div key={chat.id}>
+  <div key={chat.id} onClick={()=>
+    setCurrentChat(chat)}>
     <Conversation data={chat} currentVendorId={user.details._id}/>
   </div>
 ))}
@@ -41,7 +44,7 @@ const userId=user.details._id;
         </div>
     {/* right side */}
     <div className="Right-side-chat">
-<h2>rightside</h2>
+<ChatBox chat={currentChat} currentvendor={userId}/>
     </div>
     </div>
   )
