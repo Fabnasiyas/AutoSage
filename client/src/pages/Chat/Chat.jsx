@@ -1,15 +1,32 @@
 import './Chat.css'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useSelector } from 'react-redux';
 import Conversation from '../../components/Chat/Conversation';
 import axios from '../../axios';
 import ChatBox from '../../components/Chat/chatBox';
+import {io} from 'socket.io-client'
+
+
 const Chat = () => {
   const { user } = useSelector((state) => state);
   console.log(user.details,'000000000');
 const userId=user.details._id;
   const [chats,setChats]=useState([]);
   const [currentChat,setCurrentChat]=useState(null)
+  const socket=useRef()
+  const [onlineUsers,setOnlineUsers]=useState([])
+
+
+  useEffect(()=>{
+socket.current=io('http://localhost:3000')
+socket.current.emit("new-user-add",user._id)
+socket.current.on('get-users',(users)=>{
+  setOnlineUsers(users)
+  console.log(onlineUsers);
+})
+  },[user])
+
+
   useEffect(()=>{
     const getChats=async ()=>{
       try {

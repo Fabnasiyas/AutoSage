@@ -2,7 +2,7 @@ import React,  { useEffect, useState } from 'react'
 import axios from '../../axios';
 import profilepic from '../../assets/avatar.png'
 import {format} from "timeago.js"
-import InputEmoji from 'react-input-emoji';
+import InputEmoji, { async } from 'react-input-emoji';
 
 const ChatBox = ({chat,currentVendor}) => {
     const [vendorData,setVendorData]=useState(null)
@@ -43,6 +43,25 @@ useEffect(()=>{
    const handleChange=(newmessages)=>{
     setNewmessage(newMessage)
    }
+   const handlesend=async(e)=>{
+    e.preventDefault();
+    const message={
+      senderId:currentVendor,
+      text:newMessage,
+      chatId:chat._id,
+    }
+    // if(newMessage.length>0){
+
+    // }
+
+    try {
+      const {data}=await axios.post(`/message/`,data)
+      setMessages(...messages,data)
+      setNewmessage('')
+    } catch (error) {
+      console.log(error);
+    }
+   }
     return (
     <>
     <div className="ChatBox-container">
@@ -78,7 +97,7 @@ useEffect(()=>{
         <div>+</div>
         <InputEmoji value={newMessage}
         onChange={handleChange}/> 
-        <div className="send-button button">Send</div>
+        <div className="send-button button" onClick={handlesend}>Send</div>
       </div>
             </>
       ):(
