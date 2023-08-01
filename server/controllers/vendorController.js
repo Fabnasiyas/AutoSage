@@ -314,6 +314,9 @@ export const getvendorData=async(req,res)=>{
   const vendorId=req.params.id
 try {
   const vendorData = await vendorModel.findOne({ _id:vendorId });
+  console.log('====================================');
+  console.log(vendorData);
+  console.log('====================================');
   res.json(vendorData)
 } catch (error) {
   console.log(error);

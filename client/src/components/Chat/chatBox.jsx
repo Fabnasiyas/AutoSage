@@ -17,7 +17,7 @@ const ChatBox = ({chat,currentUser}) => {
     const getVendorData=async()=>{ 
         try {
           const {data}=await axios.get(`/vendor/vendor/${vendorId}`);
-          console.log(data,'datatata');
+          console.log(data,'eeeeeeeeeeeeeeeeeeeee');
           setVendorData(data) 
         } catch (error) {
           console.log(error);
@@ -27,8 +27,8 @@ const ChatBox = ({chat,currentUser}) => {
    if(chat!==null){
     getVendorData();
    }
-},[currentUser])
-   console.log(messages,'1234567890');
+},[currentUser,chat])
+   console.log(vendorData,'1234567890');
 useEffect(()=>{
   const fetchMsgs=async()=>{
     try {
@@ -46,27 +46,24 @@ useEffect(()=>{
    const handleChange=(newMessage)=>{
     setNewmessage(newMessage)
    }
-   const handlesend=async(e)=>{
+   const handlesend = async (e) => {
     e.preventDefault();
-    const message={
-      senderId:currentUser,
-      text:newMessage,
-      chatId:chat._id,
-    }
-    console.log(message);
-    // if(newMessage.length>0){
-
-    // }
-
+    const message = {
+      senderId: currentUser,
+      text: newMessage,
+      chatId: chat._id,
+    };
+  
     try {
-      const {data}=await axios.post(`/message/`,message)
-      console.log(data,'6666666');
-      setMessages(...messages,data)
-      setNewmessage('')
+      const { data } = await axios.post(`/message/`, message);
+      setMessages([...messages, data]); // Add the new message to the existing messages array
+      setNewmessage('');
     } catch (error) {
       console.log(error);
     }
-   }
+  };
+  
+ 
     return (
     <>
     <div className="ChatBox-container">
@@ -87,16 +84,17 @@ useEffect(()=>{
       
             </div>
            <div className="chat-body">
-             {messages.map((message)=>{
-        <>
-        <div className={message.vendorId ===currentUser?'message own' :'message'}>
+           <div className="chat-body">
+  {Array.isArray(messages) && messages.map((message) => (
+    <div key={message._id} className={message.senderId === currentUser ? 'message own' : 'message'}>
       <span>
-        {message.text}
+        {message.text} 
         <span>{format(message.createdAt)}</span>
       </span>
-        </div>
-        </>
-             })}
+    </div>
+  ))}
+</div>
+
            </div>
       <div className="chat-sender">
         <div>+</div>
