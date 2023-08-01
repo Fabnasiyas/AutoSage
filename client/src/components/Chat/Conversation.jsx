@@ -2,23 +2,26 @@ import React, { useState } from 'react'
 import { useEffect } from 'react'
 import axios from '../../axios';
 import profilepic from '../../assets/avatar.png'
-const Conversation = ({data,currentVendorId}) => {
+const Conversation = ({data,currentUserId}) => {
   const [vendorData,setVendorData]=useState(null)
   useEffect(()=>{
-    const vendorId=data.members.find((id)=>id!==currentVendorId)
+    console.log(data,'ppppppppppppp');
+    const vendorId=data.members.find((id)=>id!==currentUserId)
     console.log(vendorId,'werty');
-    const getVendorData=async()=>{
-      try {
-        const {data}=await axios.get(`/vendor/vendor/${vendorId}`);
-        console.log(data,'11111111111');
-        setVendorData(data) 
-      } catch (error) {
-        console.log(error);
-      }
+    
+      
+         axios.get(`/vendor/vendor/${vendorId}`).then((response)=>{
+
+           console.log(response,'wwwwwwwwwwwwww');
+           setVendorData(response.data)
+         }).catch((err)=>{
+          console.log(err);
+         })
+     
       
     }
-    getVendorData()
-  },[])
+   
+,[data,currentUserId])
   return (
     <>
     <div className="follower conversation">

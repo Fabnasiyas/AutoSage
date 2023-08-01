@@ -9,8 +9,8 @@ import {io} from 'socket.io-client'
 
 const Chat = () => {
   const { user } = useSelector((state) => state);
-  console.log(user.details,'000000000');
 const userId=user.details._id;
+
   const [chats,setChats]=useState([]);
   const [currentChat,setCurrentChat]=useState(null)
   const socket=useRef()
@@ -25,7 +25,7 @@ socket.current.on('get-users',(users)=>{
   console.log(onlineUsers);
 })
   },[user])
-
+console.log(currentChat,'sdsdss');
 
   useEffect(()=>{
     const getChats=async ()=>{
@@ -39,7 +39,6 @@ socket.current.on('get-users',(users)=>{
     }
     getChats()
   },[user])
-  console.log(chats,'qwertyuiasdfghjkzxcvbnmqwertyui');
   return (
     <div className="Chat">
         {/* left side */}
@@ -49,10 +48,10 @@ socket.current.on('get-users',(users)=>{
             <h2>Chats</h2>
             <div className="Chat-list" 
             >
-            {chats.map((chat) => (
+            {chats.map((chat,i) => (
   <div key={chat.id} onClick={()=>
     setCurrentChat(chat)}>
-    <Conversation data={chat} currentVendorId={user.details._id}/>
+    <Conversation data={chat} currentUserId={user.details._id}/>
   </div>
 ))}
 
@@ -61,7 +60,7 @@ socket.current.on('get-users',(users)=>{
         </div>
     {/* right side */}
     <div className="Right-side-chat">
-<ChatBox chat={currentChat} currentvendor={userId}/>
+<ChatBox chat={currentChat} currentUser={user.details._id}/>
     </div>
     </div>
   )

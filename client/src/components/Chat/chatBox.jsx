@@ -2,16 +2,19 @@ import React,  { useEffect, useState } from 'react'
 import axios from '../../axios';
 import profilepic from '../../assets/avatar.png'
 import {format} from "timeago.js"
-import InputEmoji, { async } from 'react-input-emoji';
+import InputEmoji from 'react-input-emoji';
 
-const ChatBox = ({chat,currentVendor}) => {
+const ChatBox = ({chat,currentUser}) => {
     const [vendorData,setVendorData]=useState(null)
     const [messages,setMessages]=useState([])
     const [newMessage,setNewmessage]=useState('')
 
    useEffect(()=>{
-    const vendorId=chat?.members?.find((id)=>id!==currentVendor)
-    const getVendorData=async()=>{
+    console.log(chat,'kkkkkkkkk');
+    const vendorId=chat?.members?.find((id)=>id!==currentUser)
+    console.log(chat,'chats');
+    console.log(vendorId,'vendorid');
+    const getVendorData=async()=>{ 
         try {
           const {data}=await axios.get(`/vendor/vendor/${vendorId}`);
           console.log(data,'datatata');
@@ -24,8 +27,8 @@ const ChatBox = ({chat,currentVendor}) => {
    if(chat!==null){
     getVendorData();
    }
-},[currentVendor])
-   
+},[currentUser])
+   console.log(messages,'1234567890');
 useEffect(()=>{
   const fetchMsgs=async()=>{
     try {
@@ -40,22 +43,24 @@ useEffect(()=>{
     fetchMsgs()
   }
 },[chat])
-   const handleChange=(newmessages)=>{
+   const handleChange=(newMessage)=>{
     setNewmessage(newMessage)
    }
    const handlesend=async(e)=>{
     e.preventDefault();
     const message={
-      senderId:currentVendor,
+      senderId:currentUser,
       text:newMessage,
       chatId:chat._id,
     }
+    console.log(message);
     // if(newMessage.length>0){
 
     // }
 
     try {
-      const {data}=await axios.post(`/message/`,data)
+      const {data}=await axios.post(`/message/`,message)
+      console.log(data,'6666666');
       setMessages(...messages,data)
       setNewmessage('')
     } catch (error) {
@@ -84,7 +89,7 @@ useEffect(()=>{
            <div className="chat-body">
              {messages.map((message)=>{
         <>
-        <div className={message.vendorId ===currentVendor?'message own' :'message'}>
+        <div className={message.vendorId ===currentUser?'message own' :'message'}>
       <span>
         {message.text}
         <span>{format(message.createdAt)}</span>
