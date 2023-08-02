@@ -49,7 +49,7 @@ const Footer = () => {
       </div>
       {/* End of Social Media Section */}
 
-   
+
 
       {/* Footer Content */}
       <div className="flex flex-col md:flex-row justify-between bg-blue-900 text-white">

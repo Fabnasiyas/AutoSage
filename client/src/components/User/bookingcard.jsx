@@ -1,13 +1,13 @@
 
-import {  useNavigate} from 'react-router-dom';
-import React, { useState} from 'react';
+import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
 import axios from '../../axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 import Modal from 'react-modal';
 import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
 const Card = ({ booking, handleCancel }) => {
-  const { _id, carData, pickupDate, isCancelled, totalAmount, paymentType, vendorId, dropoffDate ,balance} = booking;
+  const { _id, carData, pickupDate, isCancelled, totalAmount, paymentType, vendorId, dropoffDate, balance } = booking;
   const [showDetails, setShowDetails] = useState(false);
   const [checkout, setCheckout] = useState(false);
   const navigate = useNavigate();
@@ -122,9 +122,9 @@ const Card = ({ booking, handleCancel }) => {
 
                     // Send booking data to the server
                     axios
-                      .post('/advanceComplete',  { bookingDetails: booking, paymentAmount: balance })
+                      .post('/advanceComplete', { bookingDetails: booking, paymentAmount: balance })
                       .then((response) => {
-                        
+
                       })
                       .catch((error) => {
                         console.error('Error booking:', error);

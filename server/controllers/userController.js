@@ -146,7 +146,7 @@ export const userLogin = async (req, res) => {
           res.json({ err: true, message: "Invalid email or password" });
         }
       } else {
-       
+
         res.clearCookie("userToken").json({ err: true, message: 'User banned' });
       }
     } else {
@@ -180,7 +180,7 @@ export const resetPassword = async (req, res) => {
   let oldUser = await userModel.findOne({ email: email })
   if (oldUser) {
     let otp = randomNumber()
-    console.log("Reset Password OTP",otp);
+    console.log("Reset Password OTP", otp);
     sentOTP(email, otp)
     const userToken = jwt.sign({
       otp: otp,
@@ -240,11 +240,11 @@ export const getviewcardetails = async (req, res) => {
     const car = await carModel.findOne({ _id: carId });
     const books = await bookingModel.findOne({ carId: carId });
 
-   
-const data={
-  car:car,
-  books:books
-}
+
+    const data = {
+      car: car,
+      books: books
+    }
     res.json(data);
   } catch (error) {
     res.status(500).json({ error: 'Internal server error' });
@@ -285,10 +285,10 @@ export const getallCars = async (req, res) => {
     res.status(500).json({ error: 'Internal server error' });
   }
 }
-export const bookCar=async (req,res)=>{
+export const bookCar = async (req, res) => {
   try {
-    const {userId,vendorId,carId,pickupDate,dropoffDate,bookingDate,amountToPay,totalAmount,balance,paymentType}=req.body;
-  const booking = await bookingModel.create({
+    const { userId, vendorId, carId, pickupDate, dropoffDate, bookingDate, amountToPay, totalAmount, balance, paymentType } = req.body;
+    const booking = await bookingModel.create({
       userId,
       vendorId,
       carId,
@@ -300,10 +300,10 @@ export const bookCar=async (req,res)=>{
       balance,
       totalAmount
     });
-  
-      const updatedCar = await carModel.findByIdAndUpdate(carId, { isBooked: true }, { new: true });
 
-      res.status(200).json({ booking, updatedCar });
+    const updatedCar = await carModel.findByIdAndUpdate(carId, { isBooked: true }, { new: true });
+
+    res.status(200).json({ booking, updatedCar });
 
   } catch (error) {
     console.log(error);
@@ -315,7 +315,7 @@ export const bookCar=async (req,res)=>{
 export const getUserbookings = async (req, res) => {
   try {
     const userId = req.query.userId;
-      
+
     const userbookings = await bookingModel.find({ userId });
 
     const bookingsWithCarDetails = await Promise.all(
@@ -326,7 +326,7 @@ export const getUserbookings = async (req, res) => {
     );
 
     res.json(bookingsWithCarDetails);
-    
+
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: 'Internal server error' });
@@ -337,7 +337,7 @@ export const cancelBooking = async (req, res) => {
   try {
     const { bookingId, message } = req.body;
     const booking = await bookingModel.findById(bookingId);
-const amount=booking.amountToPay;
+    const amount = booking.amountToPay;
     if (!booking) {
       return res.status(404).json({ error: 'Booking not found' });
     }
@@ -349,11 +349,11 @@ const amount=booking.amountToPay;
     }
     const userEmail = user.email;
 
-    const userUpdate=await userModel.updateOne(
+    const userUpdate = await userModel.updateOne(
       {
-      _id:userId
+        _id: userId
       },
-      {$set:{wallet:amount}}
+      { $set: { wallet: amount } }
     );
     const carUpdate = await carModel.updateOne(
       { _id: booking.carId },
@@ -363,13 +363,13 @@ const amount=booking.amountToPay;
       return res.status(404).json({ error: 'Car not found' });
     }
 
-    
+
     await bookingModel.updateOne(
       { _id: bookingId },
       { $set: { isCancelled: true } }
     );
 
- 
+
     await sendCancelMail(userEmail, bookingId, message);
 
     res.json({ message: 'Booking cancelled and email sent' });
@@ -384,9 +384,9 @@ export const advanceComplete = async (req, res) => {
   const { _id } = bookingDetails;
 
   try {
-   
+
     const updateResult = await bookingModel.updateOne({ _id }, { $set: { balance: 0 } });
-    
+
     res.sendStatus(200);
   } catch (error) {
     console.error('Error updating booking:', error);
@@ -394,27 +394,27 @@ export const advanceComplete = async (req, res) => {
   }
 };
 
-export const viewCar=async(req,res)=>{
+export const viewCar = async (req, res) => {
 
   try {
     const carId = req.params.id;
     const car = await carModel.findOne({ _id: carId });
     const books = await bookingModel.findOne({ carId: carId });
-const data={
-  car:car,
-  books:books
-}
+    const data = {
+      car: car,
+      books: books
+    }
     res.json(data);
   } catch (error) {
     res.status(500).json({ error: 'Internal server error' });
     console.log(error);
   }
 };
-export const updateWallet=async(req,res)=>{
+export const updateWallet = async (req, res) => {
   const { userId } = req.params;
   const { wallet } = req.body;
   try {
- 
+
     const updatedUser = await userModel.updateOne({ _id: userId }, { $set: { wallet: wallet } });
     if (updatedUser.nModified === 1) {
       return res.json({ message: 'Wallet updated successfully', wallet: wallet });

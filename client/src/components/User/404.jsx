@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 
 const ErrorPage = () => {
   return (
-      <Link to='/'>
-    <div className="min-h-screen flex items-center justify-center bg-cover bg-center" style={{ backgroundImage: `url(${bgImage})` }}>
-    </div>
+    <Link to='/'>
+      <div className="min-h-screen flex items-center justify-center bg-cover bg-center" style={{ backgroundImage: `url(${bgImage})` }}>
+      </div>
     </Link>
   );
 };

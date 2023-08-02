@@ -21,88 +21,88 @@ const Card = () => {
     setSearchQuery(event.target.value);
   };
 
-  
 
-const handleSearch = async () => {
-  try {
-    console.log(searchQuery);
-    if (!searchQuery) {
-      // If the search query is empty, reset the filter and show all cars
-      console.log('no query');
-      setFilteredCars(cars);
-      return;
-    }
 
-    // Geocode the typed location using Mapbox Geocoding API
-    console.log('jdfksjfksd');
-    const response = await mapboxAPI.get(`/geocoding/v5/mapbox.places/${encodeURIComponent(searchQuery)}.json`);
-
-    if (response.data.features.length === 0) {
-      console.log('Location not found');
-      return;
-    }
-
-    const points = response.data.features[1];
-    console.log(parseFloat(points.center[1]));
-    const latitude = parseFloat(points.center[1]);
-    const longitude = parseFloat(points.center[0]);
-
-    setSearchedLatitude(latitude);
-    setSearchedLongitude(longitude);
-
-    const searchedLocation = { latitude: searchedLatitude, longitude: searchedLongitude };
-    console.log(searchedLocation, 'searched Location');
-
-    // Filter cars based on distance
-    const filteredCarsByDistance = cars.filter((car) => {
-      const coordinates = JSON.parse(car.coordinates);
-      console.log('Coordinates:', coordinates);
-      if (!Array.isArray(coordinates) || coordinates.length !== 2) {
-        console.log('Invalid coordinates:', coordinates);
-        return false;
+  const handleSearch = async () => {
+    try {
+      console.log(searchQuery);
+      if (!searchQuery) {
+        // If the search query is empty, reset the filter and show all cars
+        console.log('no query');
+        setFilteredCars(cars);
+        return;
       }
 
-      const [longitude, latitude] = coordinates;
-      const carLocation = { latitude: parseFloat(latitude), longitude: parseFloat(longitude) };
+      // Geocode the typed location using Mapbox Geocoding API
+      console.log('jdfksjfksd');
+      const response = await mapboxAPI.get(`/geocoding/v5/mapbox.places/${encodeURIComponent(searchQuery)}.json`);
 
-      function calculateDistance(lat1, lon1, lat2, lon2) {
-        const R = 6371; // Earth's radius in km
-        const dLat = (lat2 - lat1) * (Math.PI / 180);
-        const dLon = (lon2 - lon1) * (Math.PI / 180);
-        const a =
-          Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-          Math.cos(lat1 * (Math.PI / 180)) * Math.cos(lat2 * (Math.PI / 180)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
-        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        const distance = R * c;
-        return distance;
+      if (response.data.features.length === 0) {
+        console.log('Location not found');
+        return;
       }
 
-      const distance = calculateDistance(
-        searchedLocation.latitude,
-        searchedLocation.longitude,
-        carLocation.latitude,
-        carLocation.longitude
-      );
-      console.log(distance);
-      const within10Km = distance <= 10;
-      console.log(within10Km, 'within 10 km');
+      const points = response.data.features[1];
+      console.log(parseFloat(points.center[1]));
+      const latitude = parseFloat(points.center[1]);
+      const longitude = parseFloat(points.center[0]);
 
-      return within10Km; // or handle the error as needed
-    });
+      setSearchedLatitude(latitude);
+      setSearchedLongitude(longitude);
 
-    console.log('==============filteredCarsByDistance======================');
-    console.log(filteredCarsByDistance);
-    setFilteredCars(filteredCarsByDistance);
-    if (filteredCarsByDistance.length === 0) {
-      // If no cars found, display a message
-      setNoCarsFoundMessage(true);
-    } else {
-      setNoCarsFoundMessage(false);
+      const searchedLocation = { latitude: searchedLatitude, longitude: searchedLongitude };
+      console.log(searchedLocation, 'searched Location');
+
+      // Filter cars based on distance
+      const filteredCarsByDistance = cars.filter((car) => {
+        const coordinates = JSON.parse(car.coordinates);
+        console.log('Coordinates:', coordinates);
+        if (!Array.isArray(coordinates) || coordinates.length !== 2) {
+          console.log('Invalid coordinates:', coordinates);
+          return false;
+        }
+
+        const [longitude, latitude] = coordinates;
+        const carLocation = { latitude: parseFloat(latitude), longitude: parseFloat(longitude) };
+
+        function calculateDistance(lat1, lon1, lat2, lon2) {
+          const R = 6371; // Earth's radius in km
+          const dLat = (lat2 - lat1) * (Math.PI / 180);
+          const dLon = (lon2 - lon1) * (Math.PI / 180);
+          const a =
+            Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.cos(lat1 * (Math.PI / 180)) * Math.cos(lat2 * (Math.PI / 180)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+          const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+          const distance = R * c;
+          return distance;
+        }
+
+        const distance = calculateDistance(
+          searchedLocation.latitude,
+          searchedLocation.longitude,
+          carLocation.latitude,
+          carLocation.longitude
+        );
+        console.log(distance);
+        const within10Km = distance <= 10;
+        console.log(within10Km, 'within 10 km');
+
+        return within10Km; // or handle the error as needed
+      });
+
+      console.log('==============filteredCarsByDistance======================');
+      console.log(filteredCarsByDistance);
+      setFilteredCars(filteredCarsByDistance);
+      if (filteredCarsByDistance.length === 0) {
+        // If no cars found, display a message
+        setNoCarsFoundMessage(true);
+      } else {
+        setNoCarsFoundMessage(false);
+      }
+    } catch (error) {
+      console.log('Error geocoding the typed location:', error);
     }
-  } catch (error) {
-    console.log('Error geocoding the typed location:', error);
-  }
-};
+  };
 
 
 
@@ -123,52 +123,52 @@ const handleSearch = async () => {
   }, []);
 
   useEffect(() => {
-    
+
     applyFilters();
   }, [selectedFuelType, selectedSpecifications, selectedTransmissionMode]);
 
 
 
-const applyFilters = () => {
+  const applyFilters = () => {
 
 
 
-  const filteredCars = cars.filter((car) => {
+    const filteredCars = cars.filter((car) => {
 
-    if(car.specifications.includes(selectedSpecifications)){
-    
-    }
-   
-  
-    const fuelTypeMatch = !selectedFuelType || car.fuelType.toLowerCase().includes(selectedFuelType.toLowerCase());
+      if (car.specifications.includes(selectedSpecifications)) {
 
-    
-    const specificationsMatch = !selectedSpecifications || car.specifications.toLowerCase().includes(selectedSpecifications.toLowerCase());
+      }
 
-   
-    const transmissionModeMatch = !selectedTransmissionMode || car.transmissionMode.toLowerCase().includes(selectedTransmissionMode.toLowerCase());
 
-    
-    return fuelTypeMatch && specificationsMatch && transmissionModeMatch;
-  });
+      const fuelTypeMatch = !selectedFuelType || car.fuelType.toLowerCase().includes(selectedFuelType.toLowerCase());
 
- 
 
-  
-  setFilteredCars(filteredCars);
+      const specificationsMatch = !selectedSpecifications || car.specifications.toLowerCase().includes(selectedSpecifications.toLowerCase());
 
-  
-  setCurrentPage(1);
-};
 
-  
+      const transmissionModeMatch = !selectedTransmissionMode || car.transmissionMode.toLowerCase().includes(selectedTransmissionMode.toLowerCase());
 
-  
+
+      return fuelTypeMatch && specificationsMatch && transmissionModeMatch;
+    });
+
+
+
+
+    setFilteredCars(filteredCars);
+
+
+    setCurrentPage(1);
+  };
+
+
+
+
   const indexOfLastCar = currentPage * carsPerPage;
   const indexOfFirstCar = indexOfLastCar - carsPerPage;
   const currentCars = filteredCars.slice(indexOfFirstCar, indexOfLastCar);
 
-  
+
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
@@ -192,7 +192,7 @@ const applyFilters = () => {
         </button>
       </div>
       <div className="max-w-xl mx-auto mb-5 mt-3">
-        
+
         <select
           className="mt-2 mr-4 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           value={selectedFuelType}
@@ -202,10 +202,10 @@ const applyFilters = () => {
           <option value="petrol">Petrol</option>
           <option value="diesal">Diesel</option>
           <option value="electric">Electric</option>
-          
+
         </select>
 
-        
+
         <select
           className="mt-2 mr-4 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           value={selectedSpecifications}
@@ -213,24 +213,24 @@ const applyFilters = () => {
         >
           <option value="">All Specifications</option>
           <option value="basemodel">Base Model</option>
-  <option value="semioption">Semi Option</option>
-  <option value="fulloption">Full Option</option>
-          
-          
+          <option value="semioption">Semi Option</option>
+          <option value="fulloption">Full Option</option>
+
+
         </select>
 
-        
+
         <select
-  className="mt-2 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-  value={selectedTransmissionMode}
-  onChange={(e) => setSelectedTransmissionMode(e.target.value)}
->
-  <option value="">All Transmission Modes</option>
-  <option value="automatic">Automatic</option>
+          className="mt-2 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+          value={selectedTransmissionMode}
+          onChange={(e) => setSelectedTransmissionMode(e.target.value)}
+        >
+          <option value="">All Transmission Modes</option>
+          <option value="automatic">Automatic</option>
           <option value="mannual">Manual</option>
-  
-  
-</select>
+
+
+        </select>
 
       </div>
 
@@ -269,9 +269,9 @@ const applyFilters = () => {
                   </button>
                 ) : (
                   <Link to={`/booking/${car._id}`}>
-                  <button className="px-4 py-1 bg-blue-900 hover:bg-blue-600 text-white">
-                    Book Now
-                  </button></Link>
+                    <button className="px-4 py-1 bg-blue-900 hover:bg-blue-600 text-white">
+                      Book Now
+                    </button></Link>
                 )}
                 <Link to={`/viewcar/${car._id}`}>
                   <button className="px-4 py-1 bg-yellow-400 hover:bg-yellow-500 text-white">
@@ -283,18 +283,17 @@ const applyFilters = () => {
           </div>
         ))}
       </div>
-   
-    <div className='pt-20'>
 
-      {noCarsFoundMessage && <p >No cars found in this location</p>}
-    </div>
+      <div className='pt-20'>
+
+        {noCarsFoundMessage && <p >No cars found in this location</p>}
+      </div>
       <ul className="flex justify-center mt-2">
         {Array.from({ length: Math.ceil(filteredCars.length / carsPerPage) }, (_, i) => (
           <li
             key={i}
-            className={`mx-1 cursor-pointer ${
-              i + 1 === currentPage ? 'font-semibold text-blue-900' : 'text-gray-600'
-            }`}
+            className={`mx-1 cursor-pointer ${i + 1 === currentPage ? 'font-semibold text-blue-900' : 'text-gray-600'
+              }`}
             onClick={() => paginate(i + 1)}
           >
             {i + 1}

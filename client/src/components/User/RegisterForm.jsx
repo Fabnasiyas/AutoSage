@@ -54,18 +54,18 @@ const RegisterForm = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8"style={{
+    <div className="min-h-screen bg-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8" style={{
       background: `url(${img})`,
       backgroundSize: '100% auto',
       backgroundPosition: 'center',
       backgroundRepeat: 'no-repeat',
     }}>
-      
+
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-        <div className="sm:mx-auto sm:w-full sm:max-w-md mb-8">
-        <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Register</h2>
-      </div>
+          <div className="sm:mx-auto sm:w-full sm:max-w-md mb-8">
+            <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Register</h2>
+          </div>
           <Formik
             initialValues={{
               name: '',
@@ -240,7 +240,7 @@ const RegisterForm = () => {
                   <ErrorMessage name="confirmPassword" component="div" className="text-red-500" />
                 </div>
               </div>
-              
+
               <div>
                 <button
                   type="submit"

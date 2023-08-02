@@ -9,17 +9,17 @@ const EditProfile = () => {
   axios.defaults.withCredentials = true;
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const {user}=useSelector(state=>state)
-  console.log(user,'000000000');
-  const userId=user.details._id;
+  const { user } = useSelector(state => state)
+  console.log(user, '000000000');
+  const userId = user.details._id;
   const [name, setName] = useState(user.details.name);
   const [phoneNumber, setPhoneNumber] = useState(user.details.phoneNumber);
-  console.log("aaaaaaaaaaaaaaaaaaaaaaaaaa",phoneNumber);
+  console.log("aaaaaaaaaaaaaaaaaaaaaaaaaa", phoneNumber);
   const handleSubmit = (e) => {
     e.preventDefault();
     if (name.trim() && phoneNumber.trim()) {
       axios
-        .post("/editprofile", { name,userId, phoneNumber })
+        .post("/editprofile", { name, userId, phoneNumber })
         .then((response) => {
           if (!response.data.err) {
             toast.success(response.message);
@@ -76,7 +76,7 @@ const EditProfile = () => {
                 />
               </div>
             </div>
-            
+
             <div>
               <button
                 type="submit"

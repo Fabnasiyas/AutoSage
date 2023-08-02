@@ -4,7 +4,7 @@ import OTPInput from 'otp-input-react';
 import axios from '../../axios';
 import { useDispatch } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
-import {  toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 
 
@@ -29,7 +29,7 @@ function OtpPage() {
       clearInterval(intervalId);
     };
   }, [timer]);
- 
+
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(OTP);
@@ -38,7 +38,7 @@ function OtpPage() {
         dispatch({ type: 'refresh' });
         console.log(response.data.message);
         toast.error(response.data.message, {
-          position :"top-center"
+          position: "top-center"
         });
         navigate('/login');
       } else {
@@ -48,14 +48,14 @@ function OtpPage() {
   };
 
   const handleResendOTP = () => {
-    
+
     if (resendAttempts < 3) {
       setResendAttempts((prevAttempts) => prevAttempts + 1);
       setTimer(60);
-      axios.post('/resendOtp',{...data}).then((response) => {
+      axios.post('/resendOtp', { ...data }).then((response) => {
         console.log(response.data);
         toast.error(response.data, {
-          position :"top-center"
+          position: "top-center"
         });
       });
     }

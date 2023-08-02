@@ -70,9 +70,8 @@ const ProfilePage = () => {
       pageNumbers.push(
         <span
           key={i}
-          className={`px-2 py-1 mx-1 cursor-pointer ${
-            currentPage === i ? 'bg-gray-300' : 'bg-gray-200'
-          }`}
+          className={`px-2 py-1 mx-1 cursor-pointer ${currentPage === i ? 'bg-gray-300' : 'bg-gray-200'
+            }`}
           onClick={() => setCurrentPage(i)}
         >
           {i}
@@ -83,44 +82,44 @@ const ProfilePage = () => {
   };
 
   return (
-    
+
     user ? (
       <div className="flex flex-col lg:flex-row py-16 lg:py-20">
-        
-        <div className="lg:w-1/4 p-8 bg-gray-100 flex flex-col justify-center mx-7">
-  <div className="text-center">
-    <p className="text-2xl font-bold mb-4">User Profile</p>
-    <p className="text-gray-700">
-      <strong>Name:</strong> {user.name}
-    </p>
-    <p className="text-gray-700">
-      <strong>Email:</strong> {user.email}
-    </p>
-    <p className="text-gray-700">
-      <strong>Phone Number:</strong> {user.phoneNumber}
-    </p>
-    <Link to={`/adddocuments`}>
-      <button className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md">
-        Add Document
-      </button>
-    </Link>
-    <Link to="/editProfile">
-      <button className="mt-2 px-4 py-2 bg-gray-500 text-white rounded-md ml-2">
-        Edit Profile
-      </button>
-    </Link>
-  </div>
 
-  <div className="mt-8 p-4 bg-white rounded-md shadow-md">
-        <p className="text-2xl font-bold mb-4 text-center">Wallet</p>
-        <div className="border-t-2 border-gray-200 py-4">
-          
-          <p className="text-gray-700 text-center">
-            <strong>Amount:</strong> {user.wallet}
-          </p>
+        <div className="lg:w-1/4 p-8 bg-gray-100 flex flex-col justify-center mx-7">
+          <div className="text-center">
+            <p className="text-2xl font-bold mb-4">User Profile</p>
+            <p className="text-gray-700">
+              <strong>Name:</strong> {user.name}
+            </p>
+            <p className="text-gray-700">
+              <strong>Email:</strong> {user.email}
+            </p>
+            <p className="text-gray-700">
+              <strong>Phone Number:</strong> {user.phoneNumber}
+            </p>
+            <Link to={`/adddocuments`}>
+              <button className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md">
+                Add Document
+              </button>
+            </Link>
+            <Link to="/editProfile">
+              <button className="mt-2 px-4 py-2 bg-gray-500 text-white rounded-md ml-2">
+                Edit Profile
+              </button>
+            </Link>
+          </div>
+
+          <div className="mt-8 p-4 bg-white rounded-md shadow-md">
+            <p className="text-2xl font-bold mb-4 text-center">Wallet</p>
+            <div className="border-t-2 border-gray-200 py-4">
+
+              <p className="text-gray-700 text-center">
+                <strong>Amount:</strong> {user.wallet}
+              </p>
+            </div>
+          </div>
         </div>
-      </div>
-</div>
 
         <div className="w-full lg:w-3/4 p-8">
           <div>
@@ -132,7 +131,7 @@ const ProfilePage = () => {
                   <Card key={booking._id} booking={booking} handleCancel={handleCancel} />
                 ))}
             </div>
-            
+
           </div>
 
           <div>
@@ -144,7 +143,7 @@ const ProfilePage = () => {
                   <Card key={booking._id} booking={booking} handleCancel={handleCancel} />
                 ))}
             </div>
-           
+
           </div>
 
           <div>
@@ -157,34 +156,34 @@ const ProfilePage = () => {
                 ))}
             </div>
             {/* Pagination numbers */}
-            
+
           </div>
           <div className="flex justify-center mt-4">
-              {renderPaginationNumbers()}
-            </div>
-        </div>
-        {showRefundModal && (
-        <div className="fixed inset-0 z-10 flex items-center justify-center bg-gray-800 bg-opacity-50">
-          <div className="bg-white p-6 rounded-md shadow-lg">
-            <p className="text-xl font-semibold mb-4">
-              Payment Refunded to Your Wallet
-            </p>
-            <p>
-              The payment for this booking has been refunded to your wallet.
-            </p>
-            <div className="mt-4 flex justify-end">
-              <button
-                onClick={handleRefundModal}
-                className="px-4 py-2 bg-blue-500 text-white rounded-md"
-              >
-                Close
-              </button>
-            </div>
+            {renderPaginationNumbers()}
           </div>
         </div>
-      )}
+        {showRefundModal && (
+          <div className="fixed inset-0 z-10 flex items-center justify-center bg-gray-800 bg-opacity-50">
+            <div className="bg-white p-6 rounded-md shadow-lg">
+              <p className="text-xl font-semibold mb-4">
+                Payment Refunded to Your Wallet
+              </p>
+              <p>
+                The payment for this booking has been refunded to your wallet.
+              </p>
+              <div className="mt-4 flex justify-end">
+                <button
+                  onClick={handleRefundModal}
+                  className="px-4 py-2 bg-blue-500 text-white rounded-md"
+                >
+                  Close
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
-      
+
     ) : null
   );
 };

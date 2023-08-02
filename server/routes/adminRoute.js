@@ -25,17 +25,17 @@ router.get('/auth', adminCheckAuth)
 router.post('/login', adminLogin);
 router.get('/logout', adminLogout);
 router.use(verifyAdmin)
-router.get('/dashboardDetails',TotalDetails)
-router.get('/userList',  getAllUsers);
-router.put('/userList/ban/:userId',handleBanUser);
+router.get('/dashboardDetails', TotalDetails)
+router.get('/userList', getAllUsers);
+router.put('/userList/ban/:userId', handleBanUser);
 router.put('/userList/unban/:userId', handleunBanUser);
 
-router.put('/userList/approve/:userId',handleApproveUser);
+router.put('/userList/approve/:userId', handleApproveUser);
 router.put('/userList/disapprove/:userId', handleDisapproveUser);
 router.get('/vendorList', getAllVendors);
-router.put('/vendorList/:vendorId',  handleBanVendor);
+router.put('/vendorList/:vendorId', handleBanVendor);
 router.put('/vendorList/unban/:vendorId', handleUnBanVendor);
 router.get('/allcarlist', getallCarDetails);
-router.get('/bookingList',getallBookings)
-router.get('/monthlyRevenueData',monthlyRevenue)
+router.get('/bookingList', getallBookings)
+router.get('/monthlyRevenueData', monthlyRevenue)
 export default router;

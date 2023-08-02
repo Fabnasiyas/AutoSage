@@ -5,17 +5,17 @@ import { Link, Navigate, useNavigate } from 'react-router-dom';
 
 const Resetpassword1 = () => {
   const [email, setEmail] = useState('');
-const navigate=useNavigate()
+  const navigate = useNavigate()
   const handleGetOTP = async (e) => {
     e.preventDefault();
 
     try {
       // Send a request to /resetpassword
-      axios.post('/resetpassotp',{email}).then((response)=>{
+      axios.post('/resetpassotp', { email }).then((response) => {
         console.log(response.data);
-        if(!response.data.err){
+        if (!response.data.err) {
           console.log(response.data);
-         navigate('/resetpassotp',{state:{email:email}})
+          navigate('/resetpassotp', { state: { email: email } })
         }
       })
     } catch (error) {
@@ -55,12 +55,12 @@ const navigate=useNavigate()
             </div>
             {/* Get OTP button */}
             <div>
-              
+
               {/* <Link to={'/resetpassotp'}> */}
-                    {/* <p className='w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"'>
+              {/* <p className='w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"'>
                       GET OTP
                     </p> */}
-                  <button type= 'submit' className='w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'> GET OTP</button>
+              <button type='submit' className='w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'> GET OTP</button>
             </div>
           </form>
         </div>

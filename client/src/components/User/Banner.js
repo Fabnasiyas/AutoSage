@@ -6,8 +6,8 @@ const Banner = () => {
   const bannerHeight = "600px"; // Adjust the height as needed
 
   return (
-      <div className="relative mt-1" >
- 
+    <div className="relative mt-1" >
+
       <div
         className="h-full bg-cover bg-center"
         style={{
@@ -25,7 +25,7 @@ const Banner = () => {
       </div>
 
     </div>
-    
+
   );
 };
 

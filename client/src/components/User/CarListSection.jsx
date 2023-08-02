@@ -55,20 +55,20 @@ const Card = () => {
                 </div>
               </div>
               <div className="mt-4 flex ">
-                
+
                 {car.isBooked ? (
                   <button className="px-4 py-1 bg-gray-400 text-white" disabled>
                     Booked
                   </button>
                 ) : (
-                 
-                    <Link to={`/booking/${car._id}`}>
+
+                  <Link to={`/booking/${car._id}`}>
                     <button className="px-4 py-1 bg-blue-900 hover:bg-blue-600 text-white">
                       Book Now
                     </button>
                   </Link>
                 )}
-                 <Link to={`/viewcar/${car._id}`}>
+                <Link to={`/viewcar/${car._id}`}>
                   <button className="px-4 py-1 bg-yellow-400 hover:bg-yellow-500 text-white">
                     View Details
                   </button>

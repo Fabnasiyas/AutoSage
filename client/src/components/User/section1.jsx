@@ -5,7 +5,7 @@ import { faCity, faPlaneDeparture, faMapMarkerAlt, faMapMarkedAlt, faCar, faChec
 const DivContainer = () => {
   return (
     <div className="container mx-auto px-4 mt-20 mb-20">
-    <h1 className="text-3xl font-semibold text-center mt-10 mb-10 text-blue-900">Our Services</h1>
+      <h1 className="text-3xl font-semibold text-center mt-10 mb-10 text-blue-900">Our Services</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
         <div className=" p-4 shadow-md rounded-lg">
           <FontAwesomeIcon icon={faCity} style={{ color: 'FDB221' }} />
@@ -13,12 +13,12 @@ const DivContainer = () => {
           <p className='text-gray-500'>Discover the city like never before and Experience the best of city with Us</p>
         </div>
         <div className=" p-4 shadow-md rounded-lg">
-          <FontAwesomeIcon icon={faPlaneDeparture} style={{ color: 'FDB221' }}  />
+          <FontAwesomeIcon icon={faPlaneDeparture} style={{ color: 'FDB221' }} />
           <h2 className="text-lg font-semibold text-blue-900 mt-1 mb-2">Airport Transfer</h2>
           <p className='text-gray-500'>Safe and reliable airport transfer. Book now and enjoy your ride</p>
         </div>
         <div className=" p-4 shadow-md rounded-lg">
-          <FontAwesomeIcon icon={faMapMarkerAlt} style={{ color: 'FDB221' }}  />
+          <FontAwesomeIcon icon={faMapMarkerAlt} style={{ color: 'FDB221' }} />
           <h2 className="text-lg font-semibold text-blue-900 mb-2 mt-1">City Transfer</h2>
           <p className='text-gray-500'>Quick, Hassle-free rides between city destinations. Book now for a comfortable ride.</p>
         </div>

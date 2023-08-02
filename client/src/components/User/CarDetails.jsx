@@ -24,11 +24,11 @@ const CarDetailsPage = () => {
   const doc = user && Array.isArray(user.drivingLicense) && Array.isArray(user.aadharCard)
     ? [...user.drivingLicense, ...user.aadharCard]
     : null;
-  
-    const handleImageClick = (image) => {
-      setActiveImg(image);
-    };
-  
+
+  const handleImageClick = (image) => {
+    setActiveImg(image);
+  };
+
 
   const [dropoffDateAvailable, setDropoffDateAvailable] = useState(null);
   const fetchCar = async () => {
@@ -62,7 +62,7 @@ const CarDetailsPage = () => {
   const handleDropoffDateChange = (date) => {
     setDropoffDate(date);
   };
-   const handleProceed = () => {
+  const handleProceed = () => {
     if (pickupDate && dropoffDate) {
       const oneDay = 24 * 60 * 60 * 1000; // Number of milliseconds in one day
       const totalDays = Math.round(Math.abs((dropoffDate - pickupDate) / oneDay));
@@ -78,7 +78,7 @@ const CarDetailsPage = () => {
     }
   };
 
- 
+
   const handleBookAdvancePayment = async () => {
     if (userId) {
       if (pickupDate && dropoffDate) {
@@ -87,7 +87,7 @@ const CarDetailsPage = () => {
         const totalAmount = totalDays * car.rentPerDay;
         const amountToPay = totalAmount / 2;
         const balance = totalAmount - amountToPay;
-  
+
         if (user.wallet === 0) {
           // Case 1: Wallet amount is 0, pay directly using PayPal.
           try {
@@ -102,11 +102,11 @@ const CarDetailsPage = () => {
               totalAmount,
               balance,
               paymentType: 'Advance Payment',
-              paymentAmount: amountToPay, 
+              paymentAmount: amountToPay,
             };
-  
+
             setBookingData(bookingData);
-            setPaymentSelection(null); 
+            setPaymentSelection(null);
             setCheckout(true);
           } catch (error) {
             console.error('Error processing PayPal payment:', error);
@@ -115,8 +115,8 @@ const CarDetailsPage = () => {
         } else if (user.wallet >= amountToPay) {
           // Case 2: Wallet amount is greater than or equal to the payable amount.
           try {
-            
-  
+
+
             const updatedWalletAmount = user.wallet - amountToPay;
             const bookingData = {
               userId: userId,
@@ -130,11 +130,11 @@ const CarDetailsPage = () => {
               balance,
               paymentType: 'Advance Payment',
               paymentAmount: 0,
-              updatedWalletAmount, 
+              updatedWalletAmount,
             };
-  console.log(bookingData,'1111111111111111111111');
+            console.log(bookingData, '1111111111111111111111');
             setBookingData(bookingData);
-            setPaymentSelection(null); 
+            setPaymentSelection(null);
             setCheckout(true);
           } catch (error) {
             console.error('Error updating wallet:', error);
@@ -142,10 +142,10 @@ const CarDetailsPage = () => {
           }
         } else {
           // Case 3: Wallet amount is less than the payable amount. Use the wallet amount for payment
-        
+
           try {
-   
-  
+
+
             const bookingData = {
               userId: userId,
               vendorId: car.vendorId,
@@ -157,12 +157,12 @@ const CarDetailsPage = () => {
               totalAmount,
               balance,
               paymentType: 'Advance Payment',
-              paymentAmount: amountToPay-user.wallet,
-              updatedWalletAmount:0,
+              paymentAmount: amountToPay - user.wallet,
+              updatedWalletAmount: 0,
             };
 
             setBookingData(bookingData);
-            setPaymentSelection(null); 
+            setPaymentSelection(null);
             setCheckout(true);
           } catch (error) {
             console.error('Error updating wallet:', error);
@@ -176,7 +176,7 @@ const CarDetailsPage = () => {
       navigate('/login');
     }
   };
-  
+
   const handleBookFullPayment = async () => {
     if (userId) {
       if (pickupDate && dropoffDate) {
@@ -185,7 +185,7 @@ const CarDetailsPage = () => {
         const totalAmount = totalDays * car.rentPerDay;
         const amountToPay = totalAmount;
         const balance = totalAmount - amountToPay;
-  
+
         if (user.wallet === 0) {
           // Case 1: Wallet amount is 0, pay directly using PayPal.
           try {
@@ -200,11 +200,11 @@ const CarDetailsPage = () => {
               totalAmount,
               balance,
               paymentType: 'Full Payment',
-              paymentAmount: amountToPay, 
+              paymentAmount: amountToPay,
             };
-  
+
             setBookingData(bookingData);
-            setPaymentSelection(null); 
+            setPaymentSelection(null);
             setCheckout(true);
           } catch (error) {
             console.error('Error processing PayPal payment:', error);
@@ -213,8 +213,8 @@ const CarDetailsPage = () => {
         } else if (user.wallet >= amountToPay) {
           // Case 2: Wallet amount is greater than or equal to the payable amount.
           try {
-            
-  
+
+
             const updatedWalletAmount = user.wallet - amountToPay;
             const bookingData = {
               userId: userId,
@@ -228,10 +228,10 @@ const CarDetailsPage = () => {
               balance,
               paymentType: 'Advance Payment',
               paymentAmount: 0,
-              updatedWalletAmount, 
+              updatedWalletAmount,
             };
             setBookingData(bookingData);
-            setPaymentSelection(null); 
+            setPaymentSelection(null);
             setCheckout(true);
           } catch (error) {
             console.error('Error updating wallet:', error);
@@ -239,10 +239,10 @@ const CarDetailsPage = () => {
           }
         } else {
           // Case 3: Wallet amount is less than the payable amount. Use the wallet amount for payment
-        
+
           try {
-   
-  
+
+
             const bookingData = {
               userId: userId,
               vendorId: car.vendorId,
@@ -254,12 +254,12 @@ const CarDetailsPage = () => {
               totalAmount,
               balance,
               paymentType: 'Advance Payment',
-              paymentAmount: amountToPay-user.wallet,
-              updatedWalletAmount:0,
+              paymentAmount: amountToPay - user.wallet,
+              updatedWalletAmount: 0,
             };
 
             setBookingData(bookingData);
-            setPaymentSelection(null); 
+            setPaymentSelection(null);
             setCheckout(true);
           } catch (error) {
             console.error('Error updating wallet:', error);
@@ -280,10 +280,10 @@ const CarDetailsPage = () => {
 
 
 
-  
+
   const currentDate = new Date();
 
-  
+
   const closeModal = () => {
     setCheckout(false);
   };
@@ -322,43 +322,42 @@ const CarDetailsPage = () => {
     );
   }
 
-return (
-  <>
-    <div className="flex flex-col md:flex-row py-8 md:py-32 mt-4">
-      {/* Left Side - Main Image */}
-      <div className="w-full md:w-1/2 flex flex-col justify-center items-center">
-        {activeImg && (
-          <img
-            src={`http://localhost:5000/images/${activeImg.filename}`}
-            alt={`Car Image ${activeImg.id}`}
-            className="w-2/3 h-auto aspect-square object-cover rounded-xl shadow-lg"
-          />
-        )}
+  return (
+    <>
+      <div className="flex flex-col md:flex-row py-8 md:py-32 mt-4">
+        {/* Left Side - Main Image */}
+        <div className="w-full md:w-1/2 flex flex-col justify-center items-center">
+          {activeImg && (
+            <img
+              src={`http://localhost:5000/images/${activeImg.filename}`}
+              alt={`Car Image ${activeImg.id}`}
+              className="w-2/3 h-auto aspect-square object-cover rounded-xl shadow-lg"
+            />
+          )}
 
-        {/* List of Active Logs */}
-        <div className="flex flex-row justify-center mt-6">
-          {car &&
-            car.carImages.map((image, index) => (
-              <div
-                key={index}
-                className={`image-container cursor-pointer ${
-                  activeImg === image ? 'border-2 border-violet-600' : 'border border-gray-300'
-                } rounded-md h-16 w-16 mx-2`}
-                onClick={() => handleImageClick(image)}
-              >
-                <img
-                  src={`http://localhost:5000/images/${image.filename}`} 
-                  alt={`Car Image ${image._id}`}
-                  className="w-full h-full object-cover rounded-md"
-                />
-              </div>
-            ))}
+          {/* List of Active Logs */}
+          <div className="flex flex-row justify-center mt-6">
+            {car &&
+              car.carImages.map((image, index) => (
+                <div
+                  key={index}
+                  className={`image-container cursor-pointer ${activeImg === image ? 'border-2 border-violet-600' : 'border border-gray-300'
+                    } rounded-md h-16 w-16 mx-2`}
+                  onClick={() => handleImageClick(image)}
+                >
+                  <img
+                    src={`http://localhost:5000/images/${image.filename}`}
+                    alt={`Car Image ${image._id}`}
+                    className="w-full h-full object-cover rounded-md"
+                  />
+                </div>
+              ))}
+          </div>
         </div>
-      </div>
 
-      {/* Right Side - Car Details */}
-      <div className="w-full md:w-1/2 flex justify-center items-center">
-      <div className="bg-white rounded-lg shadow-lg p-6 w-4/5">
+        {/* Right Side - Car Details */}
+        <div className="w-full md:w-1/2 flex justify-center items-center">
+          <div className="bg-white rounded-lg shadow-lg p-6 w-4/5">
             <h1 className="text-2xl font-bold mb-4 text-center">Car Details</h1>
             <div className="text-center">
               <p>
@@ -427,25 +426,25 @@ return (
                     <p className="text-red-500">Please select both pickup and drop-off dates.</p>
                   )}
                   {userId ? (
-                    doc && doc.length > 0 ? ( 
+                    doc && doc.length > 0 ? (
                       user.isadminVerified ? (
 
-                      <div className="flex justify-center">
-                        <button
-                          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded"
-                          onClick={handleProceed}
-                        >
-                          Proceed
-                        </button>
-                      </div>
-                    ):
-                    (
-                      <div>
-                         <p className="text-red-500 mb-4">
-                         You are Not approved by the Admin.
-                        </p>
-                      </div>
-                    ) ): (
+                        <div className="flex justify-center">
+                          <button
+                            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded"
+                            onClick={handleProceed}
+                          >
+                            Proceed
+                          </button>
+                        </div>
+                      ) :
+                        (
+                          <div>
+                            <p className="text-red-500 mb-4">
+                              You are Not approved by the Admin.
+                            </p>
+                          </div>
+                        )) : (
                       <div>
                         <p className="text-red-500 mb-4">
                           Please add your driving license and Aadhaar card before proceeding.
@@ -491,10 +490,10 @@ return (
                 Wallet Amount: {'\u20B9'}
                 {user.wallet}
               </p>
-             
+
               <p className="text-center mb-3">
-              Payment Due: {'\u20B9'}
-                
+                Payment Due: {'\u20B9'}
+
                 {bookingData.paymentAmount}
               </p>
 
@@ -514,7 +513,7 @@ return (
 
                     closeModal();
 
-                    
+
                     axios
                       .post('/bookings', bookingData)
                       .then((response) => {
@@ -524,11 +523,11 @@ return (
                       .catch((error) => {
                         console.error('Error booking:', error);
                       });
-                      axios.post(`/update-wallet/${userId}`, { wallet: bookingData.updatedWalletAmount }).then((response)=>{
-                        console.log(response.data);
-                      }).catch((error) => {
-                        console.error('Error booking:', error);
-                      });
+                    axios.post(`/update-wallet/${userId}`, { wallet: bookingData.updatedWalletAmount }).then((response) => {
+                      console.log(response.data);
+                    }).catch((error) => {
+                      console.error('Error booking:', error);
+                    });
 
                     navigate('/success');
                   }}
@@ -543,7 +542,7 @@ return (
               </PayPalScriptProvider>
             </>
           )}
-        
+
           <button
             className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded w-full"
             onClick={closeModal}
@@ -552,7 +551,7 @@ return (
           </button>
         </div>
       </Modal>
-    
+
     </>
   );
 };

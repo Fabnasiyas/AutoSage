@@ -9,7 +9,7 @@ function OtpPage() {
   const [otp, setOtp] = useState('');
   const location = useLocation();
   const email = location?.state?.email;
-console.log(email,'111111');
+  console.log(email, '111111');
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(otp);
@@ -23,7 +23,7 @@ console.log(email,'111111');
           toast.success(response.data.message, {
             position: 'top-center',
           });
-          navigate('/SetNewPassword',{ state: { email } })
+          navigate('/SetNewPassword', { state: { email } })
         } else {
           toast.error(response.data.message);
         }
