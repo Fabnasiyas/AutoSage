@@ -426,3 +426,36 @@ export const updateWallet = async (req, res) => {
     return res.status(500).json({ error: 'Error updating wallet' });
   }
 };
+export const updateAmount=async(req,res)=>{
+  const { userId } = req.params;
+  const { wallet } = req.body;
+  const {  vendorId, carId, pickupDate, dropoffDate, bookingDate, amountToPay, totalAmount, balance, paymentType } = req.body.bookingData;
+  try {  
+  const booking = await bookingModel.create({
+      userId,
+      vendorId,
+      carId,
+      pickupDate,
+      dropoffDate,
+      bookingDate,
+      amountToPay,
+      paymentType,
+      balance,
+      totalAmount
+    });
+
+    const updatedCar = await carModel.findByIdAndUpdate(carId, { isBooked: true }, { new: true });
+
+
+const updatedUser = await userModel.updateOne({ _id: userId }, { $set: { wallet: wallet } });
+if (updatedUser.modifiedCount === 1) {
+  res.status(200).json({ booking, updatedCar });
+      // Redirect to the success page after successful booking and wallet update
+    } else {
+      return res.status(404).json({ error: 'User not found or wallet not updated' });
+    }
+  } catch (error) {
+    console.error('Error updating wallet:', error);
+    return res.status(500).json({ error: 'Error updating wallet' });
+  }
+}
