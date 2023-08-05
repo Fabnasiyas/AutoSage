@@ -353,8 +353,9 @@ export const cancelBooking = async (req, res) => {
       {
         _id: userId
       },
-      { $set: { wallet: amount } }
+      { $inc: { wallet: amount } }
     );
+    console.log(userUpdate);
     const carUpdate = await carModel.updateOne(
       { _id: booking.carId },
       { $set: { isBooked: false } }
