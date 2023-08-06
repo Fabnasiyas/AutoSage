@@ -293,17 +293,7 @@ const CarDetailsPage = () => {
       navigate('/login');
     }
   };
-
-
-
-
-
-
-
-
   const currentDate = new Date();
-
-
   const closeModal = () => {
     setCheckout(false);
   };

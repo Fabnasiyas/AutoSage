@@ -211,7 +211,6 @@ export const VerifyResetOtp = async (req, res) => {
 }
 export const setpassword = async (req, res) => {
   const { email, newPassword } = req.body;
-  // console.log(email);
   let bcrypPassword = await bcrypt.hash(newPassword, 10)
   await userModel.updateOne({ email: email }, {
     $set: {
@@ -348,14 +347,12 @@ export const cancelBooking = async (req, res) => {
       return res.status(404).json({ error: 'User not found' });
     }
     const userEmail = user.email;
-
     const userUpdate = await userModel.updateOne(
       {
         _id: userId
       },
       { $inc: { wallet: amount } }
     );
-    console.log(userUpdate);
     const carUpdate = await carModel.updateOne(
       { _id: booking.carId },
       { $set: { isBooked: false } }
@@ -363,31 +360,23 @@ export const cancelBooking = async (req, res) => {
     if (carUpdate.nModified === 0) {
       return res.status(404).json({ error: 'Car not found' });
     }
-
-
     await bookingModel.updateOne(
       { _id: bookingId },
       { $set: { isCancelled: true } }
     );
-
-
     await sendCancelMail(userEmail, bookingId, message);
-
     res.json({ message: 'Booking cancelled and email sent' });
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: 'An error occurred' });
   }
 };
+
 export const advanceComplete = async (req, res) => {
   const { bookingDetails, paymentAmount } = req.body;
-  console.log(bookingDetails);
   const { _id } = bookingDetails;
-
   try {
-
     const updateResult = await bookingModel.updateOne({ _id }, { $set: { balance: 0 } });
-
     res.sendStatus(200);
   } catch (error) {
     console.error('Error updating booking:', error);
@@ -396,7 +385,6 @@ export const advanceComplete = async (req, res) => {
 };
 
 export const viewCar = async (req, res) => {
-
   try {
     const carId = req.params.id;
     const car = await carModel.findOne({ _id: carId });
@@ -427,12 +415,12 @@ export const updateWallet = async (req, res) => {
     return res.status(500).json({ error: 'Error updating wallet' });
   }
 };
-export const updateAmount=async(req,res)=>{
+export const updateAmount = async (req, res) => {
   const { userId } = req.params;
   const { wallet } = req.body;
-  const {  vendorId, carId, pickupDate, dropoffDate, bookingDate, amountToPay, totalAmount, balance, paymentType } = req.body.bookingData;
-  try {  
-  const booking = await bookingModel.create({
+  const { vendorId, carId, pickupDate, dropoffDate, bookingDate, amountToPay, totalAmount, balance, paymentType } = req.body.bookingData;
+  try {
+    const booking = await bookingModel.create({
       userId,
       vendorId,
       carId,
@@ -446,12 +434,9 @@ export const updateAmount=async(req,res)=>{
     });
 
     const updatedCar = await carModel.findByIdAndUpdate(carId, { isBooked: true }, { new: true });
-
-
-const updatedUser = await userModel.updateOne({ _id: userId }, { $set: { wallet: wallet } });
-if (updatedUser.modifiedCount === 1) {
-  res.status(200).json({ booking, updatedCar });
-      // Redirect to the success page after successful booking and wallet update
+    const updatedUser = await userModel.updateOne({ _id: userId }, { $set: { wallet: wallet } });
+    if (updatedUser.modifiedCount === 1) {
+      res.status(200).json({ booking, updatedCar });
     } else {
       return res.status(404).json({ error: 'User not found or wallet not updated' });
     }
@@ -460,3 +445,21 @@ if (updatedUser.modifiedCount === 1) {
     return res.status(500).json({ error: 'Error updating wallet' });
   }
 }
+export const advance = async (req, res) => {
+  try {
+    const { userId, bookingId, updatedWallet } = req.body;
+    const updatedUser = await userModel.updateOne(
+      { _id: userId },
+      { $set: { wallet: updatedWallet } }
+    );
+    const updatedCar = await bookingModel.updateOne(
+      { _id: bookingId },
+      { $set: { balance: 0 } }
+    );
+    res.status(200).json({ message: 'Payment successful' });
+  } catch (error) {
+    console.error('Error processing wallet payment:', error);
+
+    res.status(500).json({ error: 'An error occurred while processing the payment' });
+  }
+};

@@ -3,13 +3,13 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import axios from '../../axios';
-import Card from '../../components/User/bookingcard'; // Import the Card component
+import Card from '../../components/User/bookingcard';
 
 const ProfilePage = () => {
   const user = useSelector(state => state.user.details);
   const [bookings, setBookings] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const bookingsPerPage = 5; // Number of bookings to show per page
+  const bookingsPerPage = 10;
   const [showRefundModal, setShowRefundModal] = useState(false);
   useEffect(() => {
     fetchBookings();
@@ -123,41 +123,59 @@ const ProfilePage = () => {
 
         <div className="w-full lg:w-3/4 p-8">
           <div>
-            <h1 className="text-2xl font-bold mb-4">Upcoming Bookings</h1>
-            <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+            <div>
+              <h1 className="text-2xl font-bold mb-4">Upcoming Bookings</h1>
               {currentBookings
                 .filter((booking) => !booking.isCancelled && new Date(booking.pickupDate) > new Date())
-                .map((booking) => (
-                  <Card key={booking._id} booking={booking} handleCancel={handleCancel} />
-                ))}
+                .length === 0 ? (
+                <p className="text-red-400"> No upcoming bookings.......</p>) : (
+                <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+                  {currentBookings
+                    .filter((booking) => !booking.isCancelled && new Date(booking.pickupDate) > new Date())
+                    .map((booking) => (
+                      <Card key={booking._id} booking={booking} handleCancel={handleCancel} />
+                    ))}
+                </div>
+              )}
             </div>
 
           </div>
 
           <div>
             <h3 className="text-2xl font-bold mb-4 mt-7">Completed Bookings</h3>
-            <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
-              {currentBookings
-                .filter((booking) => !booking.isCancelled && new Date(booking.pickupDate) <= new Date())
-                .map((booking) => (
-                  <Card key={booking._id} booking={booking} handleCancel={handleCancel} />
-                ))}
-            </div>
-
+            {currentBookings
+              .filter((booking) => !booking.isCancelled && new Date(booking.pickupDate) <= new Date())
+              .length === 0 ? (
+              <p className="text-red-400">No completed bookings.......</p>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+                {currentBookings
+                  .filter((booking) => !booking.isCancelled && new Date(booking.pickupDate) <= new Date())
+                  .map((booking) => (
+                    <Card key={booking._id} booking={booking} handleCancel={handleCancel} />
+                  ))}
+              </div>
+            )}
           </div>
+
 
           <div>
             <h3 className="text-2xl font-bold mb-4 mt-7">Cancelled Bookings</h3>
-            <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
-              {currentBookings
-                .filter((booking) => booking.isCancelled)
-                .map((booking) => (
-                  <Card key={booking._id} booking={booking} handleCancel={handleCancel} />
-                ))}
-            </div>
-            {/* Pagination numbers */}
-
+            {currentBookings
+              .filter((booking) => booking.isCancelled)
+              .length === 0 ? (
+              <p className="text-red-400">No cancelled bookings.......</p>
+            ) : (
+              <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+                {currentBookings
+                  .filter((booking) => booking.isCancelled)
+                  .map((booking) => (
+                    <Card key={booking._id} booking={booking} handleCancel={handleCancel} />
+                  ))}
+              </div>
+            )}
           </div>
+
           <div className="flex justify-center mt-4">
             {renderPaginationNumbers()}
           </div>
