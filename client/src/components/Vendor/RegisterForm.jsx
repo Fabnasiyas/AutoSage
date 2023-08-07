@@ -1,6 +1,3 @@
-
-
-
 import React,{useState} from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
@@ -10,15 +7,10 @@ import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import  Axios  from 'axios';
 import img from '../../assets/car3.webp';
-
-// const mapToken = process.env.MAP_TOKEN;
 const RegisterForm = () => {
   axios.defaults.withCredentials = true;
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  // const [searchValue, setSearchValue] = useState('');
-  // const [suggestions, setSuggestions] = useState([]);
-  // const [coordinates, setCoordinates] = useState([]);
 
   const validationSchema = Yup.object().shape({
     name: Yup.string().required('Name is required'),
@@ -43,13 +35,10 @@ const RegisterForm = () => {
       pincode: '',
       password: '',
       confirmPassword: '',
-      // location:'',
-      // coordinates: [],
     },
     validationSchema,
     onSubmit: (values) => {
       axios.post('/vendor/signup', values).then((response) => {
-        console.log("*******************************", response.data);
         if (!response.data.err) {
           dispatch({ type: 'refresh' });
           console.log(response.data);
@@ -59,8 +48,6 @@ const RegisterForm = () => {
             phoneNumber: values.phoneNumber,
             pincode: values.pincode,
             password: values.password,
-      //       location: searchValue, // Use searchValue directly
-      // coordinates: coordinates // Use coordinates state variable
           };
           toast.error(response.data.message, {
             position: 'top-center',
@@ -96,15 +83,13 @@ const RegisterForm = () => {
       </div>
           <form className="space-y-6" onSubmit={formik.handleSubmit}>
             <div>
-              <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-                Name
-              </label>
               <div className="mt-1">
                 <input
                   id="name"
                   name="name"
                   type="text"
                   required
+                  placeholder='Name'
                   value={formik.values.name}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
@@ -116,15 +101,13 @@ const RegisterForm = () => {
               )}
             </div>
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                Email address
-              </label>
               <div className="mt-1">
                 <input
                   id="email"
                   name="email"
                   type="email"
                   required
+                  placeholder='Email address'
                   value={formik.values.email}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
@@ -136,15 +119,13 @@ const RegisterForm = () => {
               )}
             </div>
             <div>
-              <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
-                Phone number
-              </label>
               <div className="mt-1">
                 <input
                   id="phone"
                   name="phoneNumber"
                   type="text"
                   required
+                  placeholder='Phone number'
                   value={formik.values.phoneNumber}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
@@ -155,33 +136,33 @@ const RegisterForm = () => {
                 <p className="mt-2 text-sm text-red-500">{formik.errors.phoneNumber}</p>
               )}
             </div>
-            <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
-                Pincode
-              </label>
+            <div>
+              <div className="block text-sm font-medium text-gray-700">
             <input
               id="pincode"
               name="pincode"
               type="text"
               required
+              placeholder='Pincode'
               value={formik.values.pincode}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-            />
-
-            
-
+              />
+              </div>
+              {formik.touched.pincode && formik.errors.pincode && (
+                <p className="mt-2 text-sm text-red-500">{formik.errors.pincode}</p>
+              )}
+            </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-                Password
-              </label>
               <div className="mt-1">
                 <input
                   id="password"
                   name="password"
                   type="password"
                   required
+                  placeholder='Password'
                   value={formik.values.password}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
@@ -193,18 +174,13 @@ const RegisterForm = () => {
               )}
             </div>
             <div>
-              <label
-                htmlFor="confirmpassword"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Confirm Password
-              </label>
               <div className="mt-1">
                 <input
                   id="confirmpassword"
                   name="confirmPassword"
                   type="password"
                   required
+                  placeholder=' Confirm Password'
                   value={formik.values.confirmPassword}
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}

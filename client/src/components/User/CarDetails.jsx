@@ -1,4 +1,4 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import React, { useState, useEffect } from 'react';
 import axios from '../../axios';
 import { useParams, useNavigate, Link } from 'react-router-dom';
@@ -28,7 +28,7 @@ const CarDetailsPage = () => {
   const handleImageClick = (image) => {
     setActiveImg(image);
   };
-
+ const dispatch=useDispatch()
   const [dropoffDateAvailable, setDropoffDateAvailable] = useState(null);
   const fetchCar = async () => {
     try {
@@ -168,6 +168,7 @@ const CarDetailsPage = () => {
     try {
       await axios.post(`/update-walletamount/${userId}`, { wallet: bookingData.updatedWalletAmount, bookingData }).then((response) => {
       })
+      dispatch({type:"refresh"})
       navigate('/success');
     } catch (error) {
       console.error('Error updating wallet or booking:', error);
@@ -530,6 +531,7 @@ const CarDetailsPage = () => {
                     }).catch((error) => {
                       console.error('Error booking:', error);
                     });
+                    dispatch({type:"refresh"})
                     navigate('/success');
                   }}
                   onCancel={() => {

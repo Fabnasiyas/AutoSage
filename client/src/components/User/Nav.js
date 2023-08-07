@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -26,18 +25,14 @@ const Navbar = () => {
   };
 
   return (
-
-
-
     <nav className="bg-blue-900" style={{ height: '100px' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center mt-10">
             <div className="flex-shrink-0">
-              <span className="text-white font-extrabold text-5xl ">AutoRent</span>
+              <Link to="/"> <span className="text-white font-extrabold text-5xl ">AutoRent</span></Link>
             </div>
           </div>
-
           <div className="hidden md:block mt-10">
             <div className="flex items-center space-x-4">
               {user.login ? (

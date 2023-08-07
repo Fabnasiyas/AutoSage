@@ -1,40 +1,40 @@
-
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import axios from '../../axios';
 import Card from '../../components/User/bookingcard';
-
+import Swal from 'sweetalert2';
 const ProfilePage = () => {
   const user = useSelector(state => state.user.details);
   const [bookings, setBookings] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const bookingsPerPage = 10;
-  const [showRefundModal, setShowRefundModal] = useState(false);
+  const dispatch=useDispatch()
   useEffect(() => {
     fetchBookings();
   }, [user]);
-  const handleRefundModal = () => {
-    setShowRefundModal(!showRefundModal);
-  };
+ 
   const handleCancel = async (bookingId, pickupDate) => {
     try {
       const currentDate = new Date();
       const isBeforePickup = new Date(pickupDate) > currentDate;
-
       if (isBeforePickup) {
-        // Cancel the booking
         await axios.post('/cancelBooking', {
           bookingId: bookingId,
           message: 'Your booking has been cancelled.'
         });
-
-        // Update the state with the updated bookings
         const updatedBookings = bookings.map(booking =>
           booking._id === bookingId ? { ...booking, isCancelled: true } : booking
         );
         setBookings(updatedBookings);
-        handleRefundModal();
+        dispatch({type:"refresh"})
+        Swal.fire({
+          icon: 'success',
+          title: 'Booking Cancelled',
+          text: 'Your booking has been successfully cancelled.',
+          confirmButtonColor: '#3085d6',
+          confirmButtonText: 'OK'
+        });
       } else {
         console.log('Cannot cancel after pickup date');
       }
@@ -57,13 +57,10 @@ const ProfilePage = () => {
       console.log(error);
     }
   };
-
-  // Calculate index of the first and last booking to show on the current page
   const indexOfLastBooking = currentPage * bookingsPerPage;
   const indexOfFirstBooking = indexOfLastBooking - bookingsPerPage;
   const currentBookings = bookings.slice(indexOfFirstBooking, indexOfLastBooking);
 
-  // Function to generate the pagination numbers
   const renderPaginationNumbers = () => {
     const pageNumbers = [];
     for (let i = 1; i <= Math.ceil(bookings.length / bookingsPerPage); i++) {
@@ -85,7 +82,6 @@ const ProfilePage = () => {
 
     user ? (
       <div className="flex flex-col lg:flex-row py-16 lg:py-20">
-
         <div className="lg:w-1/4 p-8 bg-gray-100 flex flex-col justify-center mx-7">
           <div className="text-center">
             <p className="text-2xl font-bold mb-4">User Profile</p>
@@ -109,26 +105,23 @@ const ProfilePage = () => {
               </button>
             </Link>
           </div>
-
           <div className="mt-8 p-4 bg-white rounded-md shadow-md">
             <p className="text-2xl font-bold mb-4 text-center">Wallet</p>
             <div className="border-t-2 border-gray-200 py-4">
-
               <p className="text-gray-700 text-center">
                 <strong>Amount:</strong> {user.wallet}
               </p>
             </div>
           </div>
         </div>
-
         <div className="w-full lg:w-3/4 p-8">
           <div>
             <div>
-              <h1 className="text-2xl font-bold mb-4">Upcoming Bookings</h1>
+              <h1 className="text-2xl font-bold mb-4 text-left">Upcoming Bookings</h1>
               {currentBookings
                 .filter((booking) => !booking.isCancelled && new Date(booking.pickupDate) > new Date())
                 .length === 0 ? (
-                <p className="text-red-400"> No upcoming bookings.......</p>) : (
+                <p className="text-red-400 text-left"> No upcoming bookings.......</p>) : (
                 <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
                   {currentBookings
                     .filter((booking) => !booking.isCancelled && new Date(booking.pickupDate) > new Date())
@@ -138,15 +131,13 @@ const ProfilePage = () => {
                 </div>
               )}
             </div>
-
           </div>
-
           <div>
-            <h3 className="text-2xl font-bold mb-4 mt-7">Completed Bookings</h3>
+            <h3 className="text-2xl font-bold mb-4 mt-7 text-left">Completed Bookings</h3>
             {currentBookings
               .filter((booking) => !booking.isCancelled && new Date(booking.pickupDate) <= new Date())
               .length === 0 ? (
-              <p className="text-red-400">No completed bookings.......</p>
+              <p className="text-red-400 text-left">No completed bookings.......</p>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
                 {currentBookings
@@ -157,14 +148,12 @@ const ProfilePage = () => {
               </div>
             )}
           </div>
-
-
           <div>
-            <h3 className="text-2xl font-bold mb-4 mt-7">Cancelled Bookings</h3>
+            <h3 className="text-2xl font-bold mb-4 mt-7 text-left">Cancelled Bookings</h3>
             {currentBookings
               .filter((booking) => booking.isCancelled)
               .length === 0 ? (
-              <p className="text-red-400">No cancelled bookings.......</p>
+              <p className="text-red-400  text-left">No cancelled bookings.......</p>
             ) : (
               <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
                 {currentBookings
@@ -175,37 +164,15 @@ const ProfilePage = () => {
               </div>
             )}
           </div>
-
           <div className="flex justify-center mt-4">
             {renderPaginationNumbers()}
           </div>
         </div>
-        {showRefundModal && (
-          <div className="fixed inset-0 z-10 flex items-center justify-center bg-gray-800 bg-opacity-50">
-            <div className="bg-white p-6 rounded-md shadow-lg">
-              <p className="text-xl font-semibold mb-4">
-                Payment Refunded to Your Wallet
-              </p>
-              <p>
-                The payment for this booking has been refunded to your wallet.
-              </p>
-              <div className="mt-4 flex justify-end">
-                <button
-                  onClick={handleRefundModal}
-                  className="px-4 py-2 bg-blue-500 text-white rounded-md"
-                >
-                  Close
-                </button>
-              </div>
-            </div>
-          </div>
-        )}
+     
       </div>
-
     ) : null
   );
 };
-
 export default ProfilePage;
 
 

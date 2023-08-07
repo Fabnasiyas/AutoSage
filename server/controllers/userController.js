@@ -375,7 +375,7 @@ export const viewCar = async (req, res) => {
 };
 export const updateWallet = async (req, res) => {
   const { userId } = req.params;
-  const { wallet } = req.body;
+  const { wallet } = req.body; 
   try {
     const updatedUser = await userModel.updateOne({ _id: userId }, { $set: { wallet: wallet } });
     if (updatedUser.nModified === 1) {
@@ -423,11 +423,11 @@ export const updateAmount = async (req, res) => {
 export const advance = async (req, res) => {
   try {
     const { userId, bookingId, updatedWallet } = req.body;
-    const updatedUser = await userModel.updateOne(
+    await userModel.updateOne(
       { _id: userId },
       { $set: { wallet: updatedWallet } }
     );
-    const updatedCar = await bookingModel.updateOne(
+    await bookingModel.updateOne(
       { _id: bookingId },
       { $set: { balance: 0 } }
     );

@@ -1,7 +1,6 @@
-
 import { useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import axios from '../../axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
@@ -13,11 +12,10 @@ const Card = ({ booking, handleCancel }) => {
   const [showDetails, setShowDetails] = useState(false);
   const [checkout, setCheckout] = useState(false);
   const navigate = useNavigate();
+  const dispatch=useDispatch()
   const user = useSelector(state => state.user.details);
   const wallet = user.wallet;
-
   const dueAmount = balance - wallet;
-
   const handleCancelButtonClick = () => {
     if (!isCancelled && new Date(pickupDate) > new Date()) {
       handleCancel(_id, pickupDate);
@@ -42,9 +40,9 @@ const Card = ({ booking, handleCancel }) => {
         bookingId: _id,
         updatedWallet,
       })
-
       .then((response) => {
         closeModal();
+        dispatch({type:"refresh"})
         navigate('/success');
       })
       .catch((error) => {
@@ -53,11 +51,9 @@ const Card = ({ booking, handleCancel }) => {
         navigate('/payment-failure');
       });
   };
-
   const openModal = () => {
     setCheckout(true);
   };
-
   const closeModal = () => {
     setCheckout(false);
   };

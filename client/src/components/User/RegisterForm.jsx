@@ -1,5 +1,3 @@
-
-
 import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import axios from '../../axios';
@@ -14,12 +12,10 @@ const RegisterForm = () => {
   const dispatch = useDispatch();
   const [passwordVisible, setPasswordVisible] = React.useState(false);
   const [confirmPasswordVisible, setConfirmPasswordVisible] = React.useState(false);
-
   const handleSubmit = (values) => {
     axios
       .post('/signup', values)
       .then((response) => {
-        console.log("*******************************", response.data);
         if (!response.data.err) {
           dispatch({ type: 'refresh' });
           console.log(response.data);
@@ -62,7 +58,7 @@ const RegisterForm = () => {
     }}>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+        <div className=" py-8 px-4 shadow sm:rounded-lg sm:px-10 loginbox mx-3" >
           <div className="sm:mx-auto sm:w-full sm:max-w-md mb-8">
             <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Register</h2>
           </div>
@@ -105,55 +101,50 @@ const RegisterForm = () => {
           >
             <Form className="space-y-6">
               <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-                  Name
-                </label>
+                
                 <div className="mt-1">
                   <Field
                     id="name"
                     name="name"
                     type="text"
+                    placeholder="Enter your name"
                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   />
                   <ErrorMessage name="name" component="div" className="text-red-500" />
                 </div>
               </div>
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                  Email address
-                </label>
+                
                 <div className="mt-1">
                   <Field
                     id="email"
                     name="email"
                     type="email"
+                    placeholder=' Email address'
                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   />
                   <ErrorMessage name="email" component="div" className="text-red-500" />
                 </div>
               </div>
               <div>
-                <label htmlFor="phoneNumber" className="block text-sm font-medium text-gray-700">
-                  Phone Number
-                </label>
                 <div className="mt-1">
                   <Field
                     id="phoneNumber"
                     name="phoneNumber"
                     type="text"
+                    placeholder='Phone Number'
                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   />
                   <ErrorMessage name="phoneNumber" component="div" className="text-red-500" />
                 </div>
               </div>
               <div>
-                <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-                  Password
-                </label>
+                
                 <div className="mt-1 relative">
                   <Field
                     id="password"
                     name="password"
+                    placeholder='Password'
                     type={passwordVisible ? 'text' : 'password'}
                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   />
@@ -194,13 +185,12 @@ const RegisterForm = () => {
                 </div>
               </div>
               <div>
-                <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700">
-                  Confirm Password
-                </label>
+                
                 <div className="mt-1 relative">
                   <Field
                     id="confirmPassword"
                     name="confirmPassword"
+                    placeholder='Confirm Password'
                     type={confirmPasswordVisible ? 'text' : 'password'}
                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   />

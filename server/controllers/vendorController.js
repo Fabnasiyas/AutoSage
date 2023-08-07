@@ -17,14 +17,12 @@ export const vendorCheckAuth = async (req, res) => {
       const ID = verifyJwt.id;
       const vendor = await vendorModel.findOne({ _id: ID });
       if (vendor.ban) {
-        // User is banned, clear the token and log them out immediately
         res.clearCookie('vendorToken');
         res.json({ logged: false, err: true, message: 'vendor banned', ban: true });
       } else {
         res.json({ logged: true, details: vendor, ban: false });
       }
     } catch (error) {
-      // Handle JWT verification error
       res.json({ logged: false, err: true, message: 'Invalid token', ban: false });
     }
   } else {
@@ -33,23 +31,18 @@ export const vendorCheckAuth = async (req, res) => {
 };
 
 export const postSignup = async (req, res) => {
-
   try {
-
     let { name, email, phoneNumber, password, pincode, confirmPassword } = req.body;
-
     const oldUser = await vendorModel.findOne({ email })
     if (oldUser) {
       res.json({ err: true, message: 'Vendor already exsist' })
     } else {
       if (password == confirmPassword) {
-
         let otp = randomNumber()
         console.log(otp);
         sentOTP(email, otp);
         const signupToken = jwt.sign({
           otp: otp,
-
         },
         process.env.SECRET_KEY);
         return res.cookie("signupToken", signupToken, {
@@ -58,14 +51,9 @@ export const postSignup = async (req, res) => {
           maxAge: 1000 * 60 * 60 * 24 * 7,
           sameSite: "none",
         }).json({ err: false, message: 'Otp send successfull' });
-
-
       } else {
-
         res.json({ err: true, message: 'password entered are not same' })
       }
-
-
     }
   } catch (error) {
     console.log(error);
@@ -73,7 +61,6 @@ export const postSignup = async (req, res) => {
 }
 
 export const verifyVendorSignup = async (req, res) => {
-  console.log(req.body)
   const { name, email, phoneNumber, pincode, password, confirmPassword } = req.body
   let otp = req.body.OTP;
   let vendorToken = req.cookies.signupToken;
@@ -86,8 +73,6 @@ export const verifyVendorSignup = async (req, res) => {
       email,
       phoneNumber,
       pincode,
-      // location:req.body.location.location,
-      // coordinates:req.body.location.coordinates,
       password: bcrypPassword
     });
     const vendorToken = jwt.sign({
@@ -103,7 +88,6 @@ export const verifyVendorSignup = async (req, res) => {
   } else {
     res.json({ err: true, message: 'something went wrong' })
   }
-
 }
 
 export const vendorLogin = async (req, res) => {
@@ -126,7 +110,7 @@ export const vendorLogin = async (req, res) => {
           res.json({ err: true, message: "Invalid email or password" });
         }
       } else {
-        res.clearCookie("vendorToken"); // Clear the vendorToken cookie
+        res.clearCookie("vendorToken"); 
         res.json({ err: true, message: 'Vendor banned. Please contact the admin for assistance.' });
       }
     } else {
@@ -155,11 +139,9 @@ export const vendorLogout = (req, res) => {
 };
 
 export const postCarRegistration = async (req, res) => {
-
   try {
     const { model, year, mileage, fuelType, transmissionMode, specifications, rentPerDay, vendorId } = req.body;
     const { rcImage, carImages } = req.files
-
     if (!rcImage) {
       return res.status(400).json({ err: true, message: 'rcImage is required' });
     }
@@ -177,9 +159,6 @@ export const postCarRegistration = async (req, res) => {
       location: req.body.location,
       coordinates: req.body.coordinates,
     });
-
-
-
     res.json({ err: false, message: 'car details added' });
   }
   catch (error) {
@@ -187,6 +166,7 @@ export const postCarRegistration = async (req, res) => {
     res.status(500).json({ err: true, message: 'Internal server error' });
   }
 };
+
 export const editProfile = async (req, res) => {
   try {
     let { name, phoneNumber, pincode, vendorId } = req.body
@@ -206,41 +186,38 @@ export const getCarLists = async (req, res) => {
     console.log(error);
   }
 };
+
 export const getBookings = async (req, res) => {
   try {
     const vendorId = req.query.vendorId;
-
     const bookings = await bookingModel.find({ vendorId });
-
     res.json(bookings);
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: "An error occurred" });
   }
 };
+
 export const updateStatus = async (req, res) => {
   try {
     const { bookingId } = req.params;
     console.log(bookingId);
     const booking = await bookingModel.findById(bookingId);
-    // Update the car's isBooked status to false
     const car = await carModel.findOneAndUpdate(
       { _id: booking.carId },
       { $set: { isBooked: false } },
       { new: true }
     );
-
     if (!car) {
       return res.status(404).json({ error: 'Car not found' });
     }
-
-    // Return the updated car as the response
     res.json(car);
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: 'An error occurred' });
   }
 };
+
 export const getDashbordData = async (req, res) => {
   try {
     const vendorId = req.query.vendorId;
@@ -254,27 +231,22 @@ export const getDashbordData = async (req, res) => {
       if (typeof totalAmount === 'number') {
         return acc + totalAmount;
       }
-      return acc; // Skip undefined or non-numeric values
+      return acc; 
     }, 0);
-
     const Details = {
-
       totalCars: numberOfCars,
       totalBookings: bookingNum,
       revenue: amount,
     }
     res.json(Details)
   } catch (error) {
-
   }
 }
+
 export const getMonthlyData = async (req, res) => {
   try {
     const vendorId = req.query.vendorId
-
     const bookings = await bookingModel.find({ vendorId }).lean();
-
-
     const months = [
       'January', 'February', 'March', 'April', 'May', 'June',
       'July', 'August', 'September', 'October', 'November', 'December'
@@ -289,10 +261,6 @@ export const getMonthlyData = async (req, res) => {
       const dateObject = new Date(pickupDateStr);
       const monthName = months[dateObject.getMonth()];
       const totalAmount = booking.totalAmount;
-
-
-
-      // Check if totalAmount is a valid number before adding to monthlyRevenue
       if (typeof totalAmount === 'number') {
         monthlyRevenue[monthName] += totalAmount;
       }

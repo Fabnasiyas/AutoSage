@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { ToastContainer } from 'react-toastify';
 import axios from './axios';
 import { useSelector, useDispatch } from 'react-redux';
+import './App.css'
 
  
 
