@@ -7,6 +7,8 @@ import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import  Axios  from 'axios';
 import img from '../../assets/car3.webp';
+
+// const mapToken = process.env.MAP_TOKEN;
 const RegisterForm = () => {
   axios.defaults.withCredentials = true;
   const navigate = useNavigate();
