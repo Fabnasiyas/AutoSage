@@ -34,7 +34,7 @@ const Navbar = () => {
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center mt-10">
             <div className="flex-shrink-0">
-              <span className="text-white font-extrabold text-3xl ">AutoSage</span>
+              <span className="text-white font-extrabold text-5xl ">AutoRent</span>
             </div>
           </div>
 

@@ -25,11 +25,9 @@ const CarDetailsPage = () => {
   const doc = user && Array.isArray(user.drivingLicense) && Array.isArray(user.aadharCard)
     ? [...user.drivingLicense, ...user.aadharCard]
     : null;
-
   const handleImageClick = (image) => {
     setActiveImg(image);
   };
-
 
   const [dropoffDateAvailable, setDropoffDateAvailable] = useState(null);
   const fetchCar = async () => {
@@ -46,7 +44,6 @@ const CarDetailsPage = () => {
           setDropoffDateAvailable(formattedDropoffDate);
         }
       }
-
     } catch (error) {
       console.log(error);
     }
@@ -65,9 +62,8 @@ const CarDetailsPage = () => {
   };
   const handleProceed = () => {
     if (pickupDate && dropoffDate) {
-      const oneDay = 24 * 60 * 60 * 1000; // Number of milliseconds in one day
+      const oneDay = 24 * 60 * 60 * 1000;
       const totalDays = Math.round(Math.abs((dropoffDate - pickupDate) / oneDay));
-
       if (totalDays === 0) {
         setShowProceedMessage(true);
       } else {
@@ -83,14 +79,13 @@ const CarDetailsPage = () => {
   const handleBookAdvancePayment = async () => {
     if (userId) {
       if (pickupDate && dropoffDate) {
-        const oneDay = 24 * 60 * 60 * 1000; // Number of milliseconds in one day
+        const oneDay = 24 * 60 * 60 * 1000;
         const totalDays = Math.round(Math.abs((dropoffDate - pickupDate) / oneDay));
         const totalAmount = totalDays * car.rentPerDay;
         const amountToPay = totalAmount / 2;
         const balance = totalAmount - amountToPay;
 
         if (user.wallet === 0) {
-          // Case 1: Wallet amount is 0, pay directly using PayPal.
           try {
             const bookingData = {
               userId: userId,
@@ -114,10 +109,7 @@ const CarDetailsPage = () => {
             alert('Error processing payment. Please try again later.');
           }
         } else if (user.wallet >= amountToPay) {
-          // Case 2: Wallet amount is greater than or equal to the payable amount.
           try {
-
-
             const updatedWalletAmount = user.wallet - amountToPay;
             const bookingData = {
               userId: userId,
@@ -140,11 +132,7 @@ const CarDetailsPage = () => {
             alert('Error processing payment. Please try again later.');
           }
         } else {
-          // Case 3: Wallet amount is less than the payable amount. Use the wallet amount for payment
-
           try {
-
-
             const bookingData = {
               userId: userId,
               vendorId: car.vendorId,
@@ -176,19 +164,10 @@ const CarDetailsPage = () => {
     }
   };
 
-
-
   const handleWalletConfirmation = async () => {
     try {
-      // Proceed with the booking and update the database directly
-
       await axios.post(`/update-walletamount/${userId}`, { wallet: bookingData.updatedWalletAmount, bookingData }).then((response) => {
-        console.log('====================================');
-        console.log(response);
-        console.log('====================================');
       })
-
-      // Proceed to success page or handle success as required
       navigate('/success');
     } catch (error) {
       console.error('Error updating wallet or booking:', error);
@@ -196,18 +175,15 @@ const CarDetailsPage = () => {
     }
   };
 
-
   const handleBookFullPayment = async () => {
     if (userId) {
       if (pickupDate && dropoffDate) {
-        const oneDay = 24 * 60 * 60 * 1000; // Number of milliseconds in one day
+        const oneDay = 24 * 60 * 60 * 1000;
         const totalDays = Math.round(Math.abs((dropoffDate - pickupDate) / oneDay));
         const totalAmount = totalDays * car.rentPerDay;
         const amountToPay = totalAmount;
         const balance = totalAmount - amountToPay;
-
         if (user.wallet === 0) {
-          // Case 1: Wallet amount is 0, pay directly using PayPal.
           try {
             const bookingData = {
               userId: userId,
@@ -222,7 +198,6 @@ const CarDetailsPage = () => {
               paymentType: 'Full Payment',
               paymentAmount: amountToPay,
             };
-
             setBookingData(bookingData);
             setPaymentSelection(null);
             setCheckout(true);
@@ -231,10 +206,7 @@ const CarDetailsPage = () => {
             alert('Error processing payment. Please try again later.');
           }
         } else if (user.wallet >= amountToPay) {
-          // Case 2: Wallet amount is greater than or equal to the payable amount.
           try {
-
-
             const updatedWalletAmount = user.wallet - amountToPay;
             const bookingData = {
               userId: userId,
@@ -246,23 +218,18 @@ const CarDetailsPage = () => {
               amountToPay,
               totalAmount,
               balance,
-              paymentType: 'Advance Payment',
+              paymentType: 'Full Payment',
               paymentAmount: 0,
               updatedWalletAmount,
             };
             setBookingData(bookingData);
-            setPaymentSelection(null);
-            setCheckout(true);
+            setShowWalletConfirmation(true);
           } catch (error) {
             console.error('Error updating wallet:', error);
             alert('Error processing payment. Please try again later.');
           }
         } else {
-          // Case 3: Wallet amount is less than the payable amount. Use the wallet amount for payment
-
           try {
-
-
             const bookingData = {
               userId: userId,
               vendorId: car.vendorId,
@@ -273,11 +240,10 @@ const CarDetailsPage = () => {
               amountToPay,
               totalAmount,
               balance,
-              paymentType: 'Advance Payment',
+              paymentType: 'Full Payment',
               paymentAmount: amountToPay - user.wallet,
               updatedWalletAmount: 0,
             };
-
             setBookingData(bookingData);
             setPaymentSelection(null);
             setCheckout(true);
@@ -310,7 +276,6 @@ const CarDetailsPage = () => {
         className="fixed inset-0 flex items-center justify-center z-50"
         overlayClassName="fixed inset-0 bg-black opacity-70"
       >
-        {/* Wallet Confirmation Modal */}
         <div className="bg-white rounded-lg p-8 max-w-md mx-auto">
           <h2 className="text-2xl font-bold mb-6 text-center">Confirm Payment with Wallet</h2>
           <p className="text-center">
@@ -337,9 +302,6 @@ const CarDetailsPage = () => {
       </Modal>
     );
   }
-
-
-
   if (paymentSelection) {
     return (
       <Modal
@@ -373,7 +335,6 @@ const CarDetailsPage = () => {
   return (
     <>
       <div className="flex flex-col md:flex-row py-8 md:py-32 mt-4">
-        {/* Left Side - Main Image */}
         <div className="w-full md:w-1/2 flex flex-col justify-center items-center">
           {activeImg && (
             <img
@@ -383,7 +344,6 @@ const CarDetailsPage = () => {
             />
           )}
 
-          {/* List of Active Logs */}
           <div className="flex flex-row justify-center mt-6">
             {car &&
               car.carImages.map((image, index) => (
@@ -403,7 +363,6 @@ const CarDetailsPage = () => {
           </div>
         </div>
 
-        {/* Right Side - Car Details */}
         <div className="w-full md:w-1/2 flex justify-center items-center">
           <div className="bg-white rounded-lg shadow-lg p-6 w-4/5">
             <h1 className="text-2xl font-bold mb-4 text-center">Car Details</h1>
@@ -501,8 +460,6 @@ const CarDetailsPage = () => {
                         <Link to={`/adddocuments`}>
                           <button className="mt-2 px-4 py-2 bg-blue-500 text-white rounded-md">Add Document</button>
                         </Link>
-
-
                       </div>
                     )
                   ) : (
@@ -558,10 +515,7 @@ const CarDetailsPage = () => {
                   }}
                   onApprove={async (data, actions) => {
                     await actions.order.capture();
-
                     closeModal();
-
-
                     axios
                       .post('/bookings', bookingData)
                       .then((response) => {
@@ -576,7 +530,6 @@ const CarDetailsPage = () => {
                     }).catch((error) => {
                       console.error('Error booking:', error);
                     });
-
                     navigate('/success');
                   }}
                   onCancel={() => {
@@ -599,7 +552,6 @@ const CarDetailsPage = () => {
           </button>
         </div>
       </Modal>
-
     </>
   );
 };

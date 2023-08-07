@@ -27,7 +27,6 @@ const Card = () => {
     try {
       console.log(searchQuery);
       if (!searchQuery) {
-        // If the search query is empty, reset the filter and show all cars
         console.log('no query');
         setFilteredCars(cars);
         return;
@@ -87,7 +86,7 @@ const Card = () => {
         const within10Km = distance <= 10;
         console.log(within10Km, 'within 10 km');
 
-        return within10Km; // or handle the error as needed
+        return within10Km; 
       });
 
       console.log('==============filteredCarsByDistance======================');
@@ -157,7 +156,12 @@ const Card = () => {
 
     setFilteredCars(filteredCars);
 
-
+    if (filteredCars.length === 0) {
+      // If no cars found, display a message
+      setNoCarsFoundMessage(true);
+    } else {
+      setNoCarsFoundMessage(false);
+    }
     setCurrentPage(1);
   };
 
@@ -286,7 +290,7 @@ const Card = () => {
 
       <div className='pt-20'>
 
-        {noCarsFoundMessage && <p >No cars found in this location</p>}
+        {noCarsFoundMessage && <p className='text-red-500' >No cars found....</p>}
       </div>
       <ul className="flex justify-center mt-2">
         {Array.from({ length: Math.ceil(filteredCars.length / carsPerPage) }, (_, i) => (
