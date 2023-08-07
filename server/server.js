@@ -9,6 +9,8 @@ import chatRoute from './routes/chatRoute.js'
 import MessageRoute from './routes/msgRoutes.js'
 import dbConnect from './config/connectDb.js'
 dbConnect();
+import 'dotenv/config';
+
 
 import cors from 'cors'
 import cookieParser from 'cookie-parser';

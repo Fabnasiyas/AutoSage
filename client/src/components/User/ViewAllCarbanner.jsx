@@ -3,12 +3,11 @@ import carImage from '../../assets/car2.jpeg';
 
 
 const Banner = () => {
-  const bannerHeight = "400px"; // Adjust the height as needed
+  const bannerHeight = "400px"; 
 
   return (
     <div className='pt-1'>
       <div className="relative ">
-        {/* <Nav/> */}
         <div
           className="h-full bg-cover bg-center "
           style={{

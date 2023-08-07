@@ -12,7 +12,7 @@ export const vendorCheckAuth = async (req, res) => {
     try {
       const verifyJwt = jwt.verify(
         token,
-        '00f3f20c9fc43a29d4c9b6b3c2a3e18918f0b23a379c152b577ceda3256f3ffa'
+        process.env.SECRET_KEY
       );
       const ID = verifyJwt.id;
       const vendor = await vendorModel.findOne({ _id: ID });
@@ -51,7 +51,7 @@ export const postSignup = async (req, res) => {
           otp: otp,
 
         },
-          "00f3f20c9fc43a29d4c9b6b3c2a3e18918f0b23a379c152b577ceda3256f3ffa");
+        process.env.SECRET_KEY);
         return res.cookie("signupToken", signupToken, {
           httpOnly: true,
           secure: true,
@@ -77,7 +77,7 @@ export const verifyVendorSignup = async (req, res) => {
   const { name, email, phoneNumber, pincode, password, confirmPassword } = req.body
   let otp = req.body.OTP;
   let vendorToken = req.cookies.signupToken;
-  const OtpToken = jwt.verify(vendorToken, '00f3f20c9fc43a29d4c9b6b3c2a3e18918f0b23a379c152b577ceda3256f3ffa')
+  const OtpToken = jwt.verify(vendorToken,   process.env.SECRET_KEY)
   let bcrypPassword = await bcrypt.hash(password, 10)
   if (otp == OtpToken.otp) {
 
@@ -93,7 +93,7 @@ export const verifyVendorSignup = async (req, res) => {
     const vendorToken = jwt.sign({
       id: vendor._id
     },
-      "00f3f20c9fc43a29d4c9b6b3c2a3e18918f0b23a379c152b577ceda3256f3ffa");
+    process.env.SECRET_KEY);
     return res.cookie("vendorToken", vendorToken, {
       httpOnly: true,
       secure: true,
@@ -114,7 +114,7 @@ export const vendorLogin = async (req, res) => {
       if (vendor.ban === false) {
         const status = await bcrypt.compare(password, vendor.password);
         if (status) {
-          const vendorToken = jwt.sign({ id: vendor._id }, "00f3f20c9fc43a29d4c9b6b3c2a3e18918f0b23a379c152b577ceda3256f3ffa");
+          const vendorToken = jwt.sign({ id: vendor._id },   process.env.SECRET_KEY);
           res.cookie("vendorToken", vendorToken, {
             httpOnly: true,
             secure: true,

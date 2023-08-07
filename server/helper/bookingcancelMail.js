@@ -7,7 +7,7 @@ const sendCancelMail = async (email, bookingId, message) => {
       service: 'gmail',
       auth: {
         user: 'faafabin@gmail.com',
-        pass: 'vfvehoilcnfrwkbx',
+        pass: process.env.EMAIL_PASSWORD,
       },
     });
 

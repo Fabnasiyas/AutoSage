@@ -7,7 +7,7 @@ const sendapprovalMail = async (useremail, userId) => {
       service: 'gmail',
       auth: {
         user: 'faafabin@gmail.com',
-        pass: 'vfvehoilcnfrwkbx',
+        pass: process.env.EMAIL_PASSWORD,
       },
     });
 

@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from 'react';
 import { FaCar, FaCog, FaGasPump } from 'react-icons/fa';
 import axios from '../../axios';
-
 import { Link } from 'react-router-dom';
 import mapboxAPI from '../../mapbox/mapboxApi';
 const Card = () => {
@@ -21,8 +20,6 @@ const Card = () => {
     setSearchQuery(event.target.value);
   };
 
-
-
   const handleSearch = async () => {
     try {
       console.log(searchQuery);
@@ -33,25 +30,19 @@ const Card = () => {
       }
 
       // Geocode the typed location using Mapbox Geocoding API
-      console.log('jdfksjfksd');
       const response = await mapboxAPI.get(`/geocoding/v5/mapbox.places/${encodeURIComponent(searchQuery)}.json`);
-
       if (response.data.features.length === 0) {
         console.log('Location not found');
         return;
       }
-
       const points = response.data.features[1];
       console.log(parseFloat(points.center[1]));
       const latitude = parseFloat(points.center[1]);
       const longitude = parseFloat(points.center[0]);
-
       setSearchedLatitude(latitude);
       setSearchedLongitude(longitude);
-
       const searchedLocation = { latitude: searchedLatitude, longitude: searchedLongitude };
       console.log(searchedLocation, 'searched Location');
-
       // Filter cars based on distance
       const filteredCarsByDistance = cars.filter((car) => {
         const coordinates = JSON.parse(car.coordinates);
@@ -60,10 +51,8 @@ const Card = () => {
           console.log('Invalid coordinates:', coordinates);
           return false;
         }
-
         const [longitude, latitude] = coordinates;
         const carLocation = { latitude: parseFloat(latitude), longitude: parseFloat(longitude) };
-
         function calculateDistance(lat1, lon1, lat2, lon2) {
           const R = 6371; // Earth's radius in km
           const dLat = (lat2 - lat1) * (Math.PI / 180);
@@ -85,15 +74,10 @@ const Card = () => {
         console.log(distance);
         const within10Km = distance <= 10;
         console.log(within10Km, 'within 10 km');
-
-        return within10Km; 
+        return within10Km;
       });
-
-      console.log('==============filteredCarsByDistance======================');
-      console.log(filteredCarsByDistance);
       setFilteredCars(filteredCarsByDistance);
       if (filteredCarsByDistance.length === 0) {
-        // If no cars found, display a message
         setNoCarsFoundMessage(true);
       } else {
         setNoCarsFoundMessage(false);
@@ -102,8 +86,6 @@ const Card = () => {
       console.log('Error geocoding the typed location:', error);
     }
   };
-
-
 
   const fetchCars = async () => {
     try {
@@ -125,54 +107,21 @@ const Card = () => {
 
     applyFilters();
   }, [selectedFuelType, selectedSpecifications, selectedTransmissionMode]);
-
-
-
   const applyFilters = () => {
-
-
-
     const filteredCars = cars.filter((car) => {
-
       if (car.specifications.includes(selectedSpecifications)) {
-
       }
-
-
       const fuelTypeMatch = !selectedFuelType || car.fuelType.toLowerCase().includes(selectedFuelType.toLowerCase());
-
-
       const specificationsMatch = !selectedSpecifications || car.specifications.toLowerCase().includes(selectedSpecifications.toLowerCase());
-
-
       const transmissionModeMatch = !selectedTransmissionMode || car.transmissionMode.toLowerCase().includes(selectedTransmissionMode.toLowerCase());
-
-
       return fuelTypeMatch && specificationsMatch && transmissionModeMatch;
     });
-
-
-
-
     setFilteredCars(filteredCars);
-
-    if (filteredCars.length === 0) {
-      // If no cars found, display a message
-      setNoCarsFoundMessage(true);
-    } else {
-      setNoCarsFoundMessage(false);
-    }
     setCurrentPage(1);
   };
-
-
-
-
   const indexOfLastCar = currentPage * carsPerPage;
   const indexOfFirstCar = indexOfLastCar - carsPerPage;
   const currentCars = filteredCars.slice(indexOfFirstCar, indexOfLastCar);
-
-
   const paginate = (pageNumber) => {
     setCurrentPage(pageNumber);
   };
@@ -196,7 +145,6 @@ const Card = () => {
         </button>
       </div>
       <div className="max-w-xl mx-auto mb-5 mt-3">
-
         <select
           className="mt-2 mr-4 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           value={selectedFuelType}
@@ -206,10 +154,7 @@ const Card = () => {
           <option value="petrol">Petrol</option>
           <option value="diesal">Diesel</option>
           <option value="electric">Electric</option>
-
         </select>
-
-
         <select
           className="mt-2 mr-4 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           value={selectedSpecifications}
@@ -219,11 +164,7 @@ const Card = () => {
           <option value="basemodel">Base Model</option>
           <option value="semioption">Semi Option</option>
           <option value="fulloption">Full Option</option>
-
-
         </select>
-
-
         <select
           className="mt-2 px-2 py-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
           value={selectedTransmissionMode}
@@ -232,12 +173,8 @@ const Card = () => {
           <option value="">All Transmission Modes</option>
           <option value="automatic">Automatic</option>
           <option value="mannual">Manual</option>
-
-
         </select>
-
       </div>
-
       <div className="flex flex-wrap justify-center">
         {currentCars.map((car, index) => (
           <div
@@ -287,10 +224,8 @@ const Card = () => {
           </div>
         ))}
       </div>
-
       <div className='pt-20'>
-
-        {noCarsFoundMessage && <p className='text-red-500' >No cars found....</p>}
+        {noCarsFoundMessage && <p >No cars found in this location</p>}
       </div>
       <ul className="flex justify-center mt-2">
         {Array.from({ length: Math.ceil(filteredCars.length / carsPerPage) }, (_, i) => (
