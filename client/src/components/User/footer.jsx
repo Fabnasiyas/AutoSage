@@ -1,6 +1,3 @@
-
-
-
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faInstagram, faWhatsapp, faTwitter } from '@fortawesome/free-brands-svg-icons';
@@ -8,7 +5,6 @@ import { faInstagram, faWhatsapp, faTwitter } from '@fortawesome/free-brands-svg
 const Footer = () => {
   return (
     <footer className="bg-gray-200 p-4 bottom-0 left-0 right-0 mt-1 border">
-      {/* Social Media Section */}
       <div className="flex items-center justify-center mb-4">
         <p className="font-bold mr-2">Get connected with us on Social media:</p>
         <div className="flex space-x-4">
@@ -47,11 +43,6 @@ const Footer = () => {
           </a>
         </div>
       </div>
-      {/* End of Social Media Section */}
-
-
-
-      {/* Footer Content */}
       <div className="flex flex-col md:flex-row justify-between bg-blue-900 text-white">
         <div className="text-center md:flex-1 p-4">
           <h1 className="font-bold mb-2">AutoRent</h1>
@@ -63,15 +54,11 @@ const Footer = () => {
           <p className="">Phone: +1 123-456-7890</p>
         </div>
       </div>
-      {/* End of Footer Content */}
-
-      {/* Footer Bottom */}
       <div className="text-center bg-blue-900 p-4">
         <p className="font-bold text-white">
           &copy; {new Date().getFullYear()} AutoRent. All rights reserved.
         </p>
       </div>
-      {/* End of Footer Bottom */}
     </footer>
   );
 };

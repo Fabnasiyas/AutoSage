@@ -1,12 +1,9 @@
-
 import React, { useState, useEffect } from 'react';
 import OTPInput from 'otp-input-react';
 import axios from '../../axios';
 import { useDispatch } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-
-
 
 function OtpPage() {
   const location = useLocation();
@@ -18,13 +15,11 @@ function OtpPage() {
   const [resendAttempts, setResendAttempts] = useState(0);
   useEffect(() => {
     let intervalId;
-
     if (timer > 0) {
       intervalId = setInterval(() => {
         setTimer((prevTimer) => prevTimer - 1);
       }, 1000);
     }
-
     return () => {
       clearInterval(intervalId);
     };
@@ -48,7 +43,6 @@ function OtpPage() {
   };
 
   const handleResendOTP = () => {
-
     if (resendAttempts < 3) {
       setResendAttempts((prevAttempts) => prevAttempts + 1);
       setTimer(60);
@@ -103,7 +97,6 @@ function OtpPage() {
           )}
         </form>
       </div>
-      {/* <ToastContainer /> */}
     </div>
   );
 }

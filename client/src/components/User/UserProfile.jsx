@@ -9,11 +9,11 @@ const ProfilePage = () => {
   const [bookings, setBookings] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const bookingsPerPage = 10;
-  const dispatch=useDispatch()
+  const dispatch = useDispatch()
   useEffect(() => {
     fetchBookings();
   }, [user]);
- 
+
   const handleCancel = async (bookingId, pickupDate) => {
     try {
       const currentDate = new Date();
@@ -27,7 +27,7 @@ const ProfilePage = () => {
           booking._id === bookingId ? { ...booking, isCancelled: true } : booking
         );
         setBookings(updatedBookings);
-        dispatch({type:"refresh"})
+        dispatch({ type: "refresh" })
         Swal.fire({
           icon: 'success',
           title: 'Booking Cancelled',
@@ -60,7 +60,6 @@ const ProfilePage = () => {
   const indexOfLastBooking = currentPage * bookingsPerPage;
   const indexOfFirstBooking = indexOfLastBooking - bookingsPerPage;
   const currentBookings = bookings.slice(indexOfFirstBooking, indexOfLastBooking);
-
   const renderPaginationNumbers = () => {
     const pageNumbers = [];
     for (let i = 1; i <= Math.ceil(bookings.length / bookingsPerPage); i++) {
@@ -79,7 +78,6 @@ const ProfilePage = () => {
   };
 
   return (
-
     user ? (
       <div className="flex flex-col lg:flex-row py-16 lg:py-20">
         <div className="lg:w-1/4 p-8 bg-gray-100 flex flex-col justify-center mx-7">
@@ -168,7 +166,6 @@ const ProfilePage = () => {
             {renderPaginationNumbers()}
           </div>
         </div>
-     
       </div>
     ) : null
   );

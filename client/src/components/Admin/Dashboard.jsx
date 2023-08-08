@@ -1,5 +1,3 @@
-
-
 import React, { useState } from "react";
 import { HiMenuAlt3 } from "react-icons/hi";
 import { MdOutlineDashboard } from "react-icons/md";
@@ -21,11 +19,9 @@ const Sidebar = () => {
 
   ];
   const [open, setOpen] = useState(true);
-
   const { vendor } = useSelector(state => state);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const handleLogout = () => {
     axios.get('/admin/logout').then((response) => {
       if (!response.data.err) {

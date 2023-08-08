@@ -1,9 +1,8 @@
 import React from 'react';
 import carImage from '../../assets/car2.jpeg';
 
-
 const Banner = () => {
-  const bannerHeight = "400px"; 
+  const bannerHeight = "400px";
 
   return (
     <div className='pt-1'>

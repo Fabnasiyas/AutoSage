@@ -6,7 +6,6 @@ import DataTable from 'react-data-table-component';
 const AdminCarList = () => {
   const [cars, setCars] = useState([]);
   const [searchText, setSearchText] = useState('');
-
   const fetchAllCars = async () => {
     try {
       const response = await axios.get("/admin/allcarlist");
@@ -65,7 +64,6 @@ const AdminCarList = () => {
     const carId = car._id ? car._id.toLowerCase() : '';
     const model = car.model ? car.model.toLowerCase() : '';
     const location = car.location ? car.location.toLowerCase() : '';
-  
     return (
       vendorId.includes(searchText.toLowerCase()) ||
       carId.includes(searchText.toLowerCase()) ||
@@ -74,7 +72,6 @@ const AdminCarList = () => {
     );
   });
   
-
   return (
     <div className="relative overflow-x-auto" style={{ marginRight: '100px', marginTop: '100px' }}>
       <input

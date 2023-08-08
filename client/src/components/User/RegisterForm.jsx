@@ -25,7 +25,6 @@ const RegisterForm = () => {
             password: values.password,
             phoneNumber: values.phoneNumber
           };
-
           return navigate('/otp', { state: { data } });
         } else {
           toast.success(response.data.message, {
@@ -56,9 +55,8 @@ const RegisterForm = () => {
       backgroundPosition: 'center',
       backgroundRepeat: 'no-repeat',
     }}>
-
-<div className="mt-8 sm:mx-auto sm:w-full md:max-w-xl lg:max-w-2xl xl:max-w-xl">
-  <div className="py-8 px-4 shadow sm:rounded-lg sm:px-10 loginbox mx-auto">
+      <div className="mt-8 sm:mx-auto sm:w-full md:max-w-xl lg:max-w-2xl xl:max-w-xl">
+        <div className="py-8 px-4 shadow sm:rounded-lg sm:px-10 loginbox mx-auto">
           <div className="sm:mx-auto sm:w-full sm:max-w-md mb-8">
             <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">Register</h2>
           </div>
@@ -101,7 +99,7 @@ const RegisterForm = () => {
           >
             <Form className="space-y-6">
               <div>
-                
+
                 <div className="mt-1">
                   <Field
                     id="name"
@@ -114,7 +112,7 @@ const RegisterForm = () => {
                 </div>
               </div>
               <div>
-                
+
                 <div className="mt-1">
                   <Field
                     id="email"
@@ -139,7 +137,6 @@ const RegisterForm = () => {
                 </div>
               </div>
               <div>
-                
                 <div className="mt-1 relative">
                   <Field
                     id="password"
@@ -185,7 +182,7 @@ const RegisterForm = () => {
                 </div>
               </div>
               <div>
-                
+
                 <div className="mt-1 relative">
                   <Field
                     id="confirmPassword"
@@ -230,7 +227,6 @@ const RegisterForm = () => {
                   <ErrorMessage name="confirmPassword" component="div" className="text-red-500" />
                 </div>
               </div>
-
               <div>
                 <button
                   type="submit"

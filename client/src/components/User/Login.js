@@ -9,7 +9,6 @@ import img from '../../assets/car3.webp';
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -50,7 +49,7 @@ const Login = () => {
       backgroundRepeat: 'no-repeat',
     }}>
       <div className="mt-8 sm:mx-auto sm:w-full md:max-w-xl lg:max-w-2xl xl:max-w-xl">
-  <div className="py-8 px-4 shadow sm:rounded-lg sm:px-10 loginbox mx-auto">
+        <div className="py-8 px-4 shadow sm:rounded-lg sm:px-10 loginbox mx-auto">
           <div className="sm:mx-auto sm:w-full sm:max-w-md mb-10">
             <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">User Login</h2>
           </div>

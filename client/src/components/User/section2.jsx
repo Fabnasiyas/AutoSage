@@ -1,4 +1,3 @@
-
 import React from 'react';
 import img from '../../assets/white.png';
 import { Link } from 'react-router-dom';
@@ -18,12 +17,11 @@ const MyPage = () => {
           Don’t Be Late
         </h1>
         <p className="text-white">
-          
-Elevate your car rental business as a vendor with us! Seamlessly manage your fleet, attract more customers, and boost revenue through our user-friendly platform. Join today for a smoother journey to success in the car rental industry.
+          Elevate your car rental business as a vendor with us! Seamlessly manage your fleet, attract more customers, and boost revenue through our user-friendly platform. Join today for a smoother journey to success in the car rental industry.
         </p>
 
         <Link to='/vendor/login'>
-        <button className="px-4 py-2 bg-white text-blue rounded-lg mt-4 hover:bg-blue-200 transition duration-300">Register Your Car</button></Link>
+          <button className="px-4 py-2 bg-white text-blue rounded-lg mt-4 hover:bg-blue-200 transition duration-300">Register Your Car</button></Link>
       </div>
     </div>
   );

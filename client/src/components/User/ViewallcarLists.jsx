@@ -1,9 +1,9 @@
-
 import React, { useEffect, useState } from 'react';
 import { FaCar, FaCog, FaGasPump } from 'react-icons/fa';
 import axios from '../../axios';
 import { Link } from 'react-router-dom';
 import mapboxAPI from '../../mapbox/mapboxApi';
+
 const Card = () => {
   const [cars, setCars] = useState([]);
   const [filteredCars, setFilteredCars] = useState([]);
@@ -43,7 +43,7 @@ const Card = () => {
       setSearchedLongitude(longitude);
       const searchedLocation = { latitude: searchedLatitude, longitude: searchedLongitude };
       console.log(searchedLocation, 'searched Location');
-      // Filter cars based on distance
+
       const filteredCarsByDistance = cars.filter((car) => {
         const coordinates = JSON.parse(car.coordinates);
         console.log('Coordinates:', coordinates);
@@ -64,7 +64,6 @@ const Card = () => {
           const distance = R * c;
           return distance;
         }
-
         const distance = calculateDistance(
           searchedLocation.latitude,
           searchedLocation.longitude,
@@ -104,9 +103,9 @@ const Card = () => {
   }, []);
 
   useEffect(() => {
-
     applyFilters();
   }, [selectedFuelType, selectedSpecifications, selectedTransmissionMode]);
+
   const applyFilters = () => {
     const filteredCars = cars.filter((car) => {
       if (car.specifications.includes(selectedSpecifications)) {
@@ -119,6 +118,7 @@ const Card = () => {
     setFilteredCars(filteredCars);
     setCurrentPage(1);
   };
+
   const indexOfLastCar = currentPage * carsPerPage;
   const indexOfFirstCar = indexOfLastCar - carsPerPage;
   const currentCars = filteredCars.slice(indexOfFirstCar, indexOfLastCar);
@@ -138,7 +138,8 @@ const Card = () => {
           className="h-12 px-4 border border-gray-300 rounded-md focus:ring focus:ring-blue-300 focus:outline-none w-96"
         />
         <button
-          onClick={handleSearch} // Call the handleSearch function when the button is clicked
+          onClick={handleSearch}
+
           className="h-12 px-4 ml-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-300 focus:outline-none"
         >
           Search

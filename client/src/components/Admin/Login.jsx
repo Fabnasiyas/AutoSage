@@ -51,7 +51,6 @@ const Login = () => {
         </h2>
       </div>
           <form className="space-y-6" action="#" method="POST" onSubmit={handleSubmit} >
-            {/* Email input */}
             <div>
               <div className="mt-1">
                 <input
@@ -66,7 +65,6 @@ const Login = () => {
                 />
               </div>
             </div>
-            {/* Password input */}
             <div>
               <div className="mt-1">
                 <input
@@ -81,7 +79,6 @@ const Login = () => {
                 />
               </div>
             </div>
-            {/* Sign in button */}
             <div>
               <button
                 type="submit"

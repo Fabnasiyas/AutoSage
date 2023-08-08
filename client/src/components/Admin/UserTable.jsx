@@ -8,7 +8,6 @@ const UserTable = () => {
   const [selectedUserId, setSelectedUserId] = useState(null);
   const [isBanModalOpen, setIsBanModalOpen] = useState(false);
   const [isUnbanModalOpen, setIsUnbanModalOpen] = useState(false);
-
   const [isApproveModalOpen, setIsapproveModalOpen] = useState(false);
   const [isDisapproveModalOpen, setIsdisapproveModalOpen] = useState(false);
   const [searchText, setSearchText] = useState('');
@@ -81,10 +80,6 @@ const UserTable = () => {
     }
     setIsUnbanModalOpen(false);
   };
-
-
-
-
 
   const confirmApproveUser = async () => {
     try {
@@ -230,7 +225,7 @@ const UserTable = () => {
           },
           rows: {
             style: {
-              minHeight: '56px', // Adjust the row height as needed
+              minHeight: '56px', 
             },
           },
         }}

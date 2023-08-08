@@ -117,7 +117,7 @@ const VendorTable = () => {
       selector: 'pincode',
       sortable: true,
     },
-    
+
     {
       name: 'Banned Status',
       selector: 'ban',
@@ -146,7 +146,7 @@ const VendorTable = () => {
   ];
 
   return (
-    <div style={{paddingRight:'200px',paddingTop:'200px',paddingLeft:'50px'}}>
+    <div style={{ paddingRight: '200px', paddingTop: '200px', paddingLeft: '50px' }}>
       <div>
         <input
           type="text"

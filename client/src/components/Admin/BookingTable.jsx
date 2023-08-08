@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import axios from '../../axios';
 import DataTable from 'react-data-table-component';
@@ -6,7 +5,7 @@ import { PDFDownloadLink, Document, Page, Text, View, StyleSheet } from '@react-
 import { CSVLink } from 'react-csv';
 
 const styles = StyleSheet.create({
- page: {
+  page: {
     fontFamily: 'Helvetica',
     padding: '1cm',
   },
@@ -69,14 +68,14 @@ const BookTable = () => {
   const [book, setBook] = useState([]);
   const [car, setCars] = useState([]);
   const [user, setUsers] = useState([]);
-  const [vendor,setVendors]=useState([])
+  const [vendor, setVendors] = useState([])
   const [searchText, setSearchText] = useState('');
 
   const fetchBookList = async () => {
     try {
       const response = await axios.get('/admin/bookingList');
       if (!response.data.err) {
-        const { bookings, users, cars ,vendors} = response.data;
+        const { bookings, users, cars, vendors } = response.data;
         setBook(bookings);
         setUsers(users);
         setCars(cars);
@@ -104,14 +103,14 @@ const BookTable = () => {
     const totalBookings = book.length;
     const totalRevenue = book.reduce((acc, item) => acc + item.totalAmount, 0);
     const totalUsers = user.length;
-    const totalVendors=vendor.length
-    return { totalCars, totalBookings, totalRevenue, totalUsers,totalVendors };
+    const totalVendors = vendor.length
+    return { totalCars, totalBookings, totalRevenue, totalUsers, totalVendors };
   };
-  
+
 
   const generatePDFData = () => {
     const salesReportData = calculateSalesReportData();
-    const { totalCars, totalBookings, totalRevenue, totalUsers,totalVendors } = salesReportData;
+    const { totalCars, totalBookings, totalRevenue, totalUsers, totalVendors } = salesReportData;
 
     return (
       <Document>
@@ -175,8 +174,8 @@ const BookTable = () => {
     return csvData;
   };
 
- const columns = [
-   
+  const columns = [
+
     {
       name: 'No',
       selector: (row, index) => index + 1,
@@ -185,66 +184,63 @@ const BookTable = () => {
         paddingLeft: '16px',
       },
     },
-    
-      {
-        name: 'Booking Date',
-        selector: 'bookingDate',
-        sortable: true,
-        format: (row) => {
-          const date = new Date(row.bookingDate);
-          const day = date.getDate();
-          const month = date.getMonth() + 1;
-          const year = date.getFullYear();
-          return `${day}/${month}/${year}`;
-        }
-        },
-        {
-            name: 'Pickup Date',
-            selector: 'pickupDate',
-            sortable: true,
-            format: (row) => {
-              const date = new Date(row.pickupDate);
-              const day = date.getDate();
-              const month = date.getMonth() + 1;
-              const year = date.getFullYear();
-              return `${day}/${month}/${year}`;
-            },
-          },
-          {
-            name: 'Dropoff Date',
-            selector: 'dropoffDate',
-            sortable: true,
-            format: (row) => {
-              const date = new Date(row.dropoffDate);
-              const day = date.getDate();
-              const month = date.getMonth() + 1;
-              const year = date.getFullYear();
-              return `${day}/${month}/${year}`;
-            },
-          },
-      {
-        name: 'Amount To Pay',
-        selector: 'amountToPay',
-        sortable: true,
-      },
-      {
-        name: 'Total Amount',
-        selector: 'totalAmount',
-        sortable: true,
-      },
-      {
-        name: 'Balance',
-        selector: 'balance',
-        sortable: true,
-      },
-      {
-        name: 'Payment Type',
-        selector: 'paymentType',
-        sortable: true,
-      },
 
-   
-    
+    {
+      name: 'Booking Date',
+      selector: 'bookingDate',
+      sortable: true,
+      format: (row) => {
+        const date = new Date(row.bookingDate);
+        const day = date.getDate();
+        const month = date.getMonth() + 1;
+        const year = date.getFullYear();
+        return `${day}/${month}/${year}`;
+      }
+    },
+    {
+      name: 'Pickup Date',
+      selector: 'pickupDate',
+      sortable: true,
+      format: (row) => {
+        const date = new Date(row.pickupDate);
+        const day = date.getDate();
+        const month = date.getMonth() + 1;
+        const year = date.getFullYear();
+        return `${day}/${month}/${year}`;
+      },
+    },
+    {
+      name: 'Dropoff Date',
+      selector: 'dropoffDate',
+      sortable: true,
+      format: (row) => {
+        const date = new Date(row.dropoffDate);
+        const day = date.getDate();
+        const month = date.getMonth() + 1;
+        const year = date.getFullYear();
+        return `${day}/${month}/${year}`;
+      },
+    },
+    {
+      name: 'Amount To Pay',
+      selector: 'amountToPay',
+      sortable: true,
+    },
+    {
+      name: 'Total Amount',
+      selector: 'totalAmount',
+      sortable: true,
+    },
+    {
+      name: 'Balance',
+      selector: 'balance',
+      sortable: true,
+    },
+    {
+      name: 'Payment Type',
+      selector: 'paymentType',
+      sortable: true,
+    },
   ];
   const filterData = () => {
     return book.filter((item) => {
@@ -259,7 +255,7 @@ const BookTable = () => {
   return (
     <div className="rounded-md" style={{ paddingRight: '300px', paddingTop: '100px', paddingLeft: '50px' }}>
       <h1 className='font-bold text-3xl text-center mb-10'>Booking List</h1>
-       <div className="flex justify-between mb-10">
+      <div className="flex justify-between mb-10">
         <PDFDownloadLink document={generatePDFData()} fileName="sales_report.pdf">
           {({ loading }) =>
             loading ? (
@@ -277,7 +273,6 @@ const BookTable = () => {
           </button>
         </CSVLink>
       </div>
-
       <div style={{ marginBottom: '12px' }}>
         <input
           type="text"
@@ -287,15 +282,14 @@ const BookTable = () => {
           style={{ padding: '8px', width: '100%' }}
         />
       </div>
-     
       <DataTable
-       columns={columns}
-       data={filterData()}
-       pagination
-       highlightOnHover
-       noHeader
-       striped
-       responsive
+        columns={columns}
+        data={filterData()}
+        pagination
+        highlightOnHover
+        noHeader
+        striped
+        responsive
         customStyles={{
           table: {
             marginBottom: 0,
@@ -310,13 +304,11 @@ const BookTable = () => {
           },
           rows: {
             style: {
-              minHeight: '56px', 
+              minHeight: '56px',
             },
           },
         }}
       />
-
-     
     </div>
   );
 };

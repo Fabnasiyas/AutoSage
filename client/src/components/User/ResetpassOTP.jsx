@@ -9,12 +9,9 @@ function OtpPage() {
   const [otp, setOtp] = useState('');
   const location = useLocation();
   const email = location?.state?.email;
-  console.log(email, '111111');
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(otp);
-
-    // Send the OTP to the server for verification
     axios
       .post('/verify-otp', { otp })
       .then((response) => {

@@ -1,5 +1,4 @@
 
-
 import React, { useEffect, useState } from 'react';
 import { FaCar, FaCog, FaGasPump } from 'react-icons/fa';
 import axios from '../../axios';
@@ -7,7 +6,6 @@ import { Link } from 'react-router-dom';
 
 const Card = () => {
   const [cars, setCars] = useState([]);
-
   const fetchCars = async () => {
     try {
       const response = await axios.get('/getcars');
@@ -55,13 +53,11 @@ const Card = () => {
                 </div>
               </div>
               <div className="mt-4 flex ">
-
                 {car.isBooked ? (
                   <button className="px-4 py-1 bg-gray-400 text-white" disabled>
                     Booked
                   </button>
                 ) : (
-
                   <Link to={`/booking/${car._id}`}>
                     <button className="px-4 py-1 bg-blue-900 hover:bg-blue-600 text-white">
                       Book Now

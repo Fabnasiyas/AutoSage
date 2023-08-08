@@ -8,11 +8,8 @@ const AddDocumentPage = () => {
   axios.defaults.withCredentials = true;
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
   const user = useSelector(state => state.user.details);
   const userId = user._id;
-
-
   const [drivingLicense, setDrivingLicense] = useState([]);
   const [aadharCard, setAadharCard] = useState([]);
 
@@ -39,10 +36,7 @@ const AddDocumentPage = () => {
         formData.append('aadharCard', item);
       });
     }
-
     formData.append('userId', userId);
-    console.log(formData, '******************');
-
     try {
       const response = await axios.post('/uploadDocuments', formData, {
         headers: {
@@ -109,8 +103,6 @@ const AddDocumentPage = () => {
             </div>
             <div className="flex justify-center">
               <button
-
-
                 type="submit"
                 className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
               >

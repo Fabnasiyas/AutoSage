@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import axios from '../../axios';
 import { Link, useNavigate } from 'react-router-dom';
@@ -74,8 +73,6 @@ const ProductPage = () => {
             ))}
         </div>
       </div>
-
-
       <div className='w-full lg:w-1/2 flex flex-col gap-4 items-center lg:items-start'>
         <h1 className='text-4xl'>Car Details</h1>
         {carData && (

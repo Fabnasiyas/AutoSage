@@ -19,7 +19,6 @@ const CarDetailsPage = () => {
   const [paymentSelection, setPaymentSelection] = useState(null);
   const user = useSelector(state => state.user.details);
   const [showWalletConfirmation, setShowWalletConfirmation] = useState(false);
-
   const userId = user ? user._id : null;
   const [activeImg, setActiveImg] = useState(null);
   const doc = user && Array.isArray(user.drivingLicense) && Array.isArray(user.aadharCard)
@@ -28,7 +27,7 @@ const CarDetailsPage = () => {
   const handleImageClick = (image) => {
     setActiveImg(image);
   };
- const dispatch=useDispatch()
+  const dispatch = useDispatch()
   const [dropoffDateAvailable, setDropoffDateAvailable] = useState(null);
   const fetchCar = async () => {
     try {
@@ -75,7 +74,6 @@ const CarDetailsPage = () => {
     }
   };
 
-
   const handleBookAdvancePayment = async () => {
     if (userId) {
       if (pickupDate && dropoffDate) {
@@ -84,7 +82,6 @@ const CarDetailsPage = () => {
         const totalAmount = totalDays * car.rentPerDay;
         const amountToPay = totalAmount / 2;
         const balance = totalAmount - amountToPay;
-
         if (user.wallet === 0) {
           try {
             const bookingData = {
@@ -100,7 +97,6 @@ const CarDetailsPage = () => {
               paymentType: 'Advance Payment',
               paymentAmount: amountToPay,
             };
-
             setBookingData(bookingData);
             setPaymentSelection(null);
             setCheckout(true);
@@ -147,7 +143,6 @@ const CarDetailsPage = () => {
               paymentAmount: amountToPay - user.wallet,
               updatedWalletAmount: 0,
             };
-
             setBookingData(bookingData);
             setPaymentSelection(null);
             setCheckout(true);
@@ -168,7 +163,7 @@ const CarDetailsPage = () => {
     try {
       await axios.post(`/update-walletamount/${userId}`, { wallet: bookingData.updatedWalletAmount, bookingData }).then((response) => {
       })
-      dispatch({type:"refresh"})
+      dispatch({ type: "refresh" })
       navigate('/success');
     } catch (error) {
       console.error('Error updating wallet or booking:', error);
@@ -260,6 +255,7 @@ const CarDetailsPage = () => {
       navigate('/login');
     }
   };
+
   const currentDate = new Date();
   const closeModal = () => {
     setCheckout(false);
@@ -344,7 +340,6 @@ const CarDetailsPage = () => {
               className="w-2/3 h-auto aspect-square object-cover rounded-xl shadow-lg"
             />
           )}
-
           <div className="flex flex-row justify-center mt-6">
             {car &&
               car.carImages.map((image, index) => (
@@ -428,8 +423,6 @@ const CarDetailsPage = () => {
                       />
                     </div>
                   </div>
-
-
                   {showProceedMessage && (
                     <p className="text-red-500">Please select both pickup and drop-off dates.</p>
                   )}
@@ -476,7 +469,6 @@ const CarDetailsPage = () => {
           </div>
         </div>
       </div>
-
       <Modal
         isOpen={checkout}
         onRequestClose={closeModal}
@@ -531,7 +523,7 @@ const CarDetailsPage = () => {
                     }).catch((error) => {
                       console.error('Error booking:', error);
                     });
-                    dispatch({type:"refresh"})
+                    dispatch({ type: "refresh" })
                     navigate('/success');
                   }}
                   onCancel={() => {
@@ -545,7 +537,6 @@ const CarDetailsPage = () => {
               </PayPalScriptProvider>
             </>
           )}
-
           <button
             className="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded w-full"
             onClick={closeModal}

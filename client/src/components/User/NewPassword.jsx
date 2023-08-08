@@ -7,29 +7,24 @@ const ResetPasswordPage = () => {
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
-
   const navigate = useNavigate();
   const location = useLocation();
   const email = location?.state?.email;
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     if (newPassword.length < 6) {
       setError('Password must contain at least 6 characters');
       return;
     }
-
     if (newPassword === confirmPassword) {
       console.log('Password reset successful!');
-
       axios.post('/setnewPassword', { email, newPassword }).then((response) => {
         if (!response.data.err) {
           console.log(response.data);
           navigate('/login');
         }
       });
-
       setNewPassword('');
       setConfirmPassword('');
       setError('');

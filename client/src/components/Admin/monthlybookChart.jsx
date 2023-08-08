@@ -5,7 +5,6 @@ import axios from '../../axios';
 
 const MonthlyBookingBarChart = () => {
   const [monthlyRevenue, setMonthlyRevenue] = useState([]);
-
   useEffect(() => {
     fetchMonthlyRevenueData();
   }, []);

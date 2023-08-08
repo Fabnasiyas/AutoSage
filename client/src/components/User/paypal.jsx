@@ -2,7 +2,6 @@ import React, { useRef, useEffect } from "react";
 
 export default function Paypal() {
   const paypal = useRef();
-
   useEffect(() => {
     window.paypal
       .Buttons({
