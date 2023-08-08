@@ -6,6 +6,7 @@ import { sentOTP } from '../helper/mail.js'
 import carModel from '../model/carModel.js'
 import bookingModel from '../model/bookingModel.js'
 import { sendCancelMail } from '../helper/bookingcancelMail.js';
+
 export const vendorCheckAuth = async (req, res) => {
   const token = req.cookies.vendorToken;
   if (token) {
@@ -44,7 +45,7 @@ export const postSignup = async (req, res) => {
         const signupToken = jwt.sign({
           otp: otp,
         },
-        process.env.SECRET_KEY);
+          process.env.SECRET_KEY);
         return res.cookie("signupToken", signupToken, {
           httpOnly: true,
           secure: true,
@@ -64,10 +65,9 @@ export const verifyVendorSignup = async (req, res) => {
   const { name, email, phoneNumber, pincode, password, confirmPassword } = req.body
   let otp = req.body.OTP;
   let vendorToken = req.cookies.signupToken;
-  const OtpToken = jwt.verify(vendorToken,   process.env.SECRET_KEY)
+  const OtpToken = jwt.verify(vendorToken, process.env.SECRET_KEY)
   let bcrypPassword = await bcrypt.hash(password, 10)
   if (otp == OtpToken.otp) {
-
     let vendor = await vendorModel.create({
       name,
       email,
@@ -78,7 +78,7 @@ export const verifyVendorSignup = async (req, res) => {
     const vendorToken = jwt.sign({
       id: vendor._id
     },
-    process.env.SECRET_KEY);
+      process.env.SECRET_KEY);
     return res.cookie("vendorToken", vendorToken, {
       httpOnly: true,
       secure: true,
@@ -98,7 +98,7 @@ export const vendorLogin = async (req, res) => {
       if (vendor.ban === false) {
         const status = await bcrypt.compare(password, vendor.password);
         if (status) {
-          const vendorToken = jwt.sign({ id: vendor._id },   process.env.SECRET_KEY);
+          const vendorToken = jwt.sign({ id: vendor._id }, process.env.SECRET_KEY);
           res.cookie("vendorToken", vendorToken, {
             httpOnly: true,
             secure: true,
@@ -110,7 +110,7 @@ export const vendorLogin = async (req, res) => {
           res.json({ err: true, message: "Invalid email or password" });
         }
       } else {
-        res.clearCookie("vendorToken"); 
+        res.clearCookie("vendorToken");
         res.json({ err: true, message: 'Vendor banned. Please contact the admin for assistance.' });
       }
     } else {
@@ -177,6 +177,7 @@ export const editProfile = async (req, res) => {
     res.status(500).json({ error: 'An error occurred while updating the vendor profile' });
   }
 }
+
 export const getCarLists = async (req, res) => {
   try {
     const vendorid = req.params.vendorId;
@@ -222,7 +223,6 @@ export const getDashbordData = async (req, res) => {
   try {
     const vendorId = req.query.vendorId;
     const carsForVendor = await carModel.find({ vendorId: vendorId });
-
     const numberOfCars = carsForVendor.length;
     const bookings = await bookingModel.find({ vendorId: vendorId })
     const bookingNum = bookings.length
@@ -231,7 +231,7 @@ export const getDashbordData = async (req, res) => {
       if (typeof totalAmount === 'number') {
         return acc + totalAmount;
       }
-      return acc; 
+      return acc;
     }, 0);
     const Details = {
       totalCars: numberOfCars,
@@ -255,7 +255,6 @@ export const getMonthlyData = async (req, res) => {
     months.forEach((monthName) => {
       monthlyRevenue[monthName] = 0;
     });
-
     bookings.forEach((booking) => {
       const pickupDateStr = booking.pickupDate;
       const dateObject = new Date(pickupDateStr);
@@ -270,7 +269,6 @@ export const getMonthlyData = async (req, res) => {
       month: monthName,
       revenue: monthlyRevenue[monthName],
     }));
-
     res.status(200).json(monthlyRevenueData);
   } catch (error) {
     console.error('Error fetching monthly revenue:', error);
@@ -282,7 +280,6 @@ export const getvendorData = async (req, res) => {
   const vendorId = req.params.id
   try {
     const vendorData = await vendorModel.findOne({ _id: vendorId });
-
     res.json(vendorData)
   } catch (error) {
     console.log(error);

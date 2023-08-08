@@ -4,15 +4,14 @@ import Home from '../../components/Vendor/Home'
 const AddCarPage = () => {
   return (
     <>
-    
-    <div style={{display:'flex'}}>
-      <div style={{width:'20%'}}>
-      <Home/>
+      <div style={{ display: 'flex' }}>
+        <div style={{ width: '20%' }}>
+          <Home />
+        </div>
+        <div style={{ width: '80%' }}>
+          <AddCar />
+        </div>
       </div>
-      <div style={{width:'80%'}}>
-      <AddCar/>
-      </div>
-    </div>
     </>
   )
 }

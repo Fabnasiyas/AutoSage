@@ -1,9 +1,7 @@
-
-
 import jwt from 'jsonwebtoken';
 import userModel from '../model/userModel.js';
 
-export const verifyUser = async (req, res,next) => {
+export const verifyUser = async (req, res, next) => {
   const token = req.cookies.userToken;
   if (token) {
     try {
@@ -18,7 +16,7 @@ export const verifyUser = async (req, res,next) => {
         res.clearCookie('userToken');
         res.json({ logged: false, err: true, message: 'User banned', ban: true });
       } else {
-        req.body.userId = ID; 
+        req.body.userId = ID;
         next();
       }
     } catch (error) {

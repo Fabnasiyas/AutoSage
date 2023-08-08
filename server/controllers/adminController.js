@@ -21,7 +21,7 @@ export const adminCheckAuth = async (req, res) => {
 export const adminLogin = async (req, res) => {
   try {
     let { email, password } = req.body;
-    let account = await adminModel.findOne({ email: email }) 
+    let account = await adminModel.findOne({ email: email })
     if (account) {
       let status = await bcrypt.compare(password, account.password)
       if (status) {

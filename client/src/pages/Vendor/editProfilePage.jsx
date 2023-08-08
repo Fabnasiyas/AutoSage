@@ -3,7 +3,7 @@ import EditPage from '../../components/Vendor/EditProfile'
 const editProfilePage = () => {
   return (
     <div>
-      <EditPage/>
+      <EditPage />
     </div>
   )
 }

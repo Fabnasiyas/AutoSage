@@ -32,7 +32,6 @@ export const userCheckAuth = async (req, res) => {
 };
 
 export const postSignup = async (req, res) => {
-
   try {
     let { name, email, phoneNumber, password, confirmPassword } = req.body
     const oldUser = await userModel.findOne({ email })
@@ -44,7 +43,7 @@ export const postSignup = async (req, res) => {
         console.log(otp, "user");
         sentOTP(email, otp);
         const signupToken = jwt.sign({
-         otp: otp,
+          otp: otp,
         },
           process.env.SECRET_KEY);
         return res.cookie("signupToken", signupToken, {
@@ -373,9 +372,10 @@ export const viewCar = async (req, res) => {
     console.log(error);
   }
 };
+
 export const updateWallet = async (req, res) => {
   const { userId } = req.params;
-  const { wallet } = req.body; 
+  const { wallet } = req.body;
   try {
     const updatedUser = await userModel.updateOne({ _id: userId }, { $set: { wallet: wallet } });
     if (updatedUser.nModified === 1) {
@@ -406,7 +406,6 @@ export const updateAmount = async (req, res) => {
       balance,
       totalAmount
     });
-
     const updatedCar = await carModel.findByIdAndUpdate(carId, { isBooked: true }, { new: true });
     const updatedUser = await userModel.updateOne({ _id: userId }, { $set: { wallet: wallet } });
     if (updatedUser.modifiedCount === 1) {

@@ -1,38 +1,36 @@
 import mongoose from 'mongoose'
 
-const vendorSchema=mongoose.Schema({
-    
-    name:{
-        type:String,
-        required:true
+const vendorSchema = mongoose.Schema({
+
+    name: {
+        type: String,
+        required: true
     },
-    email:{
-        type:String,
-        required:true
+    email: {
+        type: String,
+        required: true
     },
-    phoneNumber:{
-        type:Number,
-        required:true
+    phoneNumber: {
+        type: Number,
+        required: true
     },
-    password:{
-        type:String,
-        required:true
+    password: {
+        type: String,
+        required: true
     },
-    ban:{
-        type:Boolean,
-        default:false
+    ban: {
+        type: Boolean,
+        default: false
     },
-    pincode:{
-        type:Number,
-        required:true
+    pincode: {
+        type: Number,
+        required: true
     },
-    isadminVerified:{
-        type:Boolean,
-        default:false 
+    isadminVerified: {
+        type: Boolean,
+        default: false
     }
-  
-    
 })
 
-const vendorModel=mongoose.model('vendorDetails',vendorSchema)
+const vendorModel = mongoose.model('vendorDetails', vendorSchema)
 export default vendorModel

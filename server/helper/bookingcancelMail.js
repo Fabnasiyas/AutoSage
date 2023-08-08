@@ -1,4 +1,3 @@
-
 import nodemailer from 'nodemailer';
 
 const sendCancelMail = async (email, bookingId, message) => {

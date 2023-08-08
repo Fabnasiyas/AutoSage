@@ -1,6 +1,6 @@
 import express from 'express'
 const router = express.Router()
-import { postSignup, verifyUserSignup, resendOtp, advance,userLogin, userLogout, resetPassword, VerifyResetOtp, setpassword, getCars, getviewcardetails, editprofile, uploadDocument, getallCars, bookCar, getUserbookings, cancelBooking, userCheckAuth, advanceComplete, viewCar, updateWallet,updateAmount } from '../controllers/userController.js'
+import { postSignup, verifyUserSignup, resendOtp, advance, userLogin, userLogout, resetPassword, VerifyResetOtp, setpassword, getCars, getviewcardetails, editprofile, uploadDocument, getallCars, bookCar, getUserbookings, cancelBooking, userCheckAuth, advanceComplete, viewCar, updateWallet, updateAmount } from '../controllers/userController.js'
 import multipleUpload from '../helper/multer.js';
 import { verifyUser } from '../middleware/userAuth.js';
 
@@ -14,7 +14,6 @@ router.post('/resetpassotp', resetPassword)
 router.post('/verify-otp', VerifyResetOtp)
 router.post('/setnewPassword', setpassword)
 router.get('/getcars', getCars)
-
 router.get('/viewcardetails/:id', getviewcardetails)
 router.get('/getallcarlist', getallCars)
 router.get('/viewcar/:id', viewCar)
@@ -31,7 +30,6 @@ router.get('/userbookings', getUserbookings)
 router.post('/cancelBooking', cancelBooking)
 router.post('/advanceComplete', advanceComplete)
 router.post('/update-wallet/:userId', updateWallet)
-router.post('/update-walletamount/:userId',updateAmount)
-router.post('/walletPayment',advance)
-// router.get('/geocode/:location',getLocations)
+router.post('/update-walletamount/:userId', updateAmount)
+router.post('/walletPayment', advance)
 export default router

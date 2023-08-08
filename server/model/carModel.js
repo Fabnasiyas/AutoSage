@@ -1,60 +1,60 @@
 import mongoose from 'mongoose'
 
-const carSchema=mongoose.Schema({
-    
-    vendorId:{
-        type: mongoose.Schema.Types.ObjectId, 
-        ref: 'userModel', 
-        },
-    model:{
-        type:String,
-        required:true
+const carSchema = mongoose.Schema({
+
+    vendorId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'userModel',
     },
-    year:{
-        type:Number,
-        required:true
+    model: {
+        type: String,
+        required: true
     },
-    mileage:{
-        type:Number,
-        required:true
+    year: {
+        type: Number,
+        required: true
     },
-    fuelType:{
-        type:String,
-        required:true
+    mileage: {
+        type: Number,
+        required: true
     },
-    transmissionMode:{
-        type:String,
-        require:true
+    fuelType: {
+        type: String,
+        required: true
     },
-    specifications:{
-        type:String,
-        require:true
+    transmissionMode: {
+        type: String,
+        require: true
     },
-    rentPerDay:{
-        type:Number,
-        require:true
+    specifications: {
+        type: String,
+        require: true
     },
-    rcImage:{
-        type:Array,
-        require:true
+    rentPerDay: {
+        type: Number,
+        require: true
     },
-    carImages:{
-        type:Array,
-        require:true
+    rcImage: {
+        type: Array,
+        require: true
     },
-    isBooked:{
-        type:Boolean,
-        default:false
+    carImages: {
+        type: Array,
+        require: true
     },
-    location:{
-        type:String,
-        required:true
+    isBooked: {
+        type: Boolean,
+        default: false
     },
-    coordinates:{
-        type:Array,
-        require:true
+    location: {
+        type: String,
+        required: true
+    },
+    coordinates: {
+        type: Array,
+        require: true
     }
 })
 
-const carModel=mongoose.model('carDetails',carSchema)
+const carModel = mongoose.model('carDetails', carSchema)
 export default carModel

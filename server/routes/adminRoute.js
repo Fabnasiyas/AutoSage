@@ -1,4 +1,3 @@
-
 import express from 'express';
 import {
   adminCheckAuth,
@@ -21,7 +20,6 @@ import { verifyAdmin } from '../middleware/adminAuth.js'
 const router = express.Router();
 
 router.get('/auth', adminCheckAuth)
-
 router.post('/login', adminLogin);
 router.get('/logout', adminLogout);
 router.use(verifyAdmin)
@@ -29,7 +27,6 @@ router.get('/dashboardDetails', TotalDetails)
 router.get('/userList', getAllUsers);
 router.put('/userList/ban/:userId', handleBanUser);
 router.put('/userList/unban/:userId', handleunBanUser);
-
 router.put('/userList/approve/:userId', handleApproveUser);
 router.put('/userList/disapprove/:userId', handleDisapproveUser);
 router.get('/vendorList', getAllVendors);

@@ -1,4 +1,3 @@
-
 import nodemailer from 'nodemailer';
 
 const sendapprovalMail = async (useremail, userId) => {

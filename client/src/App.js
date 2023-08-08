@@ -1,15 +1,9 @@
-
-
-
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import axios from './axios';
 import { useSelector, useDispatch } from 'react-redux';
 import './App.css'
-
- 
-
 import Home from './pages/User/HomePage';
 import LoginPage from './pages/User/LoginPage';
 import RegisterFormPage from './pages/User/RegisterFormPage';
@@ -43,6 +37,7 @@ import BookPage from './pages/Vendor/BookingListPage'
 import BookingsPage from './pages/Admin/BookingManagment'
 import Viewcar from './pages/User/viewCarpage'
 import ChatPage from './pages/Chat/Chat'
+
 function App() {
   const { user, vendor, admin, refresh } = useSelector((state) => state);
   axios.defaults.withCredentials = true;
@@ -51,11 +46,8 @@ function App() {
   useEffect(() => {
     axios.get('/auth/').then((response) => {
       console.log("USER:", response.data);
-      console.log('====================================');
-      
-      console.log('====================================');
       dispatch({ type: 'user', payload: { login: response.data.logged, details: response.data.details } });
-    }).catch((err)=>{
+    }).catch((err) => {
       console.log(err)
     })
     axios.get('/vendor/auth').then((response) => {
@@ -66,42 +58,34 @@ function App() {
       console.log("ADMIN: ", response.data);
       dispatch({ type: 'admin', payload: { adminLog: response.data.logged, details: response.data.details } });
     });
-  }, [refresh, dispatch ]);
+  }, [refresh, dispatch]);
 
   const ProtectedUserRoute = ({ element, path }) => {
     if (user.login === null) {
       return null;
     }
-  
     return user.login ? element : <Navigate to="/login" />;
   };
-  
+
   const ProtectedVendorRoute = ({ element, path }) => {
-    
     if (!vendor.vendorLog) {
-      return null; 
+      return null;
     }
-  
     return vendor.vendorLog ? element : <Navigate to="/vendor/login" />;
   };
-  
 
   const ProtectedAdminRoute = ({ element, path }) => {
-    
-    if (!admin.adminLog ) {
-      return null; 
+    if (!admin.adminLog) {
+      return null;
     }
-  
     return admin.adminLog ? element : <Navigate to="/admin" />;
   };
-  
-  
+
   return (
     <div className="App">
       <Router>
-     
         <Routes>
-          <Route path="*" element={<ErrorPage/> } />
+          <Route path="*" element={<ErrorPage />} />
           <Route exact path="/" element={<Home />} />
           <Route exact path="/login" element={<LoginPage />} />
           <Route exact path="/register" element={<RegisterFormPage />} />
@@ -109,20 +93,13 @@ function App() {
           <Route exact path="/resetpassword" element={<ResetPass1 />} />
           <Route exact path="/resetpassotp" element={<ResetPass2 />} />
           <Route exact path="/SetNewPassword" element={<Newpassword />} />
-          {/* <Route exact path='/userprofile' element={<UserProfile/> }/> */}
-          {/* <Route exact path='/edituserProfile' element={<UserEditProfilePage/> }/> */}
-          {/* <Route exact path='/adddocuments' element={<AddDocumentPage/> }/> */}
-          <Route exact path='/booking/:id' element={<ViewcarDetails/> }/>
-          
-          <Route exact path='/viewcar/:id' element={<Viewcar/> }/>
-          <Route exact path='/allcarsPage' element={<ViewAllCarsPage/> }/>
+          <Route exact path='/booking/:id' element={<ViewcarDetails />} />
+          <Route exact path='/viewcar/:id' element={<Viewcar />} />
+          <Route exact path='/allcarsPage' element={<ViewAllCarsPage />} />
           <Route exact path="/vendor" element={<VendorLoginPage />} />
           <Route exact path="/vendor/login" element={<VendorLoginPage />} />
           <Route exact path="/vendor/register" element={<VendorRegister />} />
           <Route exact path="/vendor/otp" element={<VendorOtpPage />} />
-
-
-
           <Route
             exact
             path="/profile"
@@ -133,7 +110,7 @@ function App() {
             path="/editProfile"
             element={<ProtectedUserRoute element={<UserEditProfilePage />} />}
           />
-           <Route
+          <Route
             exact
             path="/adddocuments"
             element={<ProtectedUserRoute element={<AddDocumentPage />} />}
@@ -148,13 +125,11 @@ function App() {
             path="/success"
             element={<ProtectedUserRoute element={<PaymentsuccessPage />} />}
           />
-           <Route
+          <Route
             exact
             path="/chat"
-            element={<ProtectedUserRoute element={<ChatPage/>} />}
+            element={<ProtectedUserRoute element={<ChatPage />} />}
           />
-
-
           <Route
             exact
             path="/admin"
@@ -185,9 +160,6 @@ function App() {
             path="/admin/bookings"
             element={<ProtectedAdminRoute element={<BookingsPage />} />}
           />
-
-
-
           <Route
             exact
             path="/vendor/vendorhome"
@@ -218,8 +190,6 @@ function App() {
             path="/vendor/bookings"
             element={<ProtectedVendorRoute element={<BookPage />} />}
           />
-          
-          
         </Routes>
         <ToastContainer />
       </Router>

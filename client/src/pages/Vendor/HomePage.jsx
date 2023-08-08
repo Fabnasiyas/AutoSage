@@ -3,13 +3,12 @@ import Home from '../../components/Vendor/Home'
 import DashPage from '../../components/Vendor/Dashbord'
 const HomePage = () => {
   return (
-  //  <Home/>
-  <div style={{display:'flex'}}>
-      <div style={{width:'20%'}}>
-      <Home /> 
+    <div style={{ display: 'flex' }}>
+      <div style={{ width: '20%' }}>
+        <Home />
       </div>
-      <div style={{width:'80%'}}>
-      <DashPage/>
+      <div style={{ width: '80%' }}>
+        <DashPage />
       </div>
     </div>
   )
