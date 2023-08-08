@@ -253,7 +253,7 @@ const BookTable = () => {
     });
   };
   return (
-    <div className="rounded-md" style={{ paddingRight: '300px', paddingTop: '100px', paddingLeft: '50px' }}>
+    <div className="rounded-md pt-20 md:w-3/4">
       <h1 className='font-bold text-3xl text-center mb-10'>Booking List</h1>
       <div className="flex justify-between mb-10">
         <PDFDownloadLink document={generatePDFData()} fileName="sales_report.pdf">

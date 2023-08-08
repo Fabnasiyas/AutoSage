@@ -147,7 +147,8 @@ const VendorTable = () => {
 
   return (
     <div style={{ paddingRight: '200px', paddingTop: '200px', paddingLeft: '50px' }}>
-      <div>
+        <h1 className='font-bold text-3xl text-center mb-10'>Vendor's List</h1>
+       <div className="flex mb-4 md:justify-start">
         <input
           type="text"
           placeholder="Search vendors"

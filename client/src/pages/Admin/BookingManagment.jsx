@@ -1,17 +1,16 @@
-import React from 'react'
-import Dasboard from '../../components/Admin/Dashboard'
-import BookingPage from '../../components/Admin/BookingTable'
+import React from 'react';
+import Dashboard from '../../components/Admin/Dashboard';
+import BookingTable from '../../components/Admin/BookingTable';
+
 const BookingManagment = () => {
   return (
-    <div style={{ display: 'flex' }}>
-      <div style={{ width: '20%' }}>
-        <Dasboard />
-      </div>
-      <div style={{ width: '80%' }}>
-        <BookingPage />
+    <div className="flex">
+      <Dashboard />
+       <div className="flex-1 p-4 md:w-2/3" style={{ paddingLeft: '200px' }}>
+        <BookingTable />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default BookingManagment
+export default BookingManagment;

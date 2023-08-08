@@ -120,14 +120,12 @@ const CarRegistrationPage = () => {
             {({ isSubmitting, setFieldValue }) => (
               <Form className="space-y-6" encType="multipart/form-data">
                 <div>
-                  <label htmlFor="carModel" className="block text-sm font-medium text-gray-700">
-                    Car Model
-                  </label>
                   <div className="mt-1">
                     <Field
                       id="carModel"
                       name="model"
                       type="text"
+                      placeholder=' Car Model'
                       autoComplete="car-make"
                       required
                       className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
@@ -137,18 +135,16 @@ const CarRegistrationPage = () => {
                 </div>
                 {/* Location */}
                 <div style={{ position: 'relative' }}>
-                  <label htmlFor="location" className="block text-sm font-medium text-gray-700">
-                    Location
-                  </label>
                   <div className="mt-1">
                     <input
                       id="location"
                       name="location"
                       type="text"
+                      placeholder=' Location'
                       required
                       value={searchValue}
                       onChange={handleSearchChange}
-                      className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      className=" appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     />
                     {suggestions.length > 0 && (
                       <ul className="absolute z-10 w-full bg-white border border-gray-300 mt-1 rounded-md shadow-lg">
@@ -165,16 +161,13 @@ const CarRegistrationPage = () => {
                     )}
                   </div>
                 </div>
-
                 <div>
-                  <label htmlFor="carYear" className="block text-sm font-medium text-gray-700">
-                    Car Year
-                  </label>
                   <div className="mt-1">
                     <Field
                       id="carYear"
                       name="year"
                       type="number"
+                      placeholder='Car Year'
                       autoComplete="car-year"
                       required
                       className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
@@ -183,13 +176,11 @@ const CarRegistrationPage = () => {
                   </div>
                 </div>
                 <div>
-                  <label htmlFor="carModel" className="block text-sm font-medium text-gray-700">
-                    Mileage
-                  </label>
                   <Field
                     id="carMileage"
                     name="mileage"
                     type="number"
+                    placeholder='Mileage'
                     autoComplete="car-mileage"
                     required
                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
@@ -197,7 +188,7 @@ const CarRegistrationPage = () => {
                   <ErrorMessage name="mileage" component="div" className="text-red-500 mt-1" />
                 </div>
                 <div>
-                  <label htmlFor="carModel" className="block text-sm font-medium text-gray-700">
+                  <label htmlFor="carModel" className="block text-left text-sm font-medium text-gray-700">
                     Fuel Type
                   </label>
                   <Field
@@ -215,7 +206,7 @@ const CarRegistrationPage = () => {
                   <ErrorMessage name="fuelType" component="div" className="text-red-500 mt-1" />
                 </div>
                 <div>
-                  <label htmlFor="carModel" className="block text-sm font-medium text-gray-700">
+                  <label htmlFor="carModel" className="block text-left text-sm font-medium text-gray-700">
                     Transmission Mode
                   </label>
                   <Field
@@ -232,7 +223,7 @@ const CarRegistrationPage = () => {
                   <ErrorMessage name="transmissionMode" component="div" className="text-red-500 mt-1" />
                 </div>
                 <div>
-                  <label htmlFor="carModel" className="block text-sm font-medium text-gray-700">
+                  <label htmlFor="carModel" className="text-left block text-sm font-medium text-gray-700">
                     Specifications
                   </label>
                   <Field
@@ -250,22 +241,20 @@ const CarRegistrationPage = () => {
                   <ErrorMessage name="specifications" component="div" className="text-red-500 mt-1" />
                 </div>
                 <div>
-                  <label htmlFor="carModel" className="block text-sm font-medium text-gray-700">
-                    Rent Per Day
-                  </label>
                   <Field
                     id="rentPerDay"
                     name="rentPerDay"
                     type="number"
                     autoComplete="rent-per-day"
                     required
+                    placeholder='Rent Per Day'
                     className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                   />
                   <ErrorMessage name="rentPerDay" component="div" className="text-red-500 mt-1" />
                 </div>
 
                 <div>
-                  <label htmlFor="rcImage" className="block text-sm font-medium text-gray-700">
+                  <label htmlFor="rcImage" className="text-left block text-sm font-medium text-gray-700">
                     RC Image
                   </label>
                   <div className="mt-1">
@@ -276,14 +265,14 @@ const CarRegistrationPage = () => {
                       accept="image/*"
                       required
                       multiple
-                      className="appearance-none block w-full py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      className="text-left appearance-none block w-full py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                       onChange={(event) => setFieldValue('rcImage', [...event.target.files])}
                     />
                     <ErrorMessage name="rcImage" component="div" className="text-red-500 mt-1" />
                   </div>
                 </div>
                 <div>
-                  <label htmlFor="carImages" className="block text-sm font-medium text-gray-700">
+                  <label htmlFor="carImages" className="text-left block text-sm font-medium text-gray-700">
                     Car Images
                   </label>
                   <div className="mt-1">

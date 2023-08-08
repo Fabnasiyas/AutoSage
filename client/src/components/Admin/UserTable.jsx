@@ -192,13 +192,14 @@ const UserTable = () => {
   return (
     <div className="  rounded-md" style={{ paddingRight: '300px', paddingTop: '200px', paddingLeft: '50px' }}
     >
-      <div className="mb-4" >
+      <h1 className='font-bold text-3xl text-center mb-10'>User's List</h1>
+      <div className="flex mb-4 md:justify-start">
         <input
           type="text"
           placeholder="Search by name"
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
-          className="border border-gray-300 rounded-md px-3 py-2 "
+          className="border border-gray-300 rounded-md px-3 py-2"
         />
       </div>
       <DataTable
