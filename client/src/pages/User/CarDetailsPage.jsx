@@ -5,10 +5,10 @@ import Footer from '../../components/User/footer';
 
 const CarDetailsPage = () => {
   return (
-   <div className="flex flex-col min-h-screen">
-    <Nav/>
-    <Cardetails className="flex-grow"/>
-    <Footer />
+    <div className="flex flex-col min-h-screen">
+      <Nav />
+      <Cardetails className="flex-grow" />
+      <Footer />
     </div>
   )
 }

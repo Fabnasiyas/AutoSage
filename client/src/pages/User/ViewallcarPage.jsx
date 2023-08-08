@@ -6,10 +6,10 @@ import Footer from '../../components/User/footer';
 const ViewallcarPage = () => {
   return (
     <>
-    <Nav/>
-    <Viewcar/>
-    <Carlist/>
-    <Footer/>
+      <Nav />
+      <Viewcar />
+      <Carlist />
+      <Footer />
     </>
   )
 }

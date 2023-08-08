@@ -4,7 +4,7 @@ import RegisterForm from '../../components/User/RegisterForm'
 function RegisterFormPage() {
   return (
     <div>
-      <RegisterForm/>
+      <RegisterForm />
     </div>
   )
 }
