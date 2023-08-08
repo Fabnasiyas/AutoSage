@@ -47,7 +47,6 @@ const ProductPage = () => {
 
   return (
     <div className='flex flex-col lg:flex-row  items-center justify-center gap-16 lg:items-center mx-10 py-20 mt-4'>
-
       <div className='w-full lg:w-1/2 flex flex-col items-center justify-center mx-10'>
         {activeImg && (
           <img
