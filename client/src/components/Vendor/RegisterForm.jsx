@@ -1,14 +1,13 @@
-import React,{useState} from 'react';
+import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import axios from '../../axios';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
-import  Axios  from 'axios';
+import Axios from 'axios';
 import img from '../../assets/car3.webp';
 
-// const mapToken = process.env.MAP_TOKEN;
 const RegisterForm = () => {
   axios.defaults.withCredentials = true;
   const navigate = useNavigate();
@@ -64,25 +63,23 @@ const RegisterForm = () => {
       });
     },
   });
-  
+
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8"
-    style={{
-      background: `url(${img})`,
-      backgroundSize: '100% auto',
-      backgroundPosition: 'center',
-      backgroundRepeat: 'no-repeat',
-    }}>
-      
+      style={{
+        background: `url(${img})`,
+        backgroundSize: '100% auto',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+      }}>
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        
         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-        <div className="sm:mx-auto sm:w-full sm:max-w-md mb-9">
-        <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-          Vendor Registration
-        </h2>
-      </div>
+          <div className="sm:mx-auto sm:w-full sm:max-w-md mb-9">
+            <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+              Vendor Registration
+            </h2>
+          </div>
           <form className="space-y-6" onSubmit={formik.handleSubmit}>
             <div>
               <div className="mt-1">
@@ -140,23 +137,22 @@ const RegisterForm = () => {
             </div>
             <div>
               <div className="block text-sm font-medium text-gray-700">
-            <input
-              id="pincode"
-              name="pincode"
-              type="text"
-              required
-              placeholder='Pincode'
-              value={formik.values.pincode}
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              />
+                <input
+                  id="pincode"
+                  name="pincode"
+                  type="text"
+                  required
+                  placeholder='Pincode'
+                  value={formik.values.pincode}
+                  onChange={formik.handleChange}
+                  onBlur={formik.handleBlur}
+                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                />
               </div>
               {formik.touched.pincode && formik.errors.pincode && (
                 <p className="mt-2 text-sm text-red-500">{formik.errors.pincode}</p>
               )}
             </div>
-
             <div>
               <div className="mt-1">
                 <input

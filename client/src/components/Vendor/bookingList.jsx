@@ -1,10 +1,9 @@
-
 import React, { useEffect, useState } from 'react';
 import axios from '../../axios';
 import DataTable from 'react-data-table-component';
 import { useSelector } from 'react-redux';
 import { PDFDownloadLink, Document, Page, Text, View, StyleSheet } from '@react-pdf/renderer';
-import { CSVLink } from 'react-csv'; 
+import { CSVLink } from 'react-csv';
 
 const styles = StyleSheet.create({
   page: {
@@ -67,7 +66,6 @@ const styles = StyleSheet.create({
 });
 
 const BookingList = () => {
-  
   const generateCSVData = () => {
     const csvData = booking.map(bookingItem => ({
       'Booking Date': formatDate(bookingItem.bookingDate),
@@ -80,11 +78,10 @@ const BookingList = () => {
     return csvData;
   };
 
- const [booking, setBooking] = useState([]);
+  const [booking, setBooking] = useState([]);
   const vendor = useSelector(state => state.vendor);
   const vendorId = vendor.details._id;
   const [availableBookings, setAvailableBookings] = useState([]);
-
   const fetchBookings = async () => {
     try {
       const response = await axios.get(`/vendor/bookinglist`, {
@@ -145,7 +142,6 @@ const BookingList = () => {
       <Document>
         <Page size="A4" style={styles.page}>
           <Text style={styles.title}>Sales Report</Text>
-
           <View style={styles.salesSummaryTable}>
             <View style={styles.salesSummaryTableRow}>
               <Text style={styles.salesSummaryTableCell}>Total Cars</Text>
@@ -160,7 +156,6 @@ const BookingList = () => {
               <Text style={styles.salesSummaryTableCell}>{totalRevenue}</Text>
             </View>
           </View>
-
           <View style={styles.bookingsTable}>
             <View style={styles.bookingsTableHeaderRow}>
               <Text style={styles.bookingsTableHeaderCell}>Booking Date</Text>
@@ -190,7 +185,6 @@ const BookingList = () => {
       selector: (row, index) => index + 1,
       sortable: false
     },
-    
     {
       name: 'Booking Date',
       selector: 'bookingDate',
@@ -253,13 +247,13 @@ const BookingList = () => {
       allowOverflow: true,
       button: true
     }
-  ]; 
+  ];
 
   return (
     <div className="relative overflow-x-auto" style={{ paddingTop: '100px', paddingRight: '100px' }}>
-  <h1 className='text-center font-bold text-3xl mb-9'>Booking List</h1>
+      <h1 className='text-center font-bold text-3xl mb-9'>Booking List</h1>
       <div className="flex justify-between mb-10">
-        
+
         <PDFDownloadLink document={generatePDFData()} fileName="sales_report.pdf">
           {({ loading }) =>
             loading ? (
@@ -271,8 +265,6 @@ const BookingList = () => {
             )
           }
         </PDFDownloadLink>
-
-       
         <CSVLink data={generateCSVData()} filename="booking_history.csv">
           <button className="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">
             Export Booking History (CSV)

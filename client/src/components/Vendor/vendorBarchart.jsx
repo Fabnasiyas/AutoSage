@@ -7,7 +7,7 @@ const BookingBarChart = () => {
   const [monthlyRevenue, setMonthlyRevenue] = useState([]);
   const { vendor } = useSelector(state => state);
   console.log(vendor);
-  const vendorId=vendor.details._id;
+  const vendorId = vendor.details._id;
   console.log(vendorId);
   useEffect(() => {
     fetchMonthlyRevenueData();
@@ -15,11 +15,11 @@ const BookingBarChart = () => {
 
   const fetchMonthlyRevenueData = async () => {
     try {
-      const response = await axios.get('/vendor/monthlyRevenue',{
+      const response = await axios.get('/vendor/monthlyRevenue', {
         params: {
-            vendorId: vendorId
-          }
-      }); 
+          vendorId: vendorId
+        }
+      });
       setMonthlyRevenue(response.data);
     } catch (error) {
       console.error('Error fetching monthly revenue data:', error);

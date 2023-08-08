@@ -1,12 +1,9 @@
-
 import React, { useState, useEffect } from 'react';
 import OTPInput from 'otp-input-react';
 import axios from '../../axios';
 import { useDispatch } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
-import {  toast } from 'react-toastify';
-
-
+import { toast } from 'react-toastify';
 
 function OtpPage() {
   const location = useLocation();
@@ -18,18 +15,16 @@ function OtpPage() {
   const [resendAttempts, setResendAttempts] = useState(0);
   useEffect(() => {
     let intervalId;
-
     if (timer > 0) {
       intervalId = setInterval(() => {
         setTimer((prevTimer) => prevTimer - 1);
       }, 1000);
     }
-
     return () => {
       clearInterval(intervalId);
     };
   }, [timer]);
- 
+
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(OTP);
@@ -38,7 +33,7 @@ function OtpPage() {
         dispatch({ type: 'refresh' });
         console.log(response.data.message);
         toast.error(response.data.message, {
-          position :"top-center"
+          position: "top-center"
         });
         navigate('/vendor/login');
       } else {
@@ -48,14 +43,13 @@ function OtpPage() {
   };
 
   const handleResendOTP = () => {
-    
     if (resendAttempts < 3) {
       setResendAttempts((prevAttempts) => prevAttempts + 1);
       setTimer(60);
-      axios.post('/vendor/resendOtp',{...data}).then((response) => {
+      axios.post('/vendor/resendOtp', { ...data }).then((response) => {
         console.log(response.data);
         toast.error(response.data, {
-          position :"top-center"
+          position: "top-center"
         });
       });
     }
@@ -103,7 +97,6 @@ function OtpPage() {
           )}
         </form>
       </div>
-      {/* <ToastContainer /> */}
     </div>
   );
 }

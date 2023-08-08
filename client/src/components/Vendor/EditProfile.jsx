@@ -1,6 +1,3 @@
-
-
-
 import React, { useState } from 'react';
 import axios from '../../axios'
 import { useNavigate } from 'react-router-dom';
@@ -10,21 +7,20 @@ const EditProfile = () => {
   axios.defaults.withCredentials = true;
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const {vendor}=useSelector(state=>state)
-  const vendorId=vendor.details._id;
+  const { vendor } = useSelector(state => state)
+  const vendorId = vendor.details._id;
   const [name, setName] = useState(vendor.details.name);
   const [phoneNumber, setPhoneNumber] = useState(vendor.details.phoneNumber);
-  const [pincode,setPincode]= useState(vendor.details.pincode)
+  const [pincode, setPincode] = useState(vendor.details.pincode)
   const handleSubmit = (e) => {
     e.preventDefault();
     if (name.trim() && phoneNumber.trim()) {
       axios
-        .post("/vendor/editprofile", { name,vendorId, phoneNumber,pincode })
+        .post("/vendor/editprofile", { name, vendorId, phoneNumber, pincode })
         .then((response) => {
           if (!response.data.err) {
             dispatch({ type: 'refresh' });
             console.log(response.data);
-
             navigate('/vendor/vendorhome', { state: { data: response.data } });
           }
         })
@@ -58,7 +54,6 @@ const EditProfile = () => {
                 />
               </div>
             </div>
-
             <div>
               <label htmlFor="phone" className="block text-sm font-medium text-gray-700">
                 Phone number

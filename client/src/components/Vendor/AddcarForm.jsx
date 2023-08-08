@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import axios from '../../axios';
 import { useNavigate } from 'react-router-dom';
@@ -14,7 +13,6 @@ const CarRegistrationPage = () => {
   const dispatch = useDispatch();
   const { vendor } = useSelector(state => state);
   const vendorId = vendor.details._id;
-
   const [searchValue, setSearchValue] = useState('');
   const [suggestions, setSuggestions] = useState([]);
   const [coordinates, setCoordinates] = useState([]);
@@ -37,7 +35,7 @@ const CarRegistrationPage = () => {
     });
     formData.append('location', searchValue);
     formData.append('coordinates', JSON.stringify(coordinates));
-    
+
     axios.post('/vendor/addcardetails', formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
@@ -137,7 +135,6 @@ const CarRegistrationPage = () => {
                     <ErrorMessage name="model" component="div" className="text-red-500 mt-1" />
                   </div>
                 </div>
-
                 {/* Location */}
                 <div style={{ position: 'relative' }}>
                   <label htmlFor="location" className="block text-sm font-medium text-gray-700">
@@ -285,7 +282,6 @@ const CarRegistrationPage = () => {
                     <ErrorMessage name="rcImage" component="div" className="text-red-500 mt-1" />
                   </div>
                 </div>
-                {/* Images */}
                 <div>
                   <label htmlFor="carImages" className="block text-sm font-medium text-gray-700">
                     Car Images
@@ -304,7 +300,7 @@ const CarRegistrationPage = () => {
                     <ErrorMessage name="carImages" component="div" className="text-red-500 mt-1" />
                   </div>
                 </div>
-                
+
                 <div>
                   <button
                     type="submit"
