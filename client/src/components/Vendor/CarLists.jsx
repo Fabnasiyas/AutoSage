@@ -94,7 +94,7 @@ const CarList = () => {
           {row.rcImage.map((image, index) => (
             <img
               key={index}
-              src={`https://server.sigag.online/images/${image.filename}`}
+              src={`${process.env.REACT_APP_BASEURL}/images/${image.filename}`}
               alt={`RC Image`}
             />
           ))}
@@ -108,7 +108,7 @@ const CarList = () => {
           {row.carImages.map((image, index) => (
             <img
               key={index}
-              src={`https://server.sigag.online/images/${image.filename}`}
+              src={`${process.env.REACT_APP_BASEURL}/images/${image.filename}`}
               alt={`Car Image`}
             />
           ))}
