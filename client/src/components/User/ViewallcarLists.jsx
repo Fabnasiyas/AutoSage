@@ -8,7 +8,7 @@ const Card = () => {
   const [cars, setCars] = useState([]);
   const [filteredCars, setFilteredCars] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [carsPerPage] = useState(12);
+  const [carsPerPage] = useState(10);
   const [selectedFuelType, setSelectedFuelType] = useState('');
   const [selectedSpecifications, setSelectedSpecifications] = useState('');
   const [selectedTransmissionMode, setSelectedTransmissionMode] = useState('');
