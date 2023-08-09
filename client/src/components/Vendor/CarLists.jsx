@@ -95,7 +95,7 @@ const CarList = () => {
             <img
               key={index}
               src={`${process.env.REACT_APP_BASEURL}/images/${image.filename}`}
-              alt={`RC Image`}
+              alt='image not fund'
             />
           ))}
         </>
@@ -109,7 +109,7 @@ const CarList = () => {
             <img
               key={index}
               src={`${process.env.REACT_APP_BASEURL}/images/${image.filename}`}
-              alt={`Car Image`}
+              alt='image not found'
             />
           ))}
         </>
