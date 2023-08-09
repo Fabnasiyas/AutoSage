@@ -110,7 +110,7 @@ const ProductPage = () => {
                     </Link>
                   </div>
                 )}
-                <p className='text-green-500' onClick={chatHandler}>Chat with Us</p>
+                {/* <p className='text-green-500' onClick={chatHandler}>Chat with Us</p> */}
               </>
             ) : (
               <Link to="/login">
