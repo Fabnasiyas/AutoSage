@@ -60,7 +60,7 @@ const Card = ({ booking, handleCancel }) => {
 
   return (
     <div className="border border-gray-300 rounded p-4">
-      <img src={`${process.env.BASEURL}/images/${firstCarImage.filename}`} alt={carData.model} className="w-full h-32 object-cover mb-2" />
+      <img src={`${process.env.REACT_APP_BASEURL}/images/${firstCarImage.filename}`} alt={carData.model} className="w-full h-32 object-cover mb-2" />
       <h3 className="text-lg font-bold mb-2">{carData.model}</h3>
       {showDetails && (
         <div>

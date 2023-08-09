@@ -50,7 +50,7 @@ const ProductPage = () => {
       <div className='w-full lg:w-1/2 flex flex-col items-center justify-center mx-10'>
         {activeImg && (
           <img
-            src={`${process.env.BASEURL}/images/${activeImg.filename}`}
+            src={`${process.env.REACT_APP_BASEURL}/images/${activeImg.filename}`}
             alt={`Car Image ${activeImg.id}`}
             className='w-full h-auto aspect-square object-cover rounded-xl shadow-lg'
           />
@@ -64,7 +64,7 @@ const ProductPage = () => {
                 onClick={() => handleImageClick(image)}
               >
                 <img
-                  src={`${process.env.BASEURL}/images/${image.filename}`}
+                  src={`${process.env.REACT_APP_BASEURL}/images/${image.filename}`}
                   alt={`Car Image ${image._id}`}
                   className='w-full h-full object-cover rounded-md'
                 />
