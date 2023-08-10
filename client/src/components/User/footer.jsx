@@ -56,7 +56,7 @@ const Footer = () => {
       </div>
       <div className="text-center bg-blue-900 p-4">
         <p className="font-bold text-white">
-          &copy; {new Date().getFullYear()} AutoRent. All rights reserved.
+          &copy; {new Date().getFullYear()} AutoSage. All rights reserved.
         </p>
       </div>
     </footer>
