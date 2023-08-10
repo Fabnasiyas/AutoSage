@@ -45,13 +45,13 @@ const Footer = () => {
       </div>
       <div className="flex flex-col md:flex-row justify-between bg-blue-900 text-white">
         <div className="text-center md:flex-1 p-4">
-          <h1 className="font-bold mb-2">AutoRent</h1>
+          <h1 className="font-bold mb-2">AutoSage</h1>
           <p className="font-bold">The Best Car Rental Agency</p>
         </div>
         <div className="text-center md:flex-1 p-4">
           <h3 className="font-bold mb-2">Contact Info:</h3>
-          <p className="">Mail: autorent@example.com</p>
-          <p className="">Phone: +1 123-456-7890</p>
+          <p className="">Mail: autosage@example.com</p>
+          <p className="">Phone: +91 123-456-7890</p>
         </div>
       </div>
       <div className="text-center bg-blue-900 p-4">
