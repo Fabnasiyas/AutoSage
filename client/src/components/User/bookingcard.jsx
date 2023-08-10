@@ -18,7 +18,7 @@ const Card = ({ booking, handleCancel }) => {
   const dueAmount = balance - wallet;
   const handleCancelButtonClick = () => {
     if (!isCancelled && new Date(pickupDate) > new Date()) {
-      handleCancel(_id, pickupDate);
+      handleCancel(_id, pickupDate);   
     }
   };
   const handleViewDetailsClick = () => {
@@ -63,17 +63,18 @@ const Card = ({ booking, handleCancel }) => {
       <img src={`${process.env.REACT_APP_BASEURL}/images/${firstCarImage.filename}`} alt={carData.model} className="w-full h-32 object-cover mb-2" />
       <h3 className="text-lg font-bold mb-2">{carData.model}</h3>
       {showDetails && (
-        <div>
-          <div>
-            <p><b>Booking ID:</b> {_id}</p>
-            <p><b>Car Model:</b> {carData.year}</p>
-            <p><b>Fuel Type:</b> {carData.fuelType}</p>
-            <p><b>Pickup Date:</b> {formatDate(pickupDate)}</p>
-            <p><b>Dropoff Date:</b> {formatDate(dropoffDate)}</p>
-            <p><b>Total Amount:</b> {totalAmount}</p>
-            <p><b>Payment Type:</b> {paymentType}</p>
-          </div>
+        <div className=" flex flex-col">
+        <div className="text-left">
+          <p><b>Booking ID:</b> {_id}</p>
+          <p><b>Car Model:</b> {carData.year}</p>
+          <p><b>Fuel Type:</b> {carData.fuelType}</p>
+          <p><b>Pickup Date:</b> {formatDate(pickupDate)}</p>
+          <p><b>Dropoff Date:</b> {formatDate(dropoffDate)}</p>
+          <p><b>Total Amount:</b> {totalAmount}</p>
+          <p><b>Payment Type:</b> {paymentType}</p>
         </div>
+      </div>
+      
       )}
       <div className="flex justify-between mt-4">
         {isCancelled ? (

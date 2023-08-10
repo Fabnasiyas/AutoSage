@@ -72,9 +72,10 @@ const AddDocumentPage = () => {
         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div className="mb-4">
-              <label htmlFor="drivingLicense" className="text-gray-700 font-medium">
+              <label htmlFor="drivingLicense" className="text-gray-700 font-medium block text-left mb-2">
                 Driving License:
               </label>
+
               <input
                 type="file"
                 id="drivingLicense"
@@ -87,7 +88,7 @@ const AddDocumentPage = () => {
               />
             </div>
             <div className="mb-4">
-              <label htmlFor="aadharCard" className="text-gray-700 font-medium">
+              <label htmlFor="aadharCard" className="text-gray-700 font-medium block text-left mb-2">
                 Aadhaar Card:
               </label>
               <input
