@@ -13,7 +13,7 @@ import path from 'path';
 
 app.use(express.json({limit:"50mb"}));
 app.use(express.urlencoded({ extended: true, limit:"50mb" }));
-app.use(cors({ origin: ["http://localhost:3000","https://autosagenew.vercel.app"], credentials: true, }));
+app.use(cors({ origin: ["http://localhost:3000","https://autosagenew.vercel.app", "https://autosage.surge.sh"], credentials: true, }));
 app.use(cookieParser());
 app.use(express.static(path.resolve() + "/public"))
 
