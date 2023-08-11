@@ -183,7 +183,7 @@ const Card = () => {
             className="flex flex-col items-center max-w-xs bg-white shadow-md rounded-lg overflow-hidden mx-4 my-4"
           >
             <img
-              src={`${process.env.REACT_APP_BASEURL}/images/${car.carImages[0].filename}`}
+              src={`https://server.sigag.online/images/${car.carImages[0].filename}`}
               alt={`carImage`}
               className="object-cover w-full h-40"
             />
