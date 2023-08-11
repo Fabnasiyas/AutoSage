@@ -10,10 +10,10 @@ import 'dotenv/config';
 import cors from 'cors'
 import cookieParser from 'cookie-parser';
 import path from 'path';
-import http from "http"
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors({ origin: ["http://localhost:3000"], credentials: true, }));
+app.use(cors({ origin: ["http://localhost:3000","https://autosage.sigag.online"], credentials: true, }));
 app.use(cookieParser());
 app.use(express.static(path.resolve() + "/public"))
 
