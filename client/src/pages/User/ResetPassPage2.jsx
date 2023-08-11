@@ -6,4 +6,4 @@ const ResetPassPage2 = () => {
   )
 }
 
-export default ResetPassPage2
+export default ResetPassPage2   

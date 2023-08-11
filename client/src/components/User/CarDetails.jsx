@@ -179,6 +179,9 @@ const CarDetailsPage = () => {
         const totalAmount = totalDays * car.rentPerDay;
         const amountToPay = totalAmount;
         const balance = totalAmount - amountToPay;
+        console.log(balance);
+        console.log(amountToPay);
+        console.log(oneDay );
         if (user.wallet === 0) {
           try {
             const bookingData = {
@@ -195,6 +198,7 @@ const CarDetailsPage = () => {
               paymentAmount: amountToPay,
             };
             setBookingData(bookingData);
+            console.log(bookingData);
             setPaymentSelection(null);
             setCheckout(true);
           } catch (error) {
