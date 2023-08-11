@@ -33,7 +33,6 @@ let activeUsers = []
 io.on("connection", (socket) => {
   // add new User
   socket.on("new-user-add", (newUserId) => {
-    console.log("nldfhkjsdbjdkjbjskdbvjksdbkvjbsjkvbs")
     // if user is not added previously
     if (!activeUsers.some((user) => user.userId === newUserId)) {
       activeUsers.push({ userId: newUserId, socketId: socket.id });
