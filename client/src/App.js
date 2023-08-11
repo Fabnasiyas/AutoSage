@@ -37,7 +37,7 @@ import BookPage from './pages/Vendor/BookingListPage'
 import BookingsPage from './pages/Admin/BookingManagment'
 import Viewcar from './pages/User/viewCarpage'
 
-function App() {
+function App() { 
   const { user, vendor, admin, refresh } = useSelector((state) => state);
   axios.defaults.withCredentials = true;
   const dispatch = useDispatch();
