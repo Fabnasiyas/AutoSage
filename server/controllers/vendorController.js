@@ -204,12 +204,12 @@ export const updateStatus = async (req, res) => {
     const { bookingId } = req.params;
     console.log(bookingId,'23478');
     const booking = await bookingModel.findById(bookingId);
+    console.log(booking);
     const car = await carModel.findOneAndUpdate(
       { _id: booking.carId },
       { $set: { isBooked: false } },
       { new: true }
     );
-    console.log(car,'1234568');
     if (!car) {
       return res.status(404).json({ error: 'Car not found' });
     }
