@@ -1,1 +1,1 @@
-export const BASE_URL='https://server.sigag.online/'
+export const BASE_URL='https://sigag.skoshoes.store/'

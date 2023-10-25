@@ -17,7 +17,6 @@ app.use(cors({ origin: ["http://localhost:3000","https://autosagenew.vercel.app"
 app.use(cookieParser());
 app.use(express.static(path.resolve() + "/public"))
 
-
 app.use('/vendor', vendorRoute)
 app.use('/admin', adminRoute)
 app.use('/', userRoute)
